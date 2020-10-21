@@ -48,3 +48,35 @@ var
 * mutable(재할당 가능)
 
 참고 : https://velog.io/@jojo_devstory/Kotlin-val-var%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90
+
+
+
+# :spiral_calendar: 1020(화)
+
+## :bulb: 라이브 강의
+
+#### 레벨 1
+
+* JWT
+* TypeScript
+* Docker
+* nginx
+
+#### 레벨 2
+
+* JPA
+* React
+* mongoDB
+* websocket
+* Redis
+* Jenkins
+* Spring Batch
+
+어떠한 기술인지 어떤 상황에서 사용해야하는지에 대한 이해가 필요하다
+
+
+
+정리 : Mockup 제작 및 아이디어 구체화...한다고 1일 1커밋 깜빡했는데 잊지말고 하자!
+
+
+
