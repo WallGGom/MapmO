@@ -613,9 +613,17 @@ for (month in arrayMonth) {
 
 
 
+---
+
+![image-20201021233538227](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201021233538227.png)
+
+GPS가 꼭 켜져 있지 않더라도 네트워크를 통해서 위치를 가져올 수 있다.(단, 정확도는 감소)
 
 
 
+# :spiral_calendar: 1022(목)
+
+오늘 한 일 : 발표준비 / Map 출력
 
 
 
