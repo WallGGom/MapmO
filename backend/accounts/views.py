@@ -7,21 +7,19 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.http import JsonResponse
 
+import json
 import jwt
 from decouple import config
+from .utils import permission
 # Create your views here.
 
 class AccountView(View):
     # 회원 생성
     def post(self, request):
-        username = request.POST.get('username', "")
-        password1 = request.POST.get('password1', "")
-        password2 = request.POST.get('password2', "")
-        form_data = {
-            'username': username,
-            'password1': password1,
-            'password2': password2,
-        }
+        print("회원가입 진입")
+        # username, password1, password2
+        form_data = json.loads(request.body.decode('utf-8'))
+        print(form_data)
         signup_form = UserCreationForm(data=form_data)
         if signup_form.is_valid():
             signup_form.save()
@@ -37,10 +35,9 @@ class AccountView(View):
         return JsonResponse(data)
 
     # 회원 탈퇴
+    @permission
     def delete(self, request):
-        username = request.GET.get("username", "")
-        password = request.GET.get("password", "")
-        user = authenticate(username=username, password=password)
+        user = request.user
         if user is not None:
             user.delete()
             data = {
@@ -50,13 +47,16 @@ class AccountView(View):
 
 @csrf_exempt
 def login(request):
+    print("login 진입")
     if request.method == 'POST':
+        print(request.POST)
         username = request.POST.get('username', "")
         password = request.POST.get('password', "")
         form_data = {
             'username': username,
             'password': password,
         }
+        print(form_data)
         form = AuthenticationForm(data=form_data)
 
         if form.is_valid():
