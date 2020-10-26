@@ -22,7 +22,7 @@ class AccountView(View):
             'password1': password1,
             'password2': password2,
         }
-        signup_form = UserCreationForm(form_data)
+        signup_form = UserCreationForm(data=form_data)
         if signup_form.is_valid():
             signup_form.save()
             data = {
