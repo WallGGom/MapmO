@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.http import JsonResponse
+
 
 import json
 import jwt
@@ -34,12 +36,28 @@ class AccountView(View):
                 'result': 'success'
             }
             return JsonResponse(data)
-        else:
-            signup_form = UserCreationForm()
         data = {
             'result': signup_form.error_messages
         }
+        print(data)
         return JsonResponse(data)
+
+    # 아이디 중복확인
+    def get(self, request):
+        username = request.GET.get('username', "")
+        User = get_user_model()
+        try:
+            user = User.objects.get(username=username)
+            data = {
+                "result": "중복되는 아이디가 존재합니다."
+            }
+        except:
+            data = {
+                "result": "사용 가능한 아이디입니다."
+            }
+
+        return JsonResponse(data)
+
 
     # 회원 탈퇴
     @permission
