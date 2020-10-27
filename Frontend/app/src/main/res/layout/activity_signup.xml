@@ -27,6 +27,15 @@
             android:textColor="@color/input_register"
             android:textColorHint="@color/input_register_hint" />
 
+        <Button
+            android:id="@+id/btn_name_val"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip"
+            android:background="#ea4c88"
+            android:text="@string/btn_name_val"
+            android:textColor="@color/white" />
+
         <EditText
             android:id="@+id/signupPw1"
             android:layout_width="fill_parent"

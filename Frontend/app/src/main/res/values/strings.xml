@@ -9,5 +9,6 @@
     <string name="hint_email">이메일을 입력하세요</string>
     <string name="btn_login">로그인</string>
     <string name="btn_register">회원가입</string>
+    <string name="btn_name_val">중복확인</string>
     <string name="btn_logout">로그아웃</string>
 </resources>

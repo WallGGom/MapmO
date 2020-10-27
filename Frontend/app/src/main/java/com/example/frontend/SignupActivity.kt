@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SignupActivity : AppCompatActivity() {
     var signup:Signup? = null
+    var check:Check? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -25,6 +26,31 @@ class SignupActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         var signupService: SignupService = retrofit.create(SignupService::class.java)
+
+        btn_name_val.setOnClickListener{
+            var checkname = signupName.text.toString()
+
+            Log.d("ID", checkname)
+            signupService.requestCheck(checkname).enqueue(object: Callback<Check> {
+                override fun onFailure(call: Call<Check>, t: Throwable) {
+                    Log.d("CometChatAPI::", "Failed API call with call: " + call + " + exception: " + t)
+                    var dialog = AlertDialog.Builder(this@SignupActivity)
+                    dialog.setTitle("에러")
+                    dialog.setMessage("호출 실패")
+                    dialog.show()
+                }
+
+                override fun onResponse(call: Call<Check>, response: Response<Check>) {
+                    check = response.body()
+                    Log.d("CHECK", "msg : "+check?.result)
+                    var dialog = AlertDialog.Builder(this@SignupActivity)
+                    dialog.setTitle("Check Result")
+                    dialog.setMessage(check?.result)
+                    dialog.show()
+                }
+            })
+
+        }
 
         btn_signup.setOnClickListener{
             var username = signupName.text.toString()
@@ -44,7 +70,7 @@ class SignupActivity : AppCompatActivity() {
 
                 override fun onResponse(call: Call<Signup>, response: Response<Signup>) {
                     signup = response.body()
-                    Log.d("LOGIN", "msg : "+signup?.result)
+                    Log.d("SIGNUP", "msg : "+signup?.result)
                     var dialog = AlertDialog.Builder(this@SignupActivity)
                     dialog.setTitle("Signup Result")
                     dialog.setMessage("받았엉")
