@@ -18,7 +18,14 @@ class AccountView(View):
     def post(self, request):
         print("회원가입 진입")
         # username, password1, password2
-        form_data = json.loads(request.body.decode('utf-8'))
+        username = request.POST.get('username', "")
+        password1 = request.POST.get('password1', "")
+        password2 = request.POST.get('password2', "")
+        form_data = {
+            'username': username,
+            'password1': password1,
+            'password2': password2,
+        }
         print(form_data)
         signup_form = UserCreationForm(data=form_data)
         if signup_form.is_valid():
