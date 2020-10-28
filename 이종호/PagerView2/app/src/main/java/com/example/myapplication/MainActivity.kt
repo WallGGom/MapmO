@@ -10,11 +10,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val bgColors: MutableList<Int> = mutableListOf(
-            android.R.color.white,
-            android.R.color.holo_blue_light,
-            android.R.color.holo_orange_light,
-            android.R.color.holo_red_light
+    private val bgColors = mutableListOf(
+            Memo("제목1","작성자1","내용1","2020-10-28",android.R.color.white),
+            Memo("제목2","작성자2","내용2","2020-10-29",android.R.color.holo_blue_light),
+            Memo("제목3","작성자3","내용3","2020-10-30",android.R.color.holo_orange_light),
+            Memo("제목4","작성자4","내용4","2020-10-31",android.R.color.holo_red_light),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
