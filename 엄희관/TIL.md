@@ -627,7 +627,62 @@ GPS가 꼭 켜져 있지 않더라도 네트워크를 통해서 위치를 가져
 
 
 
+# :spiral_calendar: 1023(금)
 
+```kotlin
+    // -- 내 위치를 가져오는 코드
+    var fusedLocationClient: FusedLocationProviderClient 
+	// network + GPS : 아주빠른 주기 동안 GPS를 가져오면 배터리소모가 커진다.
+	// 그렇다고 GPS를 늦게 가져오면?? 정확성이 떨어진다.
+	// 따라서 network와 GPS를 적절하게하여 사용하여 자체적으로 배터리 소모를 줄여주도록 도와주는 친구
+
+    var locationCallback: LocationCallback 
+	// 위의 함수로 가져온 GPS를 콜백해주는 함수
+```
+
+
+
+# :spiral_calendar: 1025(일)
+
+### Text
+
+언더바가 있으면 모두 에디트 텍스트(EditText) 위젯
+
+언더바가 없으면 텍스트뷰
+
+
+
+### Buttons
+
+클릭 이벤트를 받는 위젯이기 때문에 버튼을 터치한 후에 손가락을 움직여 다른 위치에서 떼면 동작하지 않는다.(물론 의도적으로 터치 이벤트에 동작하도록 설계되 버튼도 있다.)
+
+### Widgets
+
+이미지, 웹 사이트, 별점표시, 진행상태 등의 정보를 화면에 그리는 위젯 모음
+
+
+
+> import 문제
+
+```kotlin
+import kotlinx.android.synthetic.main.activity_main.*
+```
+
+![image-20201025183130016](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201025183130016.png)
+
+
+
+# :spiral_calendar: 1028(수)
+
+코틀린에서는 화면전환하는 방법이 다양하다... (like Vue의 컴포넌트)
+
+
+
+데이터 이동없이 화면만 전환하고 싶으면 - Fragment
+
+화면 전환과 함께 데이터 이동을 할 경우(ex 모달 등) - Activity
+
+* 데이터는 Intent를 이용하여 보낼 수 있다.
 
 
 
