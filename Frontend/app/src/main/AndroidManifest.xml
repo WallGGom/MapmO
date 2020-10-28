@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MemoListActivity"></activity>
+        <activity android:name=".MemoWeekActivity"></activity>
+        <activity android:name=".MemoMonthActivity"></activity>
+
     </application>
 
 </manifest>
