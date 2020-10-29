@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemoWeekActivity"
-    >
+    android:background="#FDFCFC"
+    tools:context=".MemoWeekActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,8 +18,10 @@
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/Week"
@@ -41,11 +43,151 @@
             android:text="월"
             app:backgroundTint="#4CAF50" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/daysLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lgt_gray"
+            app:layout_constraintTop_toBottomOf="@+id/ymwLayout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/sunTxtView"
+                style="@style/days_style"
+                android:text="일"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/monTxtView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/monTxtView"
+                style="@style/days_style"
+                android:text="월"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/tueTxtView"
+                app:layout_constraintStart_toEndOf="@+id/sunTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tueTxtView"
+                style="@style/days_style"
+                android:text="화"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/wedTxtView"
+                app:layout_constraintStart_toEndOf="@+id/monTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wedTxtView"
+                style="@style/days_style"
+                android:text="수"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/thuTxtView"
+                app:layout_constraintStart_toEndOf="@+id/tueTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thuTxtView"
+                style="@style/days_style"
+                android:text="목"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/friTxtView"
+                app:layout_constraintStart_toEndOf="@+id/wedTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/friTxtView"
+                style="@style/days_style"
+                android:text="금"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/satTxtView"
+                app:layout_constraintStart_toEndOf="@+id/thuTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/satTxtView"
+                style="@style/days_style"
+                android:text="토"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/friTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lgt_gray"
+            app:layout_constraintTop_toBottomOf="@+id/ymwLayout">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/sundayTxtView"
+                style="@style/days_style"
+                android:text="1"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/mondayTxtView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mondayTxtView"
+                style="@style/days_style"
+                android:text="2"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/tuedayTxtView"
+                app:layout_constraintStart_toEndOf="@+id/sundayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tuedayTxtView"
+                style="@style/days_style"
+                android:text="3"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/weddayTxtView"
+                app:layout_constraintStart_toEndOf="@+id/mondayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weddayTxtView"
+                style="@style/days_style"
+                android:text="4"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/thudayTxtView"
+                app:layout_constraintStart_toEndOf="@+id/tuedayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thudayTxtView"
+                style="@style/days_style"
+                android:text="5"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/fridayTxtView"
+                app:layout_constraintStart_toEndOf="@+id/weddayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fridayTxtView"
+                style="@style/days_style"
+                android:text="6"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toStartOf="@+id/satdayTxtView"
+                app:layout_constraintStart_toEndOf="@+id/thudayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/satdayTxtView"
+                style="@style/days_style"
+                android:text="7"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fridayTxtView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </LinearLayout>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

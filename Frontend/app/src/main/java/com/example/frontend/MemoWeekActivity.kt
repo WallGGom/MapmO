@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_week.*
@@ -22,7 +23,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         const val MIN_DISTANCE = 150
     }
 
-
+    //progressbar
+    lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +43,11 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         }
 
 
-        // calendar
+        // progressbar
+        title = "주 단위로 메모 보여주기"
+        progressBar = findViewById(R.id.progressBar)
+        progressBar.max = 100
+        progressBar.progress = 50
 
 
     }
