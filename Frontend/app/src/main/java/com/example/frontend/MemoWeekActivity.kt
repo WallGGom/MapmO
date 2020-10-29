@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_week.*
 
 class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener  {
 
+    //swipe
     lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
     var x1:Float = 0.0f
@@ -20,6 +21,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     companion object{
         const val MIN_DISTANCE = 150
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             val memoWtM = Intent(this, MemoMonthActivity::class.java)
             startActivity(memoWtM)
         }
+
+
+        // calendar
+
 
     }
     override fun onTouchEvent(event: MotionEvent?): Boolean {
