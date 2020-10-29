@@ -32,6 +32,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             startActivity(memoMtW)
         }
 
+        //월 단위로 보여주기로 이동
         btn_month_to_day.setOnClickListener{
             val memoMtD = Intent(this, MemoListActivity::class.java)
             startActivity(memoMtD)
