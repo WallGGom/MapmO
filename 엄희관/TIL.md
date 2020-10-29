@@ -686,5 +686,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 
+# :spiral_calendar: 1029(목)
+
+지도 API - 구글 API의 경우 Key마다 연결짓는 패키지명이 있다. 해당 패키지명이 프로젝트 명과 일치하지 않으면 오류가 난다.
+
+
+
+모든 IDE에서(Web개발 시 Console창) Terminal(또는 Run)에서 오류를 발견했듯이 Android Studio에서도 Run을 꼭 클릭하여 오류를 찾자. - Syntax Error를 제외한 오류 확인 가능
+
+
+
+Activity와 Layout에 대한 이해가 부족한 것 같다. 컨설턴트님이 말씀해주신 것 처럼 새로운 언어에 대한 문법은 금방 이해할 수 있다. 중요한 것은 그 언어가 가지고 있는 성격과 특징이다.(ex 생애주기 등)
+
+
+
+
+
 
 
