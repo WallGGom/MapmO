@@ -11,6 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
+            btn_to_upload.setOnClickListener{
+                val uploadIntent = Intent(this, UploadActivity::class.java)
+                startActivity(uploadIntent)
+            }
+
+
             btn_to_login.setOnClickListener{
                 val loginIntent = Intent(this, LoginActivity::class.java)
                 startActivity(loginIntent)

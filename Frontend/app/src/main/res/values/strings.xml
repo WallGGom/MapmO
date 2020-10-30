@@ -11,4 +11,5 @@
     <string name="btn_register">회원가입</string>
     <string name="btn_name_val">중복확인</string>
     <string name="btn_logout">로그아웃</string>
+    <string name="btn_upload">업로드</string>
 </resources>
