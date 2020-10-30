@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
 
@@ -32,22 +34,78 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         gestureDetector = GestureDetector(this, this)
 
 
-        btn_week_to_day.setOnClickListener{
-            val memoWtD = Intent(this, MemoListActivity::class.java)
-            startActivity(memoWtD)
+        // 메모 숨기기
+        week_image1.visibility = View.GONE
+        week_memoTitle1.visibility = View.GONE
+        week_memoContent1.visibility = View.GONE
+        week_alarm.visibility = View.GONE
+        week_editTextDate.visibility = View.GONE
+        week_imageView2.visibility = View.GONE
+
+        week_image3.visibility = View.GONE
+        week_memoTitle2.visibility = View.GONE
+        week_memoContent2.visibility = View.GONE
+        week_alarm2.visibility = View.GONE
+        week_editTextDate2.visibility = View.GONE
+        week_imageView4.visibility = View.GONE
+
+
+
+
+//        btn_week_to_day.setOnClickListener{
+//            val memoWtD = Intent(this, MemoListActivity::class.java)
+//            startActivity(memoWtD)
+//        }
+//
+//        btn_week_to_month.setOnClickListener{
+//            val memoWtM = Intent(this, MemoMonthActivity::class.java)
+//            startActivity(memoWtM)
+//        }
+
+        // 버튼 누르면 해당 날짜에 해당하는 메모들 보여주기
+        tuedayTxtView.setOnClickListener{
+
+            Toast.makeText(this, "3일의 메모를 보여줍니다.", Toast.LENGTH_SHORT).show()
+
+            week_image1.visibility = View.VISIBLE
+            week_memoTitle1.visibility = View.VISIBLE
+            week_memoContent1.visibility = View.VISIBLE
+            week_alarm.visibility = View.VISIBLE
+            week_editTextDate.visibility = View.VISIBLE
+            week_imageView2.visibility = View.VISIBLE
+
+            week_image3.visibility = View.GONE
+            week_memoTitle2.visibility = View.GONE
+            week_memoContent2.visibility = View.GONE
+            week_alarm2.visibility = View.GONE
+            week_editTextDate2.visibility = View.GONE
+            week_imageView4.visibility = View.GONE
         }
 
-        btn_week_to_month.setOnClickListener{
-            val memoWtM = Intent(this, MemoMonthActivity::class.java)
-            startActivity(memoWtM)
-        }
+        weddayTxtView.setOnClickListener{
 
+            Toast.makeText(this, "4일의 메모를 보여줍니다.", Toast.LENGTH_SHORT).show()
+
+            week_image3.visibility = View.VISIBLE
+            week_memoTitle2.visibility = View.VISIBLE
+            week_memoContent2.visibility = View.VISIBLE
+            week_alarm2.visibility = View.VISIBLE
+            week_editTextDate2.visibility = View.VISIBLE
+            week_imageView4.visibility = View.VISIBLE
+
+            week_image1.visibility = View.GONE
+            week_memoTitle1.visibility = View.GONE
+            week_memoContent1.visibility = View.GONE
+            week_alarm.visibility = View.GONE
+            week_editTextDate.visibility = View.GONE
+            week_imageView2.visibility = View.GONE
+        }
 
         // progressbar
-        title = "주 단위로 메모 보여주기"
-        progressBar = findViewById(R.id.progressBar)
-        progressBar.max = 100
-        progressBar.progress = 50
+//        title = "주 단위로 메모 보여주기"
+//        progressBar = findViewById(R.id.progressBar)
+//        progressBar.max = 100
+//        progressBar.progress = 50
 
 
     }

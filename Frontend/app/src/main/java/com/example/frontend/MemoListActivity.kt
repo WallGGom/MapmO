@@ -1,14 +1,18 @@
 package com.example.frontend
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
 
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_day.*
-
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class MemoListActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -19,28 +23,39 @@ class MemoListActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     var y2:Float = 0.0f
     var y1:Float = 0.0f
 
+
+
     companion object{
         const val MIN_DISTANCE = 150
+
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day)
         gestureDetector = GestureDetector(this, this)
 
-        //주 단위로 보여주기로 이동
-        btn_day_to_week.setOnClickListener{
-            val memoDtW = Intent(this, MemoWeekActivity::class.java)
-            startActivity(memoDtW)
+        //현재 날짜 가져오기
+        var now = LocalDate.now()
+        var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        editTextDate.text = Strnow
 
-        }
+
+
+        //주 단위로 보여주기로 이동
+//        btn_day_to_week.setOnClickListener{
+//            val memoDtW = Intent(this, MemoWeekActivity::class.java)
+//            startActivity(memoDtW)
+//
+//        }
 
         //월 단위로 보여주기로 이동
-        btn_day_to_month.setOnClickListener{
-            val memoDtM = Intent(this, MemoMonthActivity::class.java)
-            startActivity(memoDtM)
-
-        }
+//        btn_day_to_month.setOnClickListener{
+//            val memoDtM = Intent(this, MemoMonthActivity::class.java)
+//            startActivity(memoDtM)
+//
+//        }
 
 
 

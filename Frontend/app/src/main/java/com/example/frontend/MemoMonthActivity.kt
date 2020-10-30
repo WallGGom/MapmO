@@ -38,16 +38,16 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         gestureDetector=GestureDetector(this,this)
 
         //주 단위로 보여주기로 이동
-        btn_month_to_week.setOnClickListener{
-            val memoMtW = Intent(this, MemoWeekActivity::class.java)
-            startActivity(memoMtW)
-        }
+//        btn_month_to_week.setOnClickListener{
+//            val memoMtW = Intent(this, MemoWeekActivity::class.java)
+//            startActivity(memoMtW)
+//        }
 
         //월 단위로 보여주기로 이동
-        btn_month_to_day.setOnClickListener{
-            val memoMtD = Intent(this, MemoListActivity::class.java)
-            startActivity(memoMtD)
-        }
+//        btn_month_to_day.setOnClickListener{
+//            val memoMtD = Intent(this, MemoListActivity::class.java)
+//            startActivity(memoMtD)
+//        }
 
 
         //calendar

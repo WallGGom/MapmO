@@ -29,19 +29,19 @@
             android:text="Month" />
 
 
-        <Button
-            android:id="@+id/btn_month_to_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="일"
-            app:backgroundTint="#4CAF50" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_month_to_day"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="일"-->
+<!--            app:backgroundTint="#4CAF50" />-->
 
-        <Button
-            android:id="@+id/btn_month_to_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="주"
-            app:backgroundTint="#F44336" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_month_to_week"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="주"-->
+<!--            app:backgroundTint="#F44336" />-->
 
 
 
