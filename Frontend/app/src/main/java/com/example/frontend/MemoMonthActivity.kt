@@ -37,7 +37,9 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         setContentView(R.layout.activity_month)
         gestureDetector=GestureDetector(this,this)
 
-        //주 단위로 보여주기로 이동
+
+
+        //주 단위로 보여주기로 이동!
 //        btn_month_to_week.setOnClickListener{
 //            val memoMtW = Intent(this, MemoWeekActivity::class.java)
 //            startActivity(memoMtW)
