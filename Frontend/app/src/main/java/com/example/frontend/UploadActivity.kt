@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
@@ -20,7 +19,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_upload.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -47,7 +45,7 @@ class UploadActivity : AppCompatActivity() {
     val FLAG_REQ_CAMERA = 101
     val FLAG_REQ_STORAGE = 102
 
-    var absFile:File? = null
+    var file:File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,19 +87,21 @@ class UploadActivity : AppCompatActivity() {
 //                        imagePreview.setImageBitmap(bitmap)
                         val uri = saveImageFile(newFileName(), "image/jpg", bitmap)
                         imagePreview.setImageURI(uri)
-                        absFile = File(uri.toString()+".jpg")
+                        file = uri?.toFile()
+
                     }
                 }
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
                     imagePreview.setImageURI(uri)
-                    absFile = File(uri.toString()+".jpg")
+                    file = uri?.toFile()
+
                 }
             }
         }
         var userName = "temp"
-        var fileName = absFile?.name
-        var requestBody : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), absFile)
+        var fileName = file?.name
+        var requestBody : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         var body : MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file",fileName,requestBody)
 
         var tempUrl = getString(R.string.baseUrl)
@@ -119,7 +119,7 @@ class UploadActivity : AppCompatActivity() {
                 .build()
         var uploadService: UploadService = retrofit.create(UploadService::class.java)
         btn_upload.setOnClickListener{
-            Log.e("file", absFile.toString())
+            Log.e("file", file?.path)
             uploadService.requestUpload(body).enqueue(object: Callback<Upload> {
                 override fun onFailure(call: Call<Upload>, t: Throwable) {
                     Log.d("CometChatAPI::", "Failed API call with call: " + call + " + exception: " + t)
