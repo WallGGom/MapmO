@@ -62,7 +62,22 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         val today_month = (instance.get(Calendar.MONTH)+1) //월
         val today_date = instance.get(Calendar.DATE) //일
         val today_day = instance.get(Calendar.DAY_OF_WEEK) //요일
+        val last_month = today_month -1
 
+        var mon_date = mutableMapOf(
+                1 to 31,
+                2 to 29,
+                3 to 31,
+                4 to 30,
+                5 to 31,
+                6 to 30,
+                7 to 31,
+                8 to 31,
+                9 to 30,
+                10 to 31,
+                11 to 30,
+                12 to 31
+        )
 
         //요일별 id 매핑하기
 
@@ -75,43 +90,47 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             6 to "fridayTxtView",
             7 to "satdayTxtView"
         )
-        val Day = daymap.get(today_day)
-        //Log.e("test", Day)
-        if
+        var endDate = 0
+        var befEndDate = 0
 
 
         // 월, 일 매핑하기
         if (today_year %4==0) {
-            val mon_date1:Map<Int, Int> = mapOf(
-                    1 to 31,
-                    2 to 29,
-                    3 to 31,
-                    4 to 30,
-                    5 to 31,
-                    6 to 30,
-                    7 to 31,
-                    8 to 31,
-                    9 to 30,
-                    10 to 31,
-                    11 to 30,
-                    12 to 31
-            )
+            mon_date[2] = 29
         } else{
-            val mon_date2:Map<Int, Int> = mapOf(
-                    1 to 31,
-                    2 to 28,
-                    3 to 31,
-                    4 to 30,
-                    5 to 31,
-                    6 to 30,
-                    7 to 31,
-                    8 to 31,
-                    9 to 30,
-                    10 to 31,
-                    11 to 30,
-                    12 to 31
-            )
+            mon_date[2] = 28
         }
+
+        endDate = mon_date.get(today_month)!!
+        befEndDate = mon_date.get(today_month-1)!!
+        val Day = daymap.get(today_day) // 오늘의 요일에 해당하는 id값
+        //Log.e("test", Day)
+        val week = mutableListOf(0,0,0,0,0,0,0)
+        week[today_day]=today_date
+        val maxDist = 7-today_day
+        var rDay = 0
+        var lDay = 0
+
+        for (i in 1 until maxDist+1){
+            rDay = today_day +i -1
+            lDay = today_day -i -1
+            if ((0<= rDay) && (rDay<7)){
+                week[rDay]=week[rDay-1]+1
+
+            }
+
+            if ((0<= lDay) && (lDay<7)){
+                week[lDay] = week[lDay+1]-1
+                if (week[lDay]==0){
+                    week[lDay] = befEndDate
+                }
+
+            }
+        }
+
+        Log.e("test", week.toString())
+
+
 
 
 
@@ -128,9 +147,9 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //            startActivity(memoWtM)
 //        }
 
-        button_id.setOnClickListener{
-            week_memoTitle2.text =  "~~~~~~~~~"
-        }
+//        button_id.setOnClickListener{
+//            week_memoTitle2.text =  "~~~~~~~~~"
+//        }
 
 
         // 버튼 누르면 해당 날짜에 해당하는 메모들 보여주기
