@@ -1,15 +1,20 @@
 package com.example.frontend
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener  {
@@ -28,6 +33,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     //progressbar
     lateinit var progressBar: ProgressBar
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
@@ -50,10 +56,70 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         week_imageView4.visibility = View.GONE
 
 
+        //현재 날짜 가져오기
+        val instance = Calendar.getInstance()
+        val today_year = instance.get(Calendar.YEAR) //년
+        val today_month = (instance.get(Calendar.MONTH)+1) //월
+        val today_date = instance.get(Calendar.DATE) //일
+        val today_day = instance.get(Calendar.DAY_OF_WEEK) //요일
+
+
+        //요일별 id 매핑하기
+
+        val daymap:Map<Int, String> = mapOf(
+            1 to "sundayTxtView",
+            2 to "mondayTxtView",
+            3 to "tuedayTxtView",
+            4 to "weddayTxtView",
+            5 to "thudayTxtView",
+            6 to "fridayTxtView",
+            7 to "satdayTxtView"
+        )
+        val Day = daymap.get(today_day)
+        //Log.e("test", Day)
+        if
+
+
+        // 월, 일 매핑하기
+        if (today_year %4==0) {
+            val mon_date1:Map<Int, Int> = mapOf(
+                    1 to 31,
+                    2 to 29,
+                    3 to 31,
+                    4 to 30,
+                    5 to 31,
+                    6 to 30,
+                    7 to 31,
+                    8 to 31,
+                    9 to 30,
+                    10 to 31,
+                    11 to 30,
+                    12 to 31
+            )
+        } else{
+            val mon_date2:Map<Int, Int> = mapOf(
+                    1 to 31,
+                    2 to 28,
+                    3 to 31,
+                    4 to 30,
+                    5 to 31,
+                    6 to 30,
+                    7 to 31,
+                    8 to 31,
+                    9 to 30,
+                    10 to 31,
+                    11 to 30,
+                    12 to 31
+            )
+        }
+
+
+
+
 
 
 //        btn_week_to_day.setOnClickListener{
-//            val memoWtD = Intent(this, MemoListActivity::class.java)
+//            val meoWtD = Intent(this, MemoListActivity::class.java)
 //            startActivity(memoWtD)
 //        }
 //
@@ -61,6 +127,11 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //            val memoWtM = Intent(this, MemoMonthActivity::class.java)
 //            startActivity(memoWtM)
 //        }
+
+        button_id.setOnClickListener{
+            week_memoTitle2.text =  "~~~~~~~~~"
+        }
+
 
         // 버튼 누르면 해당 날짜에 해당하는 메모들 보여주기
         tuedayTxtView.setOnClickListener{
