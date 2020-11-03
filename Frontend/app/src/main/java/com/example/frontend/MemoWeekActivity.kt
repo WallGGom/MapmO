@@ -62,7 +62,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         val today_month = (instance.get(Calendar.MONTH)+1) //월
         val today_date = instance.get(Calendar.DATE) //일
         val today_day = instance.get(Calendar.DAY_OF_WEEK) //요일
-        val last_month = today_month -1
+        val last_month = today_month -1 //지난 달
 
         var mon_date = mutableMapOf(
                 1 to 31,
@@ -102,11 +102,12 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         }
 
         endDate = mon_date.get(today_month)!!
-        befEndDate = mon_date.get(today_month-1)!!
+        befEndDate = mon_date.get(last_month)!!
+
         val Day = daymap.get(today_day) // 오늘의 요일에 해당하는 id값
         //Log.e("test", Day)
         val week = mutableListOf(0,0,0,0,0,0,0)
-        week[today_day]=today_date
+        week[today_day-1]=today_date
         val maxDist = 7-today_day
         var rDay = 0
         var lDay = 0
@@ -129,8 +130,13 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         }
 
         Log.e("test", week.toString())
-
-
+        sundayTxtView.text=week[0].toString()
+        mondayTxtView.text=week[1].toString()
+        tuedayTxtView.text=week[2].toString()
+        weddayTxtView.text=week[3].toString()
+        thudayTxtView.text=week[4].toString()
+        fridayTxtView.text=week[5].toString()
+        satdayTxtView.text=week[6].toString()
 
 
 
@@ -147,9 +153,6 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //            startActivity(memoWtM)
 //        }
 
-//        button_id.setOnClickListener{
-//            week_memoTitle2.text =  "~~~~~~~~~"
-//        }
 
 
         // 버튼 누르면 해당 날짜에 해당하는 메모들 보여주기
