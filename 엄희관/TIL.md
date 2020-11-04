@@ -769,5 +769,58 @@ Data Access Object의 약어로 데이터베이스에 접근해서 DML 쿼리(SE
 
 
 
+# :spiral_calendar: 1104(수)
+
+View는 layout과 widget으로 나뉜다.
+
+R은 res 폴더를 의미
+
+this는 해당 Activity에서의 context를 사용할 경우 넣어주면 된다.
+
+
+
+### ListView
+
+![image-20201104092116120](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092116120.png)
+
+
+
+ItemClick : 항목을 터치하면 발생
+
+![image-20201104092128120](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092128120.png) 
+
+ 
+
+![image-20201104092208083](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092208083.png)
+
+### RecyclerView
+
+![image-20201104092358105](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092358105.png)
+
+
+
+![image-20201104092423867](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092423867.png)
+
+![image-20201104092509183](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104092509183.png)
+
+
+
+메모 일간으로 출력할 때 
+
+![image-20201104093149785](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20201104093149785.png)
+
+
+
+## :memo: 오늘 진행한 내용
+
+날짜 / 시간 MainActivity로 넘기기(Room 사용)
+
+spinner 사용
+
+* spinner는 Dialog 모드로 생성
+* spinner에서 선택시 selectAlarmsettime 이벤트 발생
+
+
+
 
 
