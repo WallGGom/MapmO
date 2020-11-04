@@ -11,8 +11,11 @@ import kotlinx.android.synthetic.main.activity_month.*
 //calendar
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -32,6 +35,26 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
     var fname: String = ""
     var str: String = ""
 
+
+    // new calendar
+//    override val toolbar: Toolbar?
+//        get() = null
+//
+//    override val titleRes: Int = R.string.example_1_title
+//
+//    private lateinit var binding: Example1FragmentBinding
+//
+//    private val selectedDates = mutableSetOf<LocalDate>()
+//    private val today = LocalDate.now()
+//    private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
+
+
+
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
@@ -39,17 +62,6 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
 
 
-        //주 단위로 보여주기로 이동!
-//        btn_month_to_week.setOnClickListener{
-//            val memoMtW = Intent(this, MemoWeekActivity::class.java)
-//            startActivity(memoMtW)
-//        }
-
-        //월 단위로 보여주기로 이동
-//        btn_month_to_day.setOnClickListener{
-//            val memoMtD = Intent(this, MemoListActivity::class.java)
-//            startActivity(memoMtD)
-//        }
 
 
         //calendar
