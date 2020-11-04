@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.mapmo.ui.login.LoginActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn.*
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -17,37 +18,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_to_gl.setOnClickListener {
-            val socialIntent = Intent(this, SocialLoginActivity::class.java)
-            startActivity(socialIntent)
-        }
-    }
-    private lateinit var activity : MainActivity
-    private lateinit var googleSignInClient: GoogleSignInClient
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view : View = inflater.inflate(R.layout.fragment_main_setting, container, false)
-
-        // Google Sign-In Methods
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-        googleSignInClient = getClient(view.context, gso)
-
-        view.xml_frg_setting_logout.setOnClickListener { view ->
-            FirebaseAuth.getInstance().signOut()
-
-            //Google Login Initialize
-            googleSignInClient.signOut().addOnCompleteListener {
-                activity.finish()
-            }
+        btn_to_bu.setOnClickListener {
+            val backIntent = Intent(this, BackupActivity::class.java)
+            startActivity(backIntent)
         }
 
-        return view
+        btn_to_login.setOnClickListener {
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
+
     }
+
 }

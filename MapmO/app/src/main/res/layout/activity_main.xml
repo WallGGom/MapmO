@@ -7,12 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_to_gl"
+        android:id="@+id/btn_to_bu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="백업"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_to_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
+
+    <Button
+        android:id="@+id/btn_to_login"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="로그인 temp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_to_bu"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
