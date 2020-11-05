@@ -134,83 +134,83 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/dateLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lgt_gray"
-        app:layout_constraintTop_toBottomOf="@+id/daysLayout"
-        tools:layout_editor_absoluteX="0dp">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/dateLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/lgt_gray"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
+<!--        tools:layout_editor_absoluteX="0dp">-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/sundayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            android:textColor="#E91E63"
-            android:textColorLink="#009688"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/mondayTxtView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/sundayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:textColor="#E91E63"-->
+<!--            android:textColorLink="#009688"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/mondayTxtView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/mondayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/tuedayTxtView"
-            app:layout_constraintStart_toEndOf="@+id/sundayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/mondayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/tuedayTxtView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/sundayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tuedayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            android:textColor="#FFC107"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/weddayTxtView"
-            app:layout_constraintStart_toEndOf="@+id/mondayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tuedayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:textColor="#FFC107"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/weddayTxtView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/mondayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/weddayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            android:textColor="#FFC107"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/thudayTxtView"
-            app:layout_constraintStart_toEndOf="@+id/tuedayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/weddayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:textColor="#FFC107"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/thudayTxtView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tuedayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/fridayTxtView"
-            app:layout_constraintStart_toEndOf="@+id/weddayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/thudayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/fridayTxtView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/weddayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/fridayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toStartOf="@+id/satdayTxtView"
-            app:layout_constraintStart_toEndOf="@+id/thudayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/fridayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/satdayTxtView"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/thudayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/satdayTxtView"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            android:textColor="#3F51B5"
-            app:layout_constraintDimensionRatio="2:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/fridayTxtView"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/satdayTxtView"-->
+<!--            style="@style/days_style"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:textColor="#3F51B5"-->
+<!--            app:layout_constraintDimensionRatio="2:1"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/fridayTxtView"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:id="@+id/constraintLayout"-->
@@ -405,24 +405,36 @@
 
 <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-    <Button
-        android:id="@+id/nextWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="다음주"
-        tools:layout_editor_absoluteX="245dp"
-        tools:layout_editor_absoluteY="246dp" />
 
-    <Button
-        android:id="@+id/lastWeek"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
-        android:text="이번주"
-        app:layout_constraintBottom_toBottomOf="@+id/nextWeek"
-        app:layout_constraintEnd_toStartOf="@+id/nextWeek"
-        app:layout_constraintTop_toTopOf="@+id/nextWeek" />
+
+    <fragment
+        android:id="@+id/weekdate"
+        android:name="com.example.frontend.FragmentWeekDate"
+        android:layout_width="409dp"
+        android:layout_height="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysLayout"
+        tools:layout="@layout/fragment_week_date" />
+
+    <fragment
+        android:id="@+id/weekmemo"
+        android:name="com.example.frontend.FragmentWeekMemo"
+        android:layout_width="410dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekdate"
+        tools:layout="@layout/fragment_week_memo" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/weekpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="201dp"
+        tools:layout_editor_absoluteY="412dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

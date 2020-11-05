@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frameLayout1"
+    android:background="@color/lgt_gray"
+    android:orientation="vertical"
+    tools:context=".FragmentMonthDate"
+    >
+
+    <LinearLayout
+        android:id="@+id/week1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView"
+            style="@style/days_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView"
+            style="@style/days_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView"
+            style="@style/days_style"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            style="@style/days_style"
+            android:background="#FFFFFF"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            style="@style/days_style"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            style="@style/days_style"
+            android:background="#FFFFFF"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            style="@style/days_style"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/week2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView2"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/week3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView3"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/week4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView4"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/week5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/week6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sundayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textColor="#E91E63"
+            android:textColorLink="#009688" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mondayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tuedayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/weddayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fridayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/satdayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textColor="#3F51B5"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

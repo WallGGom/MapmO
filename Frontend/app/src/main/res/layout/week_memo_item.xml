@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameWeekMemo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout1"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageView
+            android:id="@+id/week_image3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityDay"
+            app:layout_constraintVertical_bias="0.015"
+            app:srcCompat="@drawable/car" />
+
+        <TextView
+            android:id="@+id/week_memoTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="약속"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/week_memoContent2"
+            app:layout_constraintStart_toEndOf="@+id/week_image3"
+            app:layout_constraintTop_toTopOf="@+id/week_image3" />
+
+        <TextView
+            android:id="@+id/week_memoContent2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="드라이브 하기"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/week_image3"
+            app:layout_constraintStart_toEndOf="@+id/week_image3"
+            app:layout_constraintTop_toBottomOf="@+id/week_memoTitle2" />
+
+        <Switch
+            android:id="@+id/week_alarm2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="알람"
+            app:layout_constraintBottom_toBottomOf="@+id/week_memoTitle2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/week_memoTitle2"
+            app:layout_constraintTop_toTopOf="@+id/week_memoTitle2" />
+
+
+
+        <ImageView
+            android:id="@+id/week_imageView4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="180dp"
+            android:layout_marginLeft="180dp"
+            app:layout_constraintBottom_toBottomOf="@+id/week_memoContent2"
+            app:layout_constraintStart_toEndOf="@+id/week_memoContent2"
+            app:layout_constraintTop_toTopOf="@+id/week_memoContent2"
+            app:srcCompat="@drawable/map" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
