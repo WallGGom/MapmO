@@ -822,5 +822,13 @@ spinner 사용
 
 
 
+# :spiral_calendar: 1106(금)
+
+From PagerRecyclerAdapter To Activity 
+
+* 참고 : https://kumgo1d.tistory.com/44
+
+
+
 
 
