@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemoFormActivity">
+    tools:context=".UpdateMemoFormActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                     android:text="제목" />
 
                 <EditText
-                    android:id="@+id/Title"
+                    android:id="@+id/Title222"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -45,7 +45,7 @@
                     android:text="메모" />
 
                 <EditText
-                    android:id="@+id/Content"
+                    android:id="@+id/Content2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -61,7 +61,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imagePreview"
+                    android:id="@+id/imagePreview2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
@@ -74,7 +74,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/buttonCamera"
+                    android:id="@+id/buttonCamera2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="52"
@@ -82,7 +82,7 @@
                     app:srcCompat="@android:drawable/ic_menu_camera" />
 
                 <ImageButton
-                    android:id="@+id/buttonGallery"
+                    android:id="@+id/buttonGallery2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -101,30 +101,11 @@
                     android:layout_height="wrap_content"
                     android:text="음성메모" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/button1"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Record"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/button2"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="STOP"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-<!--                <Button-->
-<!--                    android:id="@+id/button3"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="PLAY"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textView" />-->
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="음성메모부분" />
 
             </TableRow>
 
@@ -139,14 +120,14 @@
                     android:text="장소" />
 
                 <TextView
-                    android:id="@+id/Place"
+                    android:id="@+id/Place2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
                     android:text="검색결과" />
 
                 <Button
-                    android:id="@+id/btnSearch"
+                    android:id="@+id/btnSearch2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#CDDC39"
@@ -166,21 +147,21 @@
                     android:text="날짜/시간" />
 
                 <TextView
-                    android:id="@+id/dateTv"
+                    android:id="@+id/dateTv2"
                     android:layout_width="102dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:text="날짜선택" />
 
                 <TextView
-                    android:id="@+id/timeTv"
+                    android:id="@+id/timeTv2"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="시간선택" />
 
                 <Button
-                    android:id="@+id/pickDateBtn"
+                    android:id="@+id/pickDateBtn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -188,7 +169,7 @@
                     android:text="날짜" />
 
                 <Button
-                    android:id="@+id/pickTimeBtn"
+                    android:id="@+id/pickTimeBtn2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -208,14 +189,14 @@
                     android:text="알림" />
 
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinner2"
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
                     android:clickable="false"
                     android:spinnerMode="dialog" />
 
                 <Switch
-                    android:id="@+id/switchAlarm"
+                    android:id="@+id/switchAlarm2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -227,7 +208,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/btnClose"
+                    android:id="@+id/btnClose2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

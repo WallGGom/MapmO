@@ -1,12 +1,17 @@
 package com.example.mapmo
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_update_memo_form.view.*
 import kotlinx.android.synthetic.main.item_pager.view.*
 import java.text.SimpleDateFormat
 
@@ -30,6 +35,27 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
         return listData.size
     }
 
+    // 수정버튼 클릭 = 메모 수정 Form으로 이동
+    override fun onBindViewHolder(
+        holder: PagerViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        super.onBindViewHolder(holder, position, payloads)
+            holder.itemView.btnUpdate.setOnClickListener{
+                var temp2 = listData[position]
+                Log.e("temp2", temp2.title)
+                val intent = Intent(holder.itemView.context, UpdateMemoFormActivity::class.java)
+                intent.putExtra("temp2", temp2.title)
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
+
+        holder.itemView.setOnClickListener{
+            val intent = Intent(holder.itemView.context, ReadMemoActivity::class.java)
+            ContextCompat.startActivity(holder.itemView.context, intent, null)
+        }
+    }
+
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mMemo:MemoRoom? = null
@@ -40,6 +66,7 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
                 listData.remove(mMemo)
                 notifyDataSetChanged()
             }
+
         }
 
         // 바인딩 시키는 내용 (제목, 내용, 장소)

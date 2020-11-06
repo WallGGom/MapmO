@@ -21,13 +21,12 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.room.Room
-import kotlinx.android.synthetic.main.activity_memo_form.*
-
+import kotlinx.android.synthetic.main.activity_update_memo_form.*
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MemoFormActivity : AppCompatActivity() {
+class UpdateMemoFormActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -46,6 +45,12 @@ class MemoFormActivity : AppCompatActivity() {
 
         }
     }
+
+//    val bundle: Bundle? = intent.extras
+
+
+
+
 
     // 알람 시간 선택
     var alarm_settime_list = listOf("- 선택하세요 -", "1분전", "5분전", "10분전", "15분전")
@@ -67,8 +72,14 @@ class MemoFormActivity : AppCompatActivity() {
     val FLAG_REQ_CAMERA = 101
     val FLAG_REQ_STORAGE = 102
 
-    override fun onCreate(savedInstanceState: Bundle?) {
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        var title = intent.getStringExtra("temp2")
+        Log.e("temp2", title!!)
+        val editText = findViewById<EditText>(R.id.Title222)
+        editText?.setText(title).toString()
+//        Title2.setText(message)
         // 캘린더, 연/월/일 값 생성
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -76,37 +87,37 @@ class MemoFormActivity : AppCompatActivity() {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_memo_form)
+        setContentView(R.layout.activity_update_memo_form)
 
         // 어댑터 생성 & 접혔을 때의 못브을 구성한 Layout을 생성
         var adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alarm_settime_list)
         // 펼쳐졌을 때의 못브을 구성하기 위한 Layout을 지정
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter1
+        spinner2.adapter = adapter1
 
         // spinner에서 선택시 이벤트 발생
-        spinner.onItemSelectedListener = selectAlarmsettime
+        spinner2.onItemSelectedListener = selectAlarmsettime
 
         if (checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)) {
             setViews()
         }
 
         // 날짜 선택(pickDateBtn 클릭)
-        pickDateBtn.setOnClickListener{
+        pickDateBtn2.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{
-                    view, year, month, dayOfMonth -> dateTv.setText(""+ year + "년" + (month+1) + "월" + dayOfMonth + "일"
+                    view, year, month, dayOfMonth -> dateTv2.setText(""+ year + "년" + (month+1) + "월" + dayOfMonth + "일"
             )
             }, year, month, day)
 
             dpd.show()
         }
         // 시간 선택(pickTimeBtn 클릭)
-        pickTimeBtn.setOnClickListener {
+        pickTimeBtn2.setOnClickListener {
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                 c.set(Calendar.HOUR_OF_DAY, hour)
                 c.set(Calendar.MINUTE, minute)
 
-                timeTv.text = SimpleDateFormat("HH시 mm분").format(c.time)
+                timeTv2.text = SimpleDateFormat("HH시 mm분").format(c.time)
             }
             TimePickerDialog(
                 this,
@@ -118,11 +129,11 @@ class MemoFormActivity : AppCompatActivity() {
 
         }
 
-        switchAlarm.setOnCheckedChangeListener{CompoundButton, onSwitch ->
+        switchAlarm2.setOnCheckedChangeListener{CompoundButton, onSwitch ->
             if (onSwitch) {
-                spinner.isClickable = true
+                spinner2.isClickable = true
             } else {
-                spinner.isClickable = false
+                spinner2.isClickable = false
             }
 
         }
@@ -131,17 +142,18 @@ class MemoFormActivity : AppCompatActivity() {
         val mainintent = Intent(this, MainActivity::class.java)
 
         // 메모생성 버튼을 누르면 startActivity동작 - intent
-//        btnClose.setOnClickListener{ startActivity(mainintent) }
+        btnClose2.setOnClickListener{ startActivity(mainintent) }
 
         // 지도검색 버튼을 누르면 MapsActivity로 이동 - intent
         val mapintent = Intent(this, MapsActivity::class.java)
-        btnSearch.setOnClickListener{
+        btnSearch2.setOnClickListener{
             startActivityForResult(mapintent, 121)
             finish()
         }
 
 
         helper = Room.databaseBuilder(this, MemoRoomHelper::class.java, "room_memo").allowMainThreadQueries().build()
+
 
     }
     val selectAlarmsettime = object : AdapterView.OnItemSelectedListener{
@@ -160,8 +172,8 @@ class MemoFormActivity : AppCompatActivity() {
 
     fun btnS() {
         // Log.d("What the type", "${dateTv.text}")
-        if (Title.text.toString().isNotEmpty() && Content.text.toString().isNotEmpty()) {
-            val memo = MemoRoom(Title.text.toString(), Content.text.toString(), Place.text.toString(), System.currentTimeMillis(), 0, 0, dateTv.text.toString(), timeTv.text.toString(), switchAlarm.isChecked, alarmSettime)
+        if (Title222.text.toString().isNotEmpty() && Content2.text.toString().isNotEmpty()) {
+            val memo = MemoRoom(Title222.text.toString(), Content2.text.toString(), Place2.text.toString(), System.currentTimeMillis(), 0, 0, dateTv2.text.toString(), timeTv2.text.toString(), switchAlarm2.isChecked, alarmSettime)
             helper?.memoRoomDao()?.insert(memo)
             Log.d("memo", memo.title)
             val mainIntent = Intent(this, MainActivity::class.java)
@@ -172,10 +184,10 @@ class MemoFormActivity : AppCompatActivity() {
     }
 
     fun setViews(){
-        buttonCamera.setOnClickListener {
+        buttonCamera2.setOnClickListener {
             openCamera()
         }
-        buttonGallery.setOnClickListener {
+        buttonGallery2.setOnClickListener {
             openGallery()
         }
     }
@@ -196,12 +208,12 @@ class MemoFormActivity : AppCompatActivity() {
                         val bitmap = data?.extras?.get("data") as Bitmap
 //                        imagePreview.setImageBitmap(bitmap)
                         val uri = saveImageFile(newFileName(), "image/jpg", bitmap)
-                        imagePreview.setImageURI(uri)
+                        imagePreview2.setImageURI(uri)
                     }
                 }
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
-                    imagePreview.setImageURI(uri)
+                    imagePreview2.setImageURI(uri)
                 }
             }
         }

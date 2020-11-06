@@ -2,18 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mapmo">
     <!-- 카메라 권한 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!-- 저장소 읽기 권한 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!-- 저장소 쓰기 권한 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!-- 도시 블록 내에서 정확한 위치(네트워크 위치) -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 정확한 위치 확보(네트워크 위치 + GPS 위치) -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 저장소 읽기 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 저장소 쓰기 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 도시 블록 내에서 정확한 위치(네트워크 위치) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 정확한 위치 확보(네트워크 위치 + GPS 위치) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -22,14 +16,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MapmO">
+        <activity android:name=".ReadMemoActivity"></activity>
+        <activity android:name=".UpdateMemoFormActivity" />
+        <activity android:name=".UpdateMemo" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".MemoFormActivity"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".MemoFormActivity" />
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
