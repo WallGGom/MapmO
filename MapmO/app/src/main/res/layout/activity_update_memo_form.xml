@@ -26,12 +26,13 @@
                     android:text="제목" />
 
                 <EditText
-                    android:id="@+id/Title222"
+                    android:id="@+id/Title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="제목을 입력해주세요."
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="t" />
             </TableRow>
 
             <TableRow

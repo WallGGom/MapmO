@@ -24,7 +24,6 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder =
         PagerViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_pager, parent, false))
 
-    // ???
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
         val memo = listData.get(position)
         holder.bind1(memo)
@@ -43,17 +42,22 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
     ) {
         super.onBindViewHolder(holder, position, payloads)
             holder.itemView.btnUpdate.setOnClickListener{
-                var temp2 = listData[position]
-                Log.e("temp2", temp2.title)
+                var targetmemo = listData[position]
+                Log.e("targetmemo", targetmemo.title)
                 val intent = Intent(holder.itemView.context, UpdateMemoFormActivity::class.java)
-                intent.putExtra("temp2", temp2.title)
+                intent.putExtra("title", targetmemo.title)
+                intent.putExtra("content", targetmemo.content )
+
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
-
-        holder.itemView.setOnClickListener{
-            val intent = Intent(holder.itemView.context, ReadMemoActivity::class.java)
-            ContextCompat.startActivity(holder.itemView.context, intent, null)
-        }
+            // 메모 디테일로 이동
+            holder.itemView.setOnClickListener{
+                var targetmemo = listData[position]
+                val intent = Intent(holder.itemView.context, ReadMemoActivity::class.java)
+                intent.putExtra("title", targetmemo.title)
+                intent.putExtra("content", targetmemo.content )
+                ContextCompat.startActivity(holder.itemView.context, intent, null)
+            }
     }
 
 

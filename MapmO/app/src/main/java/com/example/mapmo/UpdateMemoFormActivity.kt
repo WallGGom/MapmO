@@ -13,6 +13,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -48,10 +49,6 @@ class UpdateMemoFormActivity : AppCompatActivity() {
 
 //    val bundle: Bundle? = intent.extras
 
-
-
-
-
     // 알람 시간 선택
     var alarm_settime_list = listOf("- 선택하세요 -", "1분전", "5분전", "10분전", "15분전")
     var alarmSettime = ""
@@ -75,10 +72,12 @@ class UpdateMemoFormActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var title = intent.getStringExtra("temp2")
-        Log.e("temp2", title!!)
-        val editText = findViewById<EditText>(R.id.Title222)
-        editText?.setText(title).toString()
+        var title = intent.getStringExtra("title").toString()
+        Log.e("targettitle", title!!)
+//        val editText = findViewById<EditText>(R.id.Title2)
+//        editText?.setText(title).toString()
+        Title2.text = Editable.Factory.getInstance().newEditable(title)
+//        Title2.setText(title.toString())
 //        Title2.setText(message)
         // 캘린더, 연/월/일 값 생성
         val c = Calendar.getInstance()
@@ -171,9 +170,8 @@ class UpdateMemoFormActivity : AppCompatActivity() {
     }
 
     fun btnS() {
-        // Log.d("What the type", "${dateTv.text}")
-        if (Title222.text.toString().isNotEmpty() && Content2.text.toString().isNotEmpty()) {
-            val memo = MemoRoom(Title222.text.toString(), Content2.text.toString(), Place2.text.toString(), System.currentTimeMillis(), 0, 0, dateTv2.text.toString(), timeTv2.text.toString(), switchAlarm2.isChecked, alarmSettime)
+        if (Title2.text.toString().isNotEmpty() && Content2.text.toString().isNotEmpty()) {
+            val memo = MemoRoom(Title2.text.toString(), Content2.text.toString(), Place2.text.toString(), System.currentTimeMillis(), 0, 0, dateTv2.text.toString(), timeTv2.text.toString(), switchAlarm2.isChecked, alarmSettime)
             helper?.memoRoomDao()?.insert(memo)
             Log.d("memo", memo.title)
             val mainIntent = Intent(this, MainActivity::class.java)
