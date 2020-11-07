@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <Button
+        android:id="@+id/previous_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이전"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/pick_week"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/pick_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주간 달력"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toRightOf="@id/previous_week"
+        app:layout_constraintRight_toLeftOf="@id/next_week"
+        app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/next_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        app:layout_constraintLeft_toRightOf="@id/pick_week"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/present_year"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pick_week"
+        app:layout_constraintBottom_toTopOf="@id/present_month"
+        />
+    <TextView
+        android:id="@+id/present_month"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/present_year"
+
+        />
+    <TextView
+        android:id="@+id/present_week"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/present_month"
+
+        />
+
+    <Button
+        android:id="@+id/previous_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이전"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/pick_month"
+        app:layout_constraintTop_toBottomOf="@id/present_week" />
+    <TextView
+        android:id="@+id/pick_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="월간 달력"
+        android:layout_marginTop="120dp"
+        app:layout_constraintLeft_toRightOf="@id/previous_week"
+        app:layout_constraintRight_toLeftOf="@id/next_week"
+        app:layout_constraintTop_toBottomOf="@id/present_week" />
+    <Button
+        android:id="@+id/next_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toRightOf="@id/pick_week"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/present_week"/>
+    <TextView
+        android:id="@+id/present_year2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pick_month"
+        app:layout_constraintBottom_toTopOf="@id/present_month2"
+        />
+    <TextView
+        android:id="@+id/present_month2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/present_year2"
+        app:layout_constraintBottom_toTopOf="@id/present_week2"
+        />
+    <TextView
+        android:id="@+id/present_week2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="..."
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/present_month2"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
