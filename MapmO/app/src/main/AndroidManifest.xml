@@ -18,7 +18,6 @@
         android:theme="@style/Theme.MapmO">
         <activity android:name=".ReadMemoActivity"></activity>
         <activity android:name=".UpdateMemoFormActivity" />
-        <activity android:name=".UpdateMemo" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

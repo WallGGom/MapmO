@@ -6,17 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_memo_form.view.*
 import kotlinx.android.synthetic.main.activity_update_memo_form.view.*
 import kotlinx.android.synthetic.main.item_pager.view.*
 import java.text.SimpleDateFormat
 
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
 class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerViewHolder>() {
+
     var helper:MemoRoomHelper? = null
     // listData는 MemoRoom에 저장된 데이터들로 사용
     var listData = mutableListOf<MemoRoom>()
@@ -45,8 +50,13 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
                 var targetmemo = listData[position]
                 Log.e("targetmemo", targetmemo.title)
                 val intent = Intent(holder.itemView.context, UpdateMemoFormActivity::class.java)
+
                 intent.putExtra("title", targetmemo.title)
                 intent.putExtra("content", targetmemo.content )
+                intent.putExtra("alarmdate", targetmemo.plandate)
+                intent.putExtra("alarmtime", targetmemo.plantime)
+                intent.putExtra("alarmcheck", targetmemo.alarmcheck)
+                intent.putExtra("alarmsettime", targetmemo.alarmsettime)
 
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
         }
@@ -56,6 +66,11 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
                 val intent = Intent(holder.itemView.context, ReadMemoActivity::class.java)
                 intent.putExtra("title", targetmemo.title)
                 intent.putExtra("content", targetmemo.content )
+                intent.putExtra("alarmdate", targetmemo.plandate)
+                intent.putExtra("alarmtime", targetmemo.plantime)
+                intent.putExtra("alarmcheck", targetmemo.alarmcheck)
+                intent.putExtra("alarmsettime", targetmemo.alarmsettime)
+
                 ContextCompat.startActivity(holder.itemView.context, intent, null)
             }
     }
@@ -84,14 +99,23 @@ class PagerRecyclerAdapter : RecyclerView.Adapter<PagerRecyclerAdapter.PagerView
             itemView.memo_create_at.text = "${sdf.format(memo.datetime)}"
 
             // 알림 설정 시간 & 여부
-            itemView.memo_alarm_settime.text = memo.alarmsettime
+            if (memo.plandate.length <= 0) {
+                itemView.dateTv.isVisible = false
+                itemView.timeTv.isVisible = false
+            }
+
             if (memo.alarmcheck) {
                 itemView.memo_alarm_check.text = "On"
                 // 메모 실행(계획) 날짜 & 시간
-                itemView.memo_alarm_date.text = memo.alarmdate
-                itemView.memo_alarm_time.text = memo.alarmtime
+                itemView.memo_alarm_settime.text = memo.alarmsettime
+                itemView.memo_alarm_date.text = memo.plandate
+                itemView.memo_alarm_time.text = memo.plantime
             } else {
                 itemView.memo_alarm_check.text = "Off"
+                itemView.memo_alarm_date.isVisible = false
+                itemView.memo_alarm_time.isVisible = false
+                itemView.memo_alarm_settime.isVisible = false
+
             }
 
             this.mMemo = memo

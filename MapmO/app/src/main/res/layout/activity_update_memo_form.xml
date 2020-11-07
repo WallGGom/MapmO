@@ -32,7 +32,7 @@
                     android:ems="10"
                     android:hint="제목을 입력해주세요."
                     android:inputType="textPersonName"
-                    android:text="t" />
+                    android:text="" />
             </TableRow>
 
             <TableRow
@@ -102,11 +102,30 @@
                     android:layout_height="wrap_content"
                     android:text="음성메모" />
 
-                <TextView
-                    android:id="@+id/textView11"
+                <Button
+                    android:id="@+id/btnRecord2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="음성메모부분" />
+                    android:layout_weight="1"
+                    android:text="Record"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <Button
+                    android:id="@+id/btnStop2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STOP"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <Button
+                    android:id="@+id/btnPlay2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PLAY"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             </TableRow>
 

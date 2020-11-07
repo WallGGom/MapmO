@@ -44,10 +44,10 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/rowPlanDate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="알림 날짜 : "
+            android:layout_height="match_parent"
+            android:text="일정 날짜 및 시간 : "
             android:textSize="21sp"
             android:textStyle="bold" />
 
@@ -58,20 +58,8 @@
             android:layout_marginLeft="10dp"
             android:textSize="21sp"
             android:textStyle="bold"
+            android:visibility="visible"
             tools:text="Page 1" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="알림 시간 : "
-            android:textSize="21sp"
-            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/memo_alarm_time"
@@ -87,16 +75,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/rowAlarmCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="알림 설정 시간 : "
+            android:text="알림 설정 여부 : "
             android:textSize="21sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/memo_alarm_settime"
+            android:id="@+id/memo_alarm_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Page1"
@@ -107,18 +101,18 @@
 
     <TableRow
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/rowAlarmSettime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="알림 설정 여부 : "
+            android:text="알림 설정 시간 : "
             android:textSize="21sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/memo_alarm_check"
+            android:id="@+id/memo_alarm_settime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Page1"

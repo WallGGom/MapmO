@@ -42,6 +42,10 @@ class UpdateMemoFormActivity : AppCompatActivity() {
                 btnS()
                 return true
             }
+            R.id.action_cancel -> {
+                btnC()
+                return true
+            }
             else -> {return super.onOptionsItemSelected(item)}
 
         }
@@ -72,13 +76,7 @@ class UpdateMemoFormActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        var title = intent.getStringExtra("title").toString()
-        Log.e("targettitle", title!!)
-//        val editText = findViewById<EditText>(R.id.Title2)
-//        editText?.setText(title).toString()
-        Title2.text = Editable.Factory.getInstance().newEditable(title)
-//        Title2.setText(title.toString())
-//        Title2.setText(message)
+
         // 캘린더, 연/월/일 값 생성
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -88,7 +86,31 @@ class UpdateMemoFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_memo_form)
 
-        // 어댑터 생성 & 접혔을 때의 못브을 구성한 Layout을 생성
+        var title = intent.getStringExtra("title").toString()
+        var content = intent.getStringExtra("content").toString()
+        var alarmdate = intent.getStringExtra("alarmdate").toString()
+        var alarmtime = intent.getStringExtra("alarmtime").toString()
+        var alarmcheck = intent.getBooleanExtra("alarmcheck", false)
+        var alarmsettime = intent.getStringExtra("alarmsettime").toString()
+
+
+//        Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+        Log.e("targettitle", title!!)
+//        val editText = findViewById<EditText>(R.id.Title2)
+//        editText?.setText(title).toString()
+//        Title2.text = Editable.Factory.getInstance().newEditable(title)
+        Title2.setText(title)
+        Content2.setText(content)
+        dateTv2.setText(alarmdate)
+        timeTv2.setText(alarmtime)
+        switchAlarm2.isChecked = alarmcheck
+        switchAlarm2.isClickable = true
+
+
+//        Title2.setText(message)
+
+
+        // 어댑터 생성 & 접혔을 때의 모습을 구성한 Layout을 생성
         var adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alarm_settime_list)
         // 펼쳐졌을 때의 못브을 구성하기 위한 Layout을 지정
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -173,12 +195,18 @@ class UpdateMemoFormActivity : AppCompatActivity() {
         if (Title2.text.toString().isNotEmpty() && Content2.text.toString().isNotEmpty()) {
             val memo = MemoRoom(Title2.text.toString(), Content2.text.toString(), Place2.text.toString(), System.currentTimeMillis(), 0, 0, dateTv2.text.toString(), timeTv2.text.toString(), switchAlarm2.isChecked, alarmSettime)
             helper?.memoRoomDao()?.insert(memo)
-            Log.d("memo", memo.title)
             val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
         } else {
             Toast.makeText(this, "제목과 내용은 필수로 입력하셔야 합니다.", Toast.LENGTH_LONG).show()
         }
+    }
+    fun btnC() {
+        // MemoFrom 액티비티를 intent로 설정
+        val mainintent = Intent(this, MainActivity::class.java)
+
+        // 메모생성 버튼을 누르면 startActivity동작 - intent
+        startActivity(mainintent)
     }
 
     fun setViews(){

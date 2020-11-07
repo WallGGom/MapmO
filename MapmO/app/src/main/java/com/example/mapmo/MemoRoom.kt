@@ -29,12 +29,12 @@ class MemoRoom {
     @ColumnInfo(name = "date")
     var datetime: Long = 0
 
-    // 알림날짜 / 알림시간 / 알림설정여부 / 알림설정시간 / 사진
+    // 일정날짜 / 일정시간 / 알림설정여부 / 알림설정시간 / 사진
     @ColumnInfo
-    var alarmdate: String = ""
+    var plandate: String = ""
 
     @ColumnInfo
-    var alarmtime: String = ""
+    var plantime: String = ""
 
     @ColumnInfo
     var alarmcheck: Boolean = false
@@ -45,15 +45,15 @@ class MemoRoom {
 //    @ColumnInfo
 //    var photo: Uri? = null
 
-    constructor(title: String, content: String, place: String, datetime: Long, latitude: Long, longitude: Long, alarmdate: String, alarmtime: String, alarmcheck: Boolean, alarmsettime: String ) {
+    constructor(title: String, content: String, place: String, datetime: Long, latitude: Long, longitude: Long, plandate: String, plantime: String, alarmcheck: Boolean, alarmsettime: String ) {
         this.title = title
         this.content = content
         this.place = place
         this.datetime = datetime
         this.latitude = latitude
         this.longitude = longitude
-        this.alarmdate = alarmdate
-        this.alarmtime = alarmtime
+        this.plandate = plandate
+        this.plantime = plantime
         this.alarmcheck = alarmcheck
         this.alarmsettime = alarmsettime
 //        this.photo = photo

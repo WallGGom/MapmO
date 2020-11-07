@@ -13,11 +13,12 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFF8BA">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView"
@@ -45,8 +46,9 @@
 
                 <TextView
                     android:id="@+id/readContent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="310dp"
                     android:layout_height="wrap_content"
+                    android:autoText="false"
                     android:minLines="15"
                     android:text="TextView" />
 
@@ -67,7 +69,7 @@
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -143,12 +145,11 @@
                     android:layout_height="wrap_content"
                     android:text="알림" />
 
-                <Spinner
-                    android:id="@+id/readSpinner"
-                    android:layout_width="162dp"
+                <TextView
+                    android:id="@+id/readAlarmSettime"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
-                    android:spinnerMode="dialog" />
+                    android:text="TextView" />
 
                 <Switch
                     android:id="@+id/readSwitchAlarm"

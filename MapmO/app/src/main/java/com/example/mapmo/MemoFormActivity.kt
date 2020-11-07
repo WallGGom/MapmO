@@ -42,14 +42,17 @@ class MemoFormActivity : AppCompatActivity() {
                 btnS()
                 return true
             }
+            R.id.action_cancel -> {
+                btnC()
+                return true
+            }
             else -> {return super.onOptionsItemSelected(item)}
-
         }
     }
 
     // 알람 시간 선택
     var alarm_settime_list = listOf("- 선택하세요 -", "1분전", "5분전", "10분전", "15분전")
-    var alarmSettime = ""
+    var alarmsettime = ""
 
     var helper:MemoRoomHelper? = null
     val random = Random()
@@ -127,12 +130,6 @@ class MemoFormActivity : AppCompatActivity() {
 
         }
 
-        // MemoFrom 액티비티를 intent로 설정
-        val mainintent = Intent(this, MainActivity::class.java)
-
-        // 메모생성 버튼을 누르면 startActivity동작 - intent
-//        btnClose.setOnClickListener{ startActivity(mainintent) }
-
         // 지도검색 버튼을 누르면 MapsActivity로 이동 - intent
         val mapintent = Intent(this, MapsActivity::class.java)
         btnSearch.setOnClickListener{
@@ -148,7 +145,7 @@ class MemoFormActivity : AppCompatActivity() {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             when(parent?.id){
                 R.id.spinner -> {
-                    alarmSettime = alarm_settime_list[position]
+                    alarmsettime = alarm_settime_list[position]
                 }
             }
         }
@@ -161,7 +158,8 @@ class MemoFormActivity : AppCompatActivity() {
     fun btnS() {
         // Log.d("What the type", "${dateTv.text}")
         if (Title.text.toString().isNotEmpty() && Content.text.toString().isNotEmpty()) {
-            val memo = MemoRoom(Title.text.toString(), Content.text.toString(), Place.text.toString(), System.currentTimeMillis(), 0, 0, dateTv.text.toString(), timeTv.text.toString(), switchAlarm.isChecked, alarmSettime)
+            Log.e("spinnerTest", "${alarm_settime_list[spinner.selectedItemPosition]}")
+            val memo = MemoRoom(Title.text.toString(), Content.text.toString(), Place.text.toString(), System.currentTimeMillis(), 0, 0, dateTv.text.toString(), timeTv.text.toString(), switchAlarm.isChecked, alarm_settime_list[spinner.selectedItemPosition])
             helper?.memoRoomDao()?.insert(memo)
             Log.d("memo", memo.title)
             val mainIntent = Intent(this, MainActivity::class.java)
@@ -169,6 +167,13 @@ class MemoFormActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "제목과 내용은 필수로 입력하셔야 합니다.", Toast.LENGTH_LONG).show()
         }
+    }
+    fun btnC() {
+        // MemoFrom 액티비티를 intent로 설정
+        val mainintent = Intent(this, MainActivity::class.java)
+
+        // 메모생성 버튼을 누르면 startActivity동작 - intent
+        startActivity(mainintent)
     }
 
     fun setViews(){
