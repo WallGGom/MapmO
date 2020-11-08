@@ -9,8 +9,16 @@ import android.view.MotionEvent
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_week.*
+import java.util.*
 
 class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+    var today = Utils.timeGenerator()
+    var presentYear = 0
+    var presentMonth = 0
+    var presentWeek = mutableListOf<Int>(0,0,0,0,0,0,0)
+    var weekResult = mutableMapOf<String, Any>()
 
     //swipe
     lateinit var gestureDetector: GestureDetector
@@ -26,29 +34,78 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     //progressbar
     lateinit var progressBar: ProgressBar
 
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
         gestureDetector = GestureDetector(this, this)
 
-        setFragment1()
+        presentYear = today[0]
+        presentMonth = today[1]
+        presentWeek = Week.WeekCal(today[0],today[1],today[2],today[3])
+        var data:MutableList<ListWeekData> = setWeekData(presentWeek)
+        var adapter = WeekDateAdapter()
+
+        adapter.listData = data
+        re_week_date.adapter = adapter
+        re_week_date.layoutManager = GridLayoutManager(this, 7)
+        previous_week.setOnClickListener {
+            // Log.d("What the type", "${dateTv.text}")
+
+            weekResult = Week.PreWeek(presentYear,presentMonth,presentWeek)
+//            Log.e("week", weekResult.toString())
+            presentYear = weekResult.get("year") as Int
+            presentMonth = weekResult.get("month") as Int
+            presentWeek = weekResult.get("week") as MutableList<Int>
+            data = setWeekData(presentWeek)
+            adapter.listData = data
+            re_week_date.adapter = adapter
+            re_week_date.layoutManager = GridLayoutManager(this, 7)
+        }
+
+        next_week.setOnClickListener {
+            // Log.d("What the type", "${dateTv.text}")
+            weekResult = Week.NxtWeek(presentYear,presentMonth,presentWeek)
+//            Log.e("week", weekResult.toString())
+            presentYear = weekResult.get("year") as Int
+            presentMonth = weekResult.get("month") as Int
+            presentWeek = weekResult.get("week") as MutableList<Int>
+            data = setWeekData(presentWeek)
+            adapter.listData = data
+            re_week_date.adapter = adapter
+            re_week_date.layoutManager = GridLayoutManager(this, 7)
+        }
+
+//        setFragment1()
         setFragment2()
     }
 
-    fun setFragment1(){
-        val fragmentWeek : FragmentWeekDate = FragmentWeekDate()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.weekdate,FragmentWeekDate.newInstance())
-        transaction.commit()
+//    fun setFragment1(){
+//        val fragmentWeek : FragmentWeekDate = FragmentWeekDate()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.weekdate,fragmentWeek)
+//        transaction.commit()
+//    }
+    fun setWeekData(list: MutableList<Int>): MutableList<ListWeekData>{
+        var data:MutableList<ListWeekData> = mutableListOf()
+        for (num in list) {
+            var listData = ListWeekData(num)
+            data.add(listData)
+        }
+        return data
     }
+
 
     fun setFragment2(){
         val fragmentMemo : FragmentWeekMemo = FragmentWeekMemo()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.weekmemo,FragmentWeekMemo.newInstance())
+        transaction.replace(R.id.weekmemo,fragmentMemo)
         transaction.commit()
     }
+
+
 
     // 메모 숨기기
 //        week_image1.visibility = View.GONE
@@ -243,13 +300,14 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
                         Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
                         val memoWtD = Intent(this, MemoListActivity::class.java)
                         startActivity(memoWtD)
+                        finish()
                     }
                     //detect left side swipe
                     else {
                         Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
                         val memoWtM = Intent(this, MemoMonthActivity::class.java)
                         startActivity(memoWtM)
-
+                        finish()
 
                     }
 
@@ -301,3 +359,5 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         return false
     }
 }
+
+

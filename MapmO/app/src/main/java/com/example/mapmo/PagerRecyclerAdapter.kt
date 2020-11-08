@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
 class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var helper:MemoRoomHelper? = null
-//    // listData는 MemoRoom에 저장된 데이터들로 사용
-//    var listData = mutableListOf<MemoRoom>()
+////    // listData는 MemoRoom에 저장된 데이터들로 사용
+////    var listData = mutableListOf<MemoRoom>()
 
     // getItemViewType의 리턴값 Int가 viewType으로 넘어온다.
     // viewType으로 넘어오는 값에 따라 viewHolder를 알맞게 처리해주면 된다.

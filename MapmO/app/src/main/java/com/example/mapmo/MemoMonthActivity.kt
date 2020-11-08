@@ -3,11 +3,19 @@ package com.example.mapmo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_month.*
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+    var today = Utils.timeGenerator()
+    var presentYear2 = 0
+    var presentMonth2 = 0
+    var presentWeek2 = mutableListOf(0,0,0,0,0,0,0)
+    var monthResult = mutableMapOf<String, Any>()
     //swipe
     lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
@@ -42,22 +50,66 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
         gestureDetector = GestureDetector(this, this)
-        setFragment1()
+        presentYear2 = today[0]
+        presentMonth2 = today[1]
+        presentWeek2 = Month.MonthCal(today[0],today[1],today[2],today[3], today[4])
+        Log.e("weeks", presentWeek2.toString())
+        var data:MutableList<ListMonthData> = setMonthData(presentWeek2)
+        var adapter = MonthDateAdapter()
+
+        adapter.listData = data
+        re_month_date.adapter = adapter
+        re_month_date.layoutManager = GridLayoutManager(this, 7)
+        previous_month.setOnClickListener {
+            monthResult = Month.PreMonth(presentYear2, presentMonth2, presentWeek2)
+            Log.e("weeks", monthResult.toString())
+            presentYear2 = monthResult.get("year") as Int
+            presentMonth2 = monthResult.get("month") as Int
+            presentWeek2 = monthResult.get("weeks") as MutableList<Int>
+            data = setMonthData(presentWeek2)
+            adapter.listData = data
+            re_month_date.adapter = adapter
+            re_month_date.layoutManager = GridLayoutManager(this, 7)
+        }
+
+        next_month.setOnClickListener {
+            monthResult = Month.NxtMonth(presentYear2, presentMonth2, presentWeek2)
+            Log.e("weeks", monthResult.toString())
+            presentYear2 = monthResult.get("year") as Int
+            presentMonth2 = monthResult.get("month") as Int
+            presentWeek2 = monthResult.get("weeks") as MutableList<Int>
+            data = setMonthData(presentWeek2)
+            adapter.listData = data
+            re_month_date.adapter = adapter
+            re_month_date.layoutManager = GridLayoutManager(this, 7)
+
+        }
+
+
+//        setFragment1()
         setFragment2()
 
     }
-
-    fun setFragment1(){
-        val fragmentMonth : FragmentMonthDate = FragmentMonthDate()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.monthdate, FragmentMonthDate.newInstance())
-        transaction.commit()
+    fun setMonthData(list: MutableList<Int>): MutableList<ListMonthData>{
+        var data:MutableList<ListMonthData> = mutableListOf()
+        for (num in list) {
+            var listData = ListMonthData(num)
+            data.add(listData)
+        }
+        return data
     }
+
+//    fun setFragment1(){
+//        val fragmentMonth : FragmentMonthDate = FragmentMonthDate()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.monthdate, fragmentMonth)
+//        transaction.commit()
+//    }
 
     fun setFragment2(){
         val fragmentMemo : FragmentMonthMemo = FragmentMonthMemo()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.monthmemo, FragmentMonthMemo.newInstance())
+        transaction.replace(R.id.monthmemo, fragmentMemo)
         transaction.commit()
     }
 
@@ -224,12 +276,14 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
                         Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
                         val memoMtW = Intent(this, MemoWeekActivity::class.java)
                         startActivity(memoMtW)
+                        finish()
                     }
                     //detect left side swipe
                     else {
                         Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
                         val memoMtD = Intent(this, MemoListActivity::class.java)
                         startActivity(memoMtD)
+                        finish()
 
 
                     }

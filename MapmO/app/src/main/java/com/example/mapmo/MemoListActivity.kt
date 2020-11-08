@@ -107,13 +107,14 @@ class MemoListActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
                         Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
                         val memoDtM = Intent(this, MemoMonthActivity::class.java)
                         startActivity(memoDtM)
+                        finish()
                     }
                     //detect left side swipe
                     else {
                         Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
                         val memoDtW = Intent(this, MemoWeekActivity::class.java)
                         startActivity(memoDtW)
-
+                        finish()
 
                     }
 

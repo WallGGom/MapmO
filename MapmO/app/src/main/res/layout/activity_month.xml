@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/Month"
+            android:id="@+id/MonthTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Month"
@@ -48,7 +48,27 @@
         <!--            app:backgroundTint="#F44336" />-->
 
     </LinearLayout>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/month_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityMonth">
+        <Button
+            android:id="@+id/previous_month"
+            android:text="이전"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <Button
+            android:id="@+id/next_month"
+            android:text="다음"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -148,7 +168,7 @@
         app:layout_constraintTop_toBottomOf="@+id/activityMonth" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/daysLayout"
+        android:id="@+id/daysLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
@@ -234,18 +254,28 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <fragment
-        android:id="@+id/monthdate"
-        android:name="com.example.mapmo.FragmentMonthDate"
-        android:layout_width="415dp"
-        android:layout_height="245dp"
-        android:layout_marginBottom="336dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/re_month_date"
+        android:name="com.example.mapmo.FragmentWeekDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysLayout"
-        tools:layout="@layout/fragment_month_date" />
+        app:layout_constraintTop_toBottomOf="@+id/daysLayout2"
+        />
+
+<!--    <fragment-->
+<!--        android:id="@+id/monthdate"-->
+<!--        android:name="com.example.mapmo.FragmentMonthDate"-->
+<!--        android:layout_width="415dp"-->
+<!--        android:layout_height="245dp"-->
+<!--        android:layout_marginBottom="336dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
+<!--        tools:layout="@layout/fragment_month_date" />-->
 
     <fragment
         android:id="@+id/monthmemo"
@@ -255,7 +285,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/monthdate"
+        app:layout_constraintTop_toBottomOf="@id/re_month_date"
         tools:layout="@layout/fragment_month_memo" />
 
 

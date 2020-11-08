@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/Week"
+            android:id="@+id/WeekTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Week"
@@ -45,7 +45,29 @@
         <!--            android:layout_height="wrap_content"-->
         <!--            android:text="월"-->
         <!--            app:backgroundTint="#4CAF50" />-->
+
     </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/week_control"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/activityWeek">
+        <Button
+            android:id="@+id/previous_week"
+            android:text="이전"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <Button
+            android:id="@+id/next_week"
+            android:text="다음"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/daysLayout"
@@ -53,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/teal_200"
-        app:layout_constraintTop_toBottomOf="@+id/activityWeek">
+        app:layout_constraintTop_toBottomOf="@id/week_control">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sunTxtView"
@@ -419,17 +441,25 @@
 
     <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-
-
-    <fragment
-        android:id="@+id/weekdate"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/re_week_date"
         android:name="com.example.mapmo.FragmentWeekDate"
         android:layout_width="409dp"
-        android:layout_height="38dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/daysLayout"
-        tools:layout="@layout/fragment_week_date" />
+        />
+
+<!--    <fragment-->
+<!--        android:id="@+id/weekdate"-->
+<!--        android:name="com.example.mapmo.FragmentWeekDate"-->
+<!--        android:layout_width="409dp"-->
+<!--        android:layout_height="38dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
+<!--        tools:layout="@layout/fragment_week_date" />-->
 
     <fragment
         android:id="@+id/weekmemo"
@@ -439,7 +469,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekdate"
+        app:layout_constraintTop_toBottomOf="@+id/re_week_date"
         tools:layout="@layout/fragment_week_memo" />
 
 
