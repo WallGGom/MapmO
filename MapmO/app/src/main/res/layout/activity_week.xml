@@ -32,6 +32,8 @@
             android:textSize="30sp"
             />
 
+
+
         <!--        <Button-->
         <!--            android:id="@+id/btn_week_to_day"-->
         <!--            android:layout_width="wrap_content"-->
@@ -47,26 +49,49 @@
         <!--            app:backgroundTint="#4CAF50" />-->
 
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/week_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="627dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/activityWeek">
+
+        <TextView
+            android:id="@+id/month2"
+            android:layout_width="34dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="187dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="188dp"
+            android:layout_marginBottom="20dp"
+            android:text="월"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activityMonth" />
+
         <Button
             android:id="@+id/previous_week"
-            android:text="이전"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="이전"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/next_week"
-            android:text="다음"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:text="다음"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -441,17 +466,7 @@
 
     <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/re_week_date"
-        android:name="com.example.mapmo.FragmentWeekDate"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysLayout"
-        />
-
-<!--    <fragment-->
+    <!--    <fragment-->
 <!--        android:id="@+id/weekdate"-->
 <!--        android:name="com.example.mapmo.FragmentWeekDate"-->
 <!--        android:layout_width="409dp"-->
@@ -460,6 +475,16 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
 <!--        tools:layout="@layout/fragment_week_date" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/re_week_date"
+        android:name="com.example.mapmo.FragmentWeekDate"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysLayout" />
 
     <fragment
         android:id="@+id/weekmemo"
@@ -471,6 +496,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/re_week_date"
         tools:layout="@layout/fragment_week_memo" />
+
+
+    <LinearLayout
+        android:layout_width="408dp"
+        android:layout_height="wrap_content"
+        android:scaleX="1"
+        tools:layout_editor_absoluteX="2dp">
+
+        <Button
+            android:id="@+id/goToDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DAY" />
+
+        <Button
+            android:id="@+id/goToWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WEEK" />
+
+        <Button
+            android:id="@+id/goToMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MONTH" />
+
+    </LinearLayout>
 
 
 

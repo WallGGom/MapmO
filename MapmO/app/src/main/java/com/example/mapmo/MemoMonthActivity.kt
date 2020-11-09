@@ -8,6 +8,8 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import kotlinx.android.synthetic.main.activity_memo_form.*
 import kotlinx.android.synthetic.main.activity_month.*
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -49,6 +51,23 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
+
+        val weekintent = Intent(this, MemoWeekActivity::class.java)
+        goToWeek.setOnClickListener{
+            startActivity(weekintent)
+        }
+
+        val dayintent = Intent(this, MainActivity::class.java)
+        goToDay.setOnClickListener{
+            startActivity(dayintent)
+        }
+
+        val monthintent = Intent(this, MemoMonthActivity::class.java)
+        goToMonth.setOnClickListener{
+            startActivity(monthintent)
+        }
+
+
         gestureDetector = GestureDetector(this, this)
         presentYear2 = today[0]
         presentMonth2 = today[1]

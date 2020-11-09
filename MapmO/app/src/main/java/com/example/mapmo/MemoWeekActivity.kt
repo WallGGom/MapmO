@@ -10,7 +10,12 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
+import kotlinx.android.synthetic.main.activity_week.goToDay
+import kotlinx.android.synthetic.main.activity_week.goToMonth
+import kotlinx.android.synthetic.main.activity_week.goToWeek
 import java.util.*
 
 class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -40,8 +45,23 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
-        gestureDetector = GestureDetector(this, this)
 
+        val weekintent = Intent(this, MemoWeekActivity::class.java)
+        goToWeek.setOnClickListener{
+            startActivity(weekintent)
+        }
+
+        val dayintent = Intent(this, MainActivity::class.java)
+        goToDay.setOnClickListener{
+            startActivity(dayintent)
+        }
+
+        val monthintent = Intent(this, MemoMonthActivity::class.java)
+        goToMonth.setOnClickListener{
+            startActivity(monthintent)
+        }
+
+        gestureDetector = GestureDetector(this, this)
         presentYear = today[0]
         presentMonth = today[1]
         presentWeek = Week.WeekCal(today[0],today[1],today[2],today[3])
