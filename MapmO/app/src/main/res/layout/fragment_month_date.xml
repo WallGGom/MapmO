@@ -25,6 +25,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFFFFF"
+
+            android:gravity="center_horizontal"
             android:textColor="#E91E63"
             android:textColorLink="#009688"
             android:textSize="24sp" />
@@ -36,7 +38,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tuedayTxtView"
@@ -45,16 +49,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:textSize="24sp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            style="@style/days_style"
-            android:background="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/weddayTxtView"
@@ -64,7 +61,21 @@
             style="@style/days_style"
             android:background="#FFFFFF"
             android:textSize="24sp"
-            />
+            android:textAlignment="center"
+            android:gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            style="@style/days_style"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/fridayTxtView"
@@ -73,7 +84,9 @@
             android:layout_weight="1"
             style="@style/days_style"
             android:background="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/satdayTxtView"
@@ -83,7 +96,9 @@
             style="@style/days_style"
             android:background="#FFFFFF"
             android:textColor="#3F51B5"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -126,7 +141,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView2"
+            android:id="@+id/weddayTxtView2"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -136,7 +151,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/weddayTxtView2"
+            android:id="@+id/thudayTxtView2"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -144,6 +159,8 @@
             android:background="#FFFFFF"
             android:textSize="24sp"
             />
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/fridayTxtView2"
@@ -206,8 +223,9 @@
             android:textSize="24sp"
             />
 
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView3"
+            android:id="@+id/weddayTxtView3"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -217,7 +235,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/weddayTxtView3"
+            android:id="@+id/thudayTxtView3"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -287,8 +305,10 @@
             android:textSize="24sp"
             />
 
+
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView4"
+            android:id="@+id/weddayTxtView4"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -298,7 +318,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/weddayTxtView4"
+            android:id="@+id/thudayTxtView4"
             style="@style/days_style"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -367,15 +387,7 @@
             android:textSize="24sp"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView5"
-            style="@style/days_style"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:textSize="24sp"
-            />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/weddayTxtView5"
@@ -386,6 +398,17 @@
             android:background="#FFFFFF"
             android:textSize="24sp"
             />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView5"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/fridayTxtView5"
@@ -447,15 +470,6 @@
             android:textSize="24sp"
             />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/thudayTxtView6"
-            style="@style/days_style"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:textSize="24sp"
-            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/weddayTxtView6"
@@ -466,6 +480,19 @@
             android:background="#FFFFFF"
             android:textSize="24sp"
             />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/thudayTxtView6"
+            style="@style/days_style"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="24sp"
+            />
+
+
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/fridayTxtView6"

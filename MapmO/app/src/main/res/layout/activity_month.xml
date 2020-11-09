@@ -152,15 +152,14 @@
 
     <TextView
         android:id="@+id/month2"
-        android:layout_width="36dp"
-        android:layout_height="31dp"
+        android:layout_width="148dp"
+        android:layout_height="30dp"
         android:layout_marginStart="187dp"
-        android:layout_marginLeft="187dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="188dp"
-        android:layout_marginRight="188dp"
         android:layout_marginBottom="24dp"
         android:text="월"
+        android:gravity="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/daysLayout"
         app:layout_constraintEnd_toEndOf="parent"

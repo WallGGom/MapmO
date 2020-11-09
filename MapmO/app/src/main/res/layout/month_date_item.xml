@@ -7,8 +7,11 @@
     <TextView
         android:id="@+id/month_date"
         android:layout_width="0dp"
+        android:gravity="center"
         android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:clickable="false"
         android:text="date"/>
 
 </LinearLayout>

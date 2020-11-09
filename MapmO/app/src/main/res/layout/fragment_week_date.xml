@@ -14,6 +14,9 @@
         android:id="@+id/sundayTxtView"
         style="@style/days_style"
         android:background="#FFFFFF"
+        android:gravity="center"
+
+        android:text="1"
         android:textColor="#E91E63"
         android:textColorLink="#009688"
         app:layout_constraintDimensionRatio="2:1"
@@ -25,6 +28,8 @@
         android:id="@+id/mondayTxtView"
         style="@style/days_style"
         android:background="#FFFFFF"
+        android:gravity="center"
+        android:text="2"
         app:layout_constraintDimensionRatio="2:1"
         app:layout_constraintEnd_toStartOf="@+id/tuedayTxtView"
         app:layout_constraintStart_toEndOf="@+id/sundayTxtView"
