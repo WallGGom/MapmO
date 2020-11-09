@@ -1,7 +1,9 @@
 package com.example.mapmo.uicomponents.activities.landing
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
@@ -10,6 +12,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +42,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        checkPermission()
 
         mRecyclerView = findViewById(R.id.listOfNoteRecyclerView)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -125,5 +132,59 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+    val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+    val PERM_LOCATION = 99
+
+    private fun checkPermission() {
+        var permitted_all = true
+        for (permission in permissions) {
+            val result = ContextCompat.checkSelfPermission(this, permission)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                permitted_all = false
+                requestPermission()
+                break
+            }
+        }
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(this, permissions, PERM_LOCATION)
+    }
+
+    private fun confirmAgain() {
+        AlertDialog.Builder(this)
+            .setTitle("권한 승인 확인")
+            .setMessage("위치 관련 권한을 모두 승인하셔야 앱을 사용할 수 있습니다. 권한 스인을 다시 하시겠습니까?")
+            .setPositiveButton("네", { _, _-> requestPermission()})
+            .setNegativeButton("아니요", { _, _-> finish()})
+            .create()
+            .show()
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            99 -> {
+                var granted_all = true
+                for (result in grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        granted_all = false
+                        break
+                    }
+                }
+                if (granted_all) {
+                    Log.e("success", "정상")
+                } else {
+                    confirmAgain()
+                }
+            }
+        }
+
     }
 }
