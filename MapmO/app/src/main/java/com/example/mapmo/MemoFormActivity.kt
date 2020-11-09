@@ -17,16 +17,16 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.room.Room
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import kotlinx.android.synthetic.main.activity_memo_form.*
-import kotlinx.android.synthetic.main.item_pager.*
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.mapmo.MemoRoom as MemoRoom
 
 class MemoFormActivity : AppCompatActivity() {
 
@@ -49,6 +49,8 @@ class MemoFormActivity : AppCompatActivity() {
 
     val FLAG_REQ_CAMERA = 101
     val FLAG_REQ_STORAGE = 102
+
+    private var memoRoomHelper : MemoRoomHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -131,8 +133,9 @@ class MemoFormActivity : AppCompatActivity() {
             // Log.d("What the type", "${dateTv.text}")
             if (Title.text.toString().isNotEmpty() && Content.text.toString().isNotEmpty()) {
                 val memo = MemoRoom(Title.text.toString(), Content.text.toString(), Place.text.toString(), System.currentTimeMillis(), 0, 0, dateTv.text.toString(), timeTv.text.toString(), switchAlarm.isChecked, alarmSettime)
+                Log.e("memo", memo.toString())
                 helper?.memoRoomDao()?.insert(memo)
-                Log.d("memo", memo.title)
+                Log.e("memo", memo.title)
                 val mainIntent = Intent(this, MainActivity::class.java)
                 startActivity(mainIntent)
             } else {
