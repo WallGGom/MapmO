@@ -33,9 +33,9 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
 class MonthHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(listdata: ListMonthData, flag: Boolean) {
         if (!flag) {
-//            itemView.month_date.text = "${listdata.number}"
-            itemView.month_date.text = "없엉"
-//            itemView.month_date.setTextColor(255)
+            itemView.month_date.text = "${listdata.number}"
+            //itemView.month_date.text = "없엉"
+            itemView.month_date.setTextColor(-0x808080)
             itemView.month_date.isClickable = false
         } else {
             itemView.month_date.text = "${listdata.number}"
