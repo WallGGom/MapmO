@@ -13,6 +13,7 @@
         android:clickable="false"
         android:gravity="center"
         android:text="date"
+        android:textSize="20sp"
         android:textColor="@color/black" />
 
 </LinearLayout>

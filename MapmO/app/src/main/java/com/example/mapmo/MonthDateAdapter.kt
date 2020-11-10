@@ -40,6 +40,8 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
 
         if (year % 4 == 0) {
             endDateMap[2] = 29
+        } else {
+            endDateMap[2] = 28
         }
         var data = listData.get(position)
         if ((data.number == 1) and (!flag)) {
