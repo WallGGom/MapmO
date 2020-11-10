@@ -59,6 +59,9 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         month2.text = presentYear2.toString() + "년" + presentMonth2.toString() + "월"
 
         adapter.listData = data
+        adapter.year = presentYear2
+        adapter.month = presentMonth2
+        adapter.flag = false
         re_month_date.adapter = adapter
         re_month_date.layoutManager = GridLayoutManager(this, 7)
         previous_month.setOnClickListener {
@@ -69,6 +72,9 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             presentWeek2 = monthResult.get("weeks") as MutableList<Int>
             data = setMonthData(presentWeek2)
             adapter.listData = data
+            adapter.year = presentYear2
+            adapter.month = presentMonth2
+            adapter.flag = false
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
             month2.text = presentYear2.toString() + "년" + presentMonth2.toString() + "월"
@@ -84,6 +90,9 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             presentWeek2 = monthResult.get("weeks") as MutableList<Int>
             data = setMonthData(presentWeek2)
             adapter.listData = data
+            adapter.year = presentYear2
+            adapter.month = presentMonth2
+            adapter.flag = false
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
             month2.text = presentYear2.toString() + "년" + presentMonth2.toString() + "월"
