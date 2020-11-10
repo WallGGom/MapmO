@@ -2,21 +2,22 @@ package com.example.mapmo.uicomponents.activities.makenote
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.mapmo.R
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.*
+
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,6 +29,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.example.mapmo.R
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.*
 
@@ -43,6 +45,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
+    var pickAddress: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_maps)
@@ -54,6 +58,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         checkPermission()
         initPlaces()
         setupPlacesAutocomplete()
+
+        btn_save_location.setOnClickListener{
+            intent = Intent(this, MakeNoteActivity::class.java)
+            Log.e("Address", pickAddress)
+        }
     }
 
     private fun setupPlacesAutocomplete() {
@@ -61,7 +70,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
         autocompleteFragment.setPlaceFields(placeFields)
 
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+        autocompleteFragment.setOnPlaceSelectedListener(object: PlaceSelectionListener {
             override fun onPlaceSelected(p0: Place) {
                 val LATLNG = LatLng(p0.latLng!!.latitude, p0.latLng!!.longitude)
                 val markerOptions = MarkerOptions()
@@ -80,7 +89,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
             // 오류 발생시 Toast 메시지 출력
             override fun onError(p0: Status) {
-                Toast.makeText(this@MapsActivity, "" + p0.statusMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MapsActivity, ""+p0.statusMessage, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -147,11 +156,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult?.let {
                     for((i, location) in it.locations.withIndex()) {
-                        Log.e("Updated bearing", location.bearing.toString())
-                        Log.e("Updated altitude", location.altitude.toString())
-                        Log.e("Updated accuracy", location.accuracy.toString())
-                        Log.e("Updated provider", location.provider.toString())
-                        Log.e("Updated extras", location.extras.toString())
                         Log.d("Updated Location", "$i ${location.latitude}, ${location.longitude}")
                         btn_get_current_place.setOnClickListener {
                             setLastLocation(location)
@@ -163,11 +167,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             if (listAddresses.size > 0) {
                                 val _Location: String = listAddresses[0].getAddressLine(0)
                                 Log.d("Updated Address", "$i ${_Location}")
+                                pickAddress = _Location
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
-
                     }
                 }
             }
@@ -175,7 +179,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
     }
 
-    fun setLastLocation(lastLocation: Location) {
+    fun setLastLocation (lastLocation: Location) {
         val LATLNG = LatLng(lastLocation.latitude, lastLocation.longitude)
         val markerOptions = MarkerOptions()
                 .position(LATLNG)
@@ -216,9 +220,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     fun confirmAgain() {
         AlertDialog.Builder(this)
                 .setTitle("권한 승인 확인")
-                .setMessage("위치 관련 권한을 모두 승인하셔야 앱을 사용할 수 있습니다. 권한 스인을 다시 하시겠습니까?")
-                .setPositiveButton("네", { _, _ -> requestPermission() })
-                .setNegativeButton("아니요", { _, _ -> finish() })
+                .setMessage("위치 관련 권한을 모두 승인하셔야 앱을 사용할 수 있습니다. 권한 승인을 다시 하시겠습니까?")
+                .setPositiveButton("네", { _, _-> requestPermission()})
+                .setNegativeButton("아니요", { _, _-> finish()})
                 .create()
                 .show()
     }
@@ -248,6 +252,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-
     }
 }
