@@ -10,6 +10,10 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="date"/>
+        android:text="date"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
 </LinearLayout>
