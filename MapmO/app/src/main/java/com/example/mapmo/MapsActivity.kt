@@ -142,7 +142,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult?.let {
                     for((i, location) in it.locations.withIndex()) {
-                        Log.d("Updated Location", "$i ${location.latitude}, ${location.longitude}")
+//                        Log.e("Updated bearing", location.bearing.toString())
+//                        Log.e("Updated altitude", location.altitude.toString())
+//                        Log.e("Updated accuracy", location.accuracy.toString())
+//                        Log.e("Updated provider", location.provider.toString())
+//                        Log.e("Updated extras", location.extras.toString())
+                        Log.d("Updated Location", "$i => ${location.latitude}, ${location.longitude}")
                         btn_get_current_place.setOnClickListener {
                             setLastLocation(location)
                         }
@@ -170,7 +175,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
-    val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+    val permissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
     val PERM_LOCATION = 99
 
     fun checkPermission() {

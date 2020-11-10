@@ -4,12 +4,14 @@
     <!-- 카메라 권한 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 저장소 읽기 권한 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 저장소 쓰기 권한 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 도시 블록 내에서 정확한 위치(네트워크 위치) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 정확한 위치 확보(네트워크 위치 + GPS 위치) -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 도시 블록 내에서 정확한 위치(네트워크 위치) -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
+        android:name=".work.RestAreaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
