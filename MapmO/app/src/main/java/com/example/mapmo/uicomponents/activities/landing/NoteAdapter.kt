@@ -42,7 +42,8 @@ class NoteAdapter(var context: Context,
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val noteModel:NoteModel = mNoteList[position]
         holder.noteTitle.text = noteModel.noteTitle
-        holder.noteDesc.text= noteModel.noteDescription
+        holder.noteDesc.text = noteModel.noteDescription
+        holder.createdAt.text = noteModel.createdAt
         holder.itemView.tag = noteModel
         holder.deleteNote.tag = noteModel
         holder.editNote.tag = noteModel
@@ -52,6 +53,8 @@ class NoteAdapter(var context: Context,
 
         holder.noteTitle.setTextColor(context.resources.getColor(android.R.color.white))
         holder.noteDesc.setTextColor(context.resources.getColor(android.R.color.white))
+        holder.createdAt.setTextColor(context.resources.getColor(android.R.color.white))
+
 
         when(noteModel.noteColor){
             1 ->
@@ -66,6 +69,7 @@ class NoteAdapter(var context: Context,
             else -> {
                 holder.noteTitle.setTextColor(context.resources.getColor(android.R.color.darker_gray))
                 holder.noteDesc.setTextColor(context.resources.getColor(android.R.color.darker_gray))
+                holder.createdAt.setTextColor(context.resources.getColor(android.R.color.darker_gray))
                 holder.relativeBack.setBackgroundColor(context.resources.getColor(android.R.color.white))
             }
         }
@@ -80,6 +84,7 @@ class NoteAdapter(var context: Context,
         var relativeBack: RelativeLayout = itemView.findViewById(R.id.relativeBackground)
         var noteTitle: TextView = itemView.findViewById(R.id.noteTitle)
         var noteDesc: TextView = itemView.findViewById(R.id.noteDescription)
+        var createdAt: TextView = itemView.findViewById(R.id.created_at)
         var deleteNote : ImageView = itemView.findViewById(R.id.deleteBtn)
         var editNote : ImageView = itemView.findViewById(R.id.editBtn)
     }

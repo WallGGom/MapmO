@@ -2,19 +2,22 @@ package com.example.mapmo.uicomponents.activities.viewnote
 
 import android.R
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.net.toUri
 import com.example.mapmo.common.Constants
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.uicomponents.activities.makenote.MakeNoteActivity
 import com.example.mapmo.uicomponents.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
-import org.w3c.dom.Text
-
+import kotlinx.android.synthetic.main.content_view_note.*
 
 class ViewNote : BaseActivity() {
 
@@ -25,7 +28,11 @@ class ViewNote : BaseActivity() {
 
     var textPlanDate: TextView? = null
     var textPlanTime: TextView? = null
+    var textAlarmChecked: TextView? = null
+    var textAlarmTime: TextView? = null
+    var textImageView: ImageView? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.mapmo.R.layout.activity_view_note)
@@ -35,19 +42,29 @@ class ViewNote : BaseActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        linearBackground = findViewById(com.example.mapmo.R.id.contentBackground)
+        linearBackground = findViewById(com.example.mapmo.R.id.readImageView)
 
         mNoteModel = intent.extras!!.getSerializable(Constants.SELECTED_NOTE) as NoteModel
 
+        // 데이터 넣기
         val noteTitle = mNoteModel?.noteTitle
         val noteDesc = mNoteModel?.noteDescription
         val notePlanDate = mNoteModel?.planDate
         val notePlanTime = mNoteModel?.planTime
+        val noteAlarmChecked = mNoteModel?.alarmCheck
+        val noteAlarmTime = mNoteModel?.alarmSettime
+        val noteImage = mNoteModel?.image
 
+        // 변수 = ID 매핑
         textNoteHead = findViewById(com.example.mapmo.R.id.noteHead)
         textNoteDesc = findViewById(com.example.mapmo.R.id.noteContent)
+
         textPlanDate = findViewById(com.example.mapmo.R.id.readDateTv)
-        textPlanTime =findViewById(com.example.mapmo.R.id.readTimeTv)
+        textPlanTime = findViewById(com.example.mapmo.R.id.readTimeTv)
+
+        textAlarmChecked = findViewById(com.example.mapmo.R.id.readAlarmCheck)
+        textAlarmTime = findViewById(com.example.mapmo.R.id.readAlarmTime)
+        textImageView = findViewById(com.example.mapmo.R.id.imageView)
 
         // 이미 작성된 메모
         if (mNoteModel!=null && !TextUtils.isEmpty(noteTitle)){
@@ -56,7 +73,7 @@ class ViewNote : BaseActivity() {
             textNoteHead?.text = noteTitle
 
             // 메모내용(Description) 입력
-            if (!TextUtils.isEmpty(noteTitle)){
+            if (!TextUtils.isEmpty(noteDesc)){
                 textNoteDesc?.text = noteDesc
             }
 
@@ -65,8 +82,18 @@ class ViewNote : BaseActivity() {
             }
             if (!TextUtils.isEmpty(notePlanTime)) {
                 textPlanTime?.text = notePlanTime
+                textAlarmTime?.text = noteAlarmTime
+                if (noteAlarmChecked == true) {
+                    textAlarmChecked?.text = "On"
+                } else {
+                    textAlarmChecked?.text = "Off"
+                }
             } else {
                 textPlanTime?.text = "메모 일정이 없습니다."
+                textViewAlarm.text = ""
+                textAlarmChecked?.text = ""
+                textAlarmTime?.text = ""
+
             }
             // 메모 색상 입력
             val background = mNoteModel!!.noteColor
@@ -92,6 +119,10 @@ class ViewNote : BaseActivity() {
                         textNoteDesc!!.setTextColor(resources.getColor(R.color.darker_gray))
                     }
                 }
+            }
+
+            if (!TextUtils.isEmpty(noteImage)) {
+                textImageView!!.setImageURI(noteImage?.toUri())
             }
         }
     }

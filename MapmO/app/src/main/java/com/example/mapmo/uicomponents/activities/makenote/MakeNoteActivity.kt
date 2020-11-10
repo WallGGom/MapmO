@@ -1,6 +1,7 @@
 package com.example.mapmo.uicomponents.activities.makenote
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -16,12 +17,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.example.mapmo.R
@@ -36,11 +36,11 @@ import kotlinx.android.synthetic.main.activity_note.*
 import kotlinx.android.synthetic.main.content_make_note.*
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
-
-
-
+@SuppressLint("UseSwitchCompatOrMaterialCode")
 class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
         // 알람 시간 선택
@@ -77,6 +77,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     private var mBtnDefault : MaterialButton? = null
     private var mNoteColor = -1
 
+    private var mNoteImage: ImageView? = null
     private var mNotePlanDate: TextView? = null
     private var mNotePlanTime: TextView? = null
 
@@ -110,34 +111,40 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 view, year, month, dayOfMonth -> dateTv.setText(""+ year + "년" + (month+1) + "월" + dayOfMonth + "일"
             )
             }, year, month, day)
-
             dpd.show()
         }
         // 시간 선택(pickTimeBtn 클릭)
         pickTimeBtn.setOnClickListener {
-            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                c.set(Calendar.HOUR_OF_DAY, hour)
-                c.set(Calendar.MINUTE, minute)
+            if (dateTv.length() > 0) {
+                val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                    c.set(Calendar.HOUR_OF_DAY, hour)
+                    c.set(Calendar.MINUTE, minute)
 
-                timeTv.text = SimpleDateFormat("HH시 mm분").format(c.time)
-            }
-            TimePickerDialog(
+                    timeTv.text = SimpleDateFormat("HH시 mm분").format(c.time)
+                }
+                TimePickerDialog(
                     this,
                     timeSetListener,
                     c.get(Calendar.HOUR_OF_DAY),
                     c.get(Calendar.MINUTE),
                     true
-            ).show()
-
+                ).show()
+            } else {
+                Toast.makeText(this, "날짜를 먼저 선택해주세요!", Toast.LENGTH_LONG).show()
+            }
         }
 
         switchAlarm.setOnCheckedChangeListener{CompoundButton, onSwitch ->
-            if (onSwitch) {
-                spinner.isClickable = true
+            if (timeTv.length() > 0) {
+                if (onSwitch) {
+                    spinner.isClickable = true
+                } else {
+                    spinner.isClickable = false
+                }
             } else {
-                spinner.isClickable = false
+                switchAlarm.isChecked = false
+                Toast.makeText(this, "날짜/시간을 먼저 선택해주세요!", Toast.LENGTH_LONG).show()
             }
-
         }
 
         // 지도검색 버튼을 누르면 MapsActivity로 이동 - intent
@@ -158,9 +165,11 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
         mNoteTitle = findViewById(R.id.addNoteTitle)
         mNoteDesc = findViewById(R.id.addNoteDescription)
+
+        mNoteImage = findViewById(R.id.imagePreview)
+
         mNotePlanDate = findViewById(R.id.dateTv)
         mNotePlanTime = findViewById(R.id.timeTv)
-
 
         mNoteModel = intent.extras?.getSerializable(Constants.SELECTED_NOTE) as NoteModel?
 
@@ -172,6 +181,12 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
             actionBar!!.title = getString(R.string.edit_note)
             mNoteTitle?.setText(mNoteModel?.noteTitle)
             mNoteDesc?.setText(mNoteModel?.noteDescription)
+
+            if (mNoteModel?.image != null) {
+                val uri = mNoteModel?.image!!.toUri()
+                imagePreview.setImageURI(uri)
+            }
+
             mNoteColor = mNoteModel!!.noteColor
             dateTv.text = mNoteModel?.planDate.toString()
             timeTv.text = mNoteModel?.planTime.toString()
@@ -182,6 +197,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
             mNoteColor = -1
         }
 
+        // 메모 색상관련 코드
         mBtnRed = findViewById(R.id.btnRed)
         mBtnRed!!.backgroundTintList = ContextCompat.getColorStateList(this@MakeNoteActivity, android.R.color.holo_red_light)
         mBtnRed!!.setOnClickListener(this)
@@ -241,13 +257,14 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
     fun saveImageFile(filename:String, mimeType:String, bitmap: Bitmap) : Uri? {
         var values = ContentValues()
+        // 저장할 파일이름과 마임타입 설정
         values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
         values.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
-//        values.put(MediaStore.Images.Media.IS_PENDING, 1)
-
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            values.put(MediaStore.Images.Media.IS_PENDING, 1)
-//        }
+        
+        // Q이상이면 다른 곳에서 내가 사용하는 데이터 요청 무시
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            values.put(MediaStore.Images.Media.IS_PENDING, 1)
+        }
 
         val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
 
@@ -271,13 +288,14 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         return uri
     }
 
+    // 촬영한 사진은 중복되지 않도록 이름 설정
     fun newFileName() : String {
         val sdf = SimpleDateFormat("yyyyMMdd_HHmmss")
         val filename = sdf.format(System.currentTimeMillis())
-
         return "$filename.jpg"
     }
-
+    var uri2: Uri? = null
+    // 전달된 비트맵을 saveImageFile에서 전처리하고, 반환된 Uri를 이미지뷰에 세팅
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK) {
@@ -309,6 +327,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         return true
     }
 
+    @SuppressLint("NewApi")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId)
         {
@@ -318,6 +337,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("NewApi")
     override fun onClick(v: View) {
         when(v.id){
             R.id.fab_make_note ->
@@ -359,7 +379,11 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         }
     }
 
+    // 유효성검사 및 메모저장
+    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun validateAndSaveNote(){
+
         // 제목 미입력시 작성 유도
         if (!mAppUtils.isInputEditTextFilled(addNoteTitle!!, addNoteLayout!!, getString(R.string.note_title_error))) {
             return
@@ -368,25 +392,45 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
             return
         }*/
         else {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd/ HH:mm")
+            val formatted = current.format(formatter)
             mAppLogger.debug(mTag,"Proceed with saving to DB ")
 
             if(isEditNote){
                 mNoteModel?.noteTitle = addNoteTitle.text.toString()
                 mNoteModel?.noteDescription = addNoteDescription.text.toString()
-                mNoteModel?.dateSaved = Date()
                 mNoteModel?.noteColor = mNoteColor
+                mNoteModel?.image = uri2.toString()
+                mNoteModel?.voice = ""
+                mNoteModel?.place = ""
+                mNoteModel?.latitude = 0.0
+                mNoteModel?.longitude = 0.0
+                mNoteModel?.planDate = dateTv.text.toString()
+                mNoteModel?.planTime = timeTv.text.toString()
+                mNoteModel?.alarmCheck = switchAlarm.isChecked
+                mNoteModel?.alarmSettime = ""
+                mNoteModel?.alarmOnOff = false
                 mNoteModel?.let { mEditNoteModel?.updateNote(it) }
             }
             else {
-                var noteModel = NoteModel(null,addNoteTitle.text.toString(),
+                var noteModel = NoteModel(
+                    null,
+                        addNoteTitle.text.toString(),
                         addNoteDescription.text.toString(),
-                        Date(),mNoteColor,
+                        formatted,
+                        mNoteColor,
+                        uri2.toString(),
+                    "",
+                        Place.text.toString(),
+                        0.0,
+                        0.0,
                         dateTv.text.toString(),
                         timeTv.text.toString(),
+                        switchAlarm.isChecked,
+                        "",
                         false,
-                        ""
                         )
-
                 mAddNoteModel?.addNote(noteModel)
             }
             closeActivity()

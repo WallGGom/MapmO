@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".uicomponents.activities.viewnote.ViewNote"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:layout_margin="@dimen/margin_10"
-    >
+    android:contentDescription="memoImage"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".uicomponents.activities.viewnote.ViewNote">
+
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/contentBackground"
+            android:id="@+id/readImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,9 +38,17 @@
                 android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="memoImage"
+                tools:srcCompat="@tools:sample/avatars" />
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/readDateTv"
@@ -57,6 +65,29 @@
                     android:layout_margin="@dimen/margin_10"
                     android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="알림여부" />
+
+                <TextView
+                    android:id="@+id/readAlarmTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/readAlarmCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
             </TableRow>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
