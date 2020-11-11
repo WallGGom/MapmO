@@ -42,20 +42,20 @@ class MemoListActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         var now = LocalDate.now()
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 //        editTextDate.text = Strnow
-        helper = Room.databaseBuilder(this, MemoRoomHelper::class.java, "room_memo").allowMainThreadQueries().build()
-        var temp = helper?.memoRoomDao()?.getAll()
-        Log.e("temp", temp.toString())
-        dayList.addAll(helper?.memoRoomDao()?.getAll() ?: mutableListOf())
-        Log.e("list", dayList.toString())
-
-
-        val adapter = MemoRecyclerAdapter(dayList, 1)
-        adapter.helper = helper
-        adapter.notifyDataSetChanged()
-
-        day_rec.adapter = adapter
-        day_rec.layoutManager = LinearLayoutManager(this)
-        day_rec.setHasFixedSize(true)
+//        helper = Room.databaseBuilder(this, MemoRoomHelper::class.java, "room_memo").allowMainThreadQueries().build()
+//        var temp = helper?.memoRoomDao()?.getAll()
+//        Log.e("temp", temp.toString())
+//        dayList.addAll(helper?.memoRoomDao()?.getAll() ?: mutableListOf())
+//        Log.e("list", dayList.toString())
+//
+//
+//        val adapter = MemoRecyclerAdapter(dayList, 1)
+//        adapter.helper = helper
+//        adapter.notifyDataSetChanged()
+//
+//        day_rec.adapter = adapter
+//        day_rec.layoutManager = LinearLayoutManager(this)
+//        day_rec.setHasFixedSize(true)
 
 
         //주 단위로 보여주기로 이동

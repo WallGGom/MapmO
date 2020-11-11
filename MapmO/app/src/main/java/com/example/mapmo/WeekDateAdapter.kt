@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.month_date_item.view.*
+import androidx.room.Room
+import com.example.mapmo.db.NoteDataBase
 import kotlinx.android.synthetic.main.week_date_item.view.*
 
-class WeekDateAdapter : RecyclerView.Adapter<WeekHolder>() {
+class WeekDateAdapter(val itemClick: (ListWeekData) -> Unit) : RecyclerView.Adapter<WeekDateAdapter.WeekHolder>() {
     var listData = mutableListOf<ListWeekData>()
     var step: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeekHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.week_date_item, parent, false)
-        return WeekHolder(view)
+
+    return WeekHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -26,7 +28,6 @@ class WeekDateAdapter : RecyclerView.Adapter<WeekHolder>() {
         var data = listData.get(position)
         holder.bind(data, step)
     }
-}
 
 class WeekHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(listdata: ListWeekData, step:Int) {

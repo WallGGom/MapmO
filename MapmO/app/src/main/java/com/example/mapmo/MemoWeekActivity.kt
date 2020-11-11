@@ -4,22 +4,43 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_month.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.mapmo.db.NoteDataBase
+import com.example.mapmo.models.NoteModel
 import kotlinx.android.synthetic.main.activity_week.*
+import kotlinx.android.synthetic.main.activity_week.week_rec
+import kotlinx.android.synthetic.main.fragment_week_memo.*
 import java.util.*
 
 class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     var today = Utils.timeGenerator()
     var presentYear = 0
     var presentMonth = 0
+    var previousMonth = 0
+    var previousYear = 0
+    var presentYearStr = ""
+    var presentMonthStr = ""
+    var previousMonthStr = ""
+    var previousYearStr = ""
+    var startDateStr = ""
+    var endDateStr = ""
+    var stdDateStr = ""
     var presentWeek = mutableListOf<Int>(0,0,0,0,0,0,0)
     var weekResult = mutableMapOf<String, Any>()
+    var helper: NoteDataBase? = null
+    var mNoteList: MutableList<NoteModel>? = null
+    var mNoteList2: MutableList<NoteModel>? = null
+    lateinit var weekAdapter: MemoRecyclerAdapter
+    val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    var mNoteDataBase : NoteDataBase? = null
 
     //swipe
     lateinit var gestureDetector: GestureDetector
@@ -56,14 +77,75 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 
         presentYear = today[0]
         presentMonth = today[1]
+
+
+        presentYearStr = convInt(presentYear)
+        presentMonthStr = convInt(presentMonth)
+
         presentWeek = Week.WeekCal(today[0],today[1],today[2],today[3])
+
+        mNoteDataBase = NoteDataBase.getInstance(this)
+
         var data:MutableList<ListWeekData> = setWeekData(presentWeek)
-        var adapter = WeekDateAdapter()
-        what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+        Log.e("data", data.toString())
+        startDateStr = convInt(data.get(0).number)
+        endDateStr = convInt(data.get(6).number)
+        previousMonthStr = presentMonthStr
+        previousYearStr = presentYearStr
+        if (data.get(6).number < 7) {
+            previousMonth = presentMonth - 1
+            if (previousMonth == 0) {
+                previousMonth = 12
+                previousYear = presentYear - 1
+                previousYearStr = convInt(previousYear)
+            }
+            previousMonthStr = convInt(previousMonth)
+        }
+        Log.e("toast", "%$previousYearStr/$previousMonthStr/$startDateStr")
+        Log.e("toast", "%$presentYearStr/$presentMonthStr/$endDateStr")
+
+        var addRunnable = Runnable {
+            try {
+                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$previousYearStr/$previousMonthStr/$startDateStr", endDate = "$presentYearStr/$presentMonthStr/$endDateStr")
+                Log.e("temp1", mNoteList.toString())
+
+            } catch (e: Exception) {
+                Log.d("tag", "Error - $e")
+            }
+        }
+        var addThread = Thread(addRunnable)
+        addThread.start()
+        var adapter = WeekDateAdapter() { listdata ->
+//            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            stdDateStr = convInt(listdata.number)
+            Log.e("toast", "%$presentYearStr/$presentMonthStr/$stdDateStr")
+            mNoteList2 = mutableListOf()
+            for (pick in mNoteList!!) {
+                if ((pick.createdAt.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr")) {
+                    Log.e("note", pick.toString())
+                    mNoteList2?.add(pick)
+                }
+            }
+            Log.e("note", mNoteList2.toString())
+            weekAdapter = MemoRecyclerAdapter(mNoteList2, 2)
+            weekAdapter.notifyDataSetChanged()
+            week_rec.adapter = weekAdapter
+            week_rec.layoutManager = linearLayoutManager
+            week_rec.setHasFixedSize(true)
+
+
+        }
 
         adapter.listData = data
         re_week_date.adapter = adapter
         re_week_date.layoutManager = GridLayoutManager(this, 7)
+
+
+
+
+
+
+
         previous_week.setOnClickListener {
             // Log.d("What the type", "${dateTv.text}")
 
@@ -76,7 +158,41 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             adapter.listData = data
             re_week_date.adapter = adapter
             re_week_date.layoutManager = GridLayoutManager(this, 7)
-            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+            presentYearStr = convInt(presentYear)
+            presentMonthStr = convInt(presentMonth)
+            previousMonthStr = presentMonthStr
+            previousYearStr = presentYearStr
+            if (data.get(6).number < 7) {
+                previousMonth = presentMonth - 1
+                if (previousMonth == 0) {
+                    previousMonth = 12
+                    previousYear = presentYear - 1
+                    previousYearStr = convInt(previousYear)
+                }
+                previousMonthStr = convInt(previousMonth)
+            }
+
+            startDateStr = convInt(data.get(0).number)
+            endDateStr = convInt(data.get(6).number)
+            Log.e("toast", "%$previousYearStr/$previousMonthStr/$startDateStr")
+            Log.e("toast", "%$presentYearStr/$presentMonthStr/$endDateStr")
+            addRunnable = Runnable {
+                try {
+//                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllInDay(stdDate = "%$presentYearStr/$presentMonthStr/$stdDateStr")
+                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$previousYearStr/$previousMonthStr/$startDateStr", endDate = "$presentYearStr/$presentMonthStr/$endDateStr")
+                    Log.e("temp1", mNoteList.toString())
+
+                } catch (e: Exception) {
+                    Log.d("tag", "Error - $e")
+                }
+            }
+            addThread = Thread(addRunnable)
+            addThread.start()
+//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+//            weekAdapter.notifyDataSetChanged()
+//            week_rec.adapter = weekAdapter
+//            week_rec.layoutManager = linearLayoutManager
+//            week_rec.setHasFixedSize(true)
         }
 
         next_week.setOnClickListener {
@@ -90,11 +206,45 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             adapter.listData = data
             re_week_date.adapter = adapter
             re_week_date.layoutManager = GridLayoutManager(this, 7)
-            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+            presentYearStr = convInt(presentYear)
+            presentMonthStr = convInt(presentMonth)
+            previousMonthStr = presentMonthStr
+            previousYearStr = presentYearStr
+            if (data.get(6).number < 7) {
+                previousMonth = presentMonth - 1
+                if (previousMonth == 0) {
+                    previousMonth = 12
+                    previousYear = presentYear - 1
+                    previousYearStr = convInt(previousYear)
+                }
+                previousMonthStr = convInt(previousMonth)
+            }
+
+            startDateStr = convInt(data.get(0).number)
+            endDateStr = convInt(data.get(6).number)
+            Log.e("toast", "%$previousYearStr/$previousMonthStr/$startDateStr")
+            Log.e("toast", "%$presentYearStr/$presentMonthStr/$endDateStr")
+            addRunnable = Runnable {
+                try {
+//                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllInDay(stdDate = "%$presentYearStr/$presentMonthStr/$stdDateStr")
+                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$previousYearStr/$previousMonthStr/$startDateStr", endDate = "$presentYearStr/$presentMonthStr/$endDateStr")
+                    Log.e("temp1", mNoteList.toString())
+
+                } catch (e: Exception) {
+                    Log.d("tag", "Error - $e")
+                }
+            }
+            addThread = Thread(addRunnable)
+            addThread.start()
+//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+//            weekAdapter.notifyDataSetChanged()
+//            week_rec.adapter = weekAdapter
+//            week_rec.layoutManager = linearLayoutManager
+//            week_rec.setHasFixedSize(true)
         }
 
 //        setFragment1()
-        setFragment2()
+//        setFragment2()
     }
 
 //    fun setFragment1(){
@@ -112,13 +262,23 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         return data
     }
 
-
-    fun setFragment2(){
-        val fragmentMemo : FragmentWeekMemo = FragmentWeekMemo()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.weekmemo,fragmentMemo)
-        transaction.commit()
+    fun convInt(num:Int): String{
+        var tempNum = num.toString()
+        if (tempNum.length == 1) {
+            tempNum = "0$tempNum"
+        }
+        return tempNum
     }
+
+//    fun setFragment2(){
+//        val fragmentMemo : FragmentWeekMemo = FragmentWeekMemo()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        val bundle = Bundle()
+//        bundle.putString("key", "value")
+//        fragmentMemo.arguments(bundle)
+//        transaction.replace(R.id.weekmemo,fragmentMemo)
+//        transaction.commit()
+//    }
 
 
 

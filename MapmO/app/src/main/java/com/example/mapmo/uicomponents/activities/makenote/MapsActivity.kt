@@ -2,6 +2,7 @@ package com.example.mapmo.uicomponents.activities.makenote
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -46,6 +47,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     var placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG)
 
     var pickAddress: String = ""
+    var pickLatitude: Double = 0.0
+    var pickLongitude: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +61,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         checkPermission()
         initPlaces()
         setupPlacesAutocomplete()
+//        val intent = Intent(this, MakeNoteActivity::class.java)
+//        Log.e("Address", pickAddress)
+//        Toast.makeText(this, pickAddress, Toast.LENGTH_SHORT).show()
 
         btn_save_location.setOnClickListener{
-            intent = Intent(this, MakeNoteActivity::class.java)
-            Log.e("Address", pickAddress)
+            val returnIntent = Intent()
+            returnIntent.putExtra("pickAddress", pickAddress)
+            returnIntent.putExtra("pickLatitude", pickLatitude)
+            returnIntent.putExtra("pickLongitude", pickLongitude)
+            setResult(Activity.RESULT_OK, returnIntent)
+            finish()
         }
     }
 
@@ -81,7 +91,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .target(LATLNG)
                         .zoom(17.0f)
                         .build()
-
+                Log.e("검색 결과(장소)", p0.name!!)
+                pickAddress = p0.name!!
+                pickLongitude = p0.latLng!!.longitude
+                pickLatitude = p0.latLng!!.latitude
                 // 마커 추가 및 카메라 이동
                 mMap.addMarker(markerOptions)
                 mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
@@ -166,8 +179,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 //                            Log.d("Updated Address", listAddresses.toString())
                             if (listAddresses.size > 0) {
                                 val _Location: String = listAddresses[0].getAddressLine(0)
-                                Log.d("Updated Address", "$i ${_Location}")
+                                Log.d("Updated Location)", "$i ${_Location}")
                                 pickAddress = _Location
+                                pickLatitude = listAddresses[0].latitude
+                                pickLongitude = listAddresses[0].longitude
                             }
                         } catch (e: Exception) {
                             e.printStackTrace()
