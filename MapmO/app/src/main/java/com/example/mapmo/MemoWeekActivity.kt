@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import kotlinx.android.synthetic.main.activity_week.*
 import kotlinx.android.synthetic.main.activity_week.week_rec
 import kotlinx.android.synthetic.main.fragment_week_memo.*
@@ -66,7 +67,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 
         //button
         week_to_day.setOnClickListener{
-            val memoWtD = Intent(this, MemoListActivity::class.java)
+            val memoWtD = Intent(this, MainActivity::class.java)
             startActivity(memoWtD)
         }
 
