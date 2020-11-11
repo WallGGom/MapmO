@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_month.*
+import kotlinx.android.synthetic.main.activity_week.*
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     var today = Utils.timeGenerator()
@@ -50,6 +51,19 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
         gestureDetector = GestureDetector(this, this)
+
+        //button
+        month_to_day.setOnClickListener{
+            val memoMtD = Intent(this, MemoListActivity::class.java)
+            startActivity(memoMtD)
+        }
+
+        month_to_week.setOnClickListener{
+            val memoMtW = Intent(this, MemoWeekActivity::class.java)
+            startActivity(memoMtW)
+        }
+
+
         presentYear2 = today[0]
         presentMonth2 = today[1]
         presentWeek2 = Month.MonthCal(today[0],today[1],today[2],today[3], today[4])

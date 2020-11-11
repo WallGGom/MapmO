@@ -1,5 +1,6 @@
 package com.example.mapmo
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
             12 to 31
     )
     var cnt = 0
+    var step: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.month_date_item, parent, false)
         return MonthHolder(view)
@@ -37,7 +39,7 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
     }
 
     override fun onBindViewHolder(holder: MonthHolder, position: Int) {
-
+        step = position
         if (year % 4 == 0) {
             endDateMap[2] = 29
         } else {
@@ -51,14 +53,20 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
             flag = false
         }
 
-        holder.bind(data, flag, cnt)
+        holder.bind(data, flag, cnt, step)
     }
 }
 
 class MonthHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int) {
+    fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
         Log.e("position", cnt.toString())
+        if (step % 7 == 0) {
+            itemView.month_date.setTextColor(Color.parseColor("#FF0000"))
+        } else if (step % 7 == 6) {
+            itemView.month_date.setTextColor(Color.parseColor("#0000FF"))
+        }
+
         if (!flag) {
             itemView.month_date.text = "${listdata.number}"
             //itemView.month_date.text = "없엉"

@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 import java.util.*
 
@@ -42,11 +43,23 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         setContentView(R.layout.activity_week)
         gestureDetector = GestureDetector(this, this)
 
+        //button
+        week_to_day.setOnClickListener{
+            val memoWtD = Intent(this, MemoListActivity::class.java)
+            startActivity(memoWtD)
+        }
+
+        week_to_month.setOnClickListener{
+            val memoWtM = Intent(this, MemoMonthActivity::class.java)
+            startActivity(memoWtM)
+        }
+
         presentYear = today[0]
         presentMonth = today[1]
         presentWeek = Week.WeekCal(today[0],today[1],today[2],today[3])
         var data:MutableList<ListWeekData> = setWeekData(presentWeek)
         var adapter = WeekDateAdapter()
+        what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
         adapter.listData = data
         re_week_date.adapter = adapter
@@ -63,6 +76,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             adapter.listData = data
             re_week_date.adapter = adapter
             re_week_date.layoutManager = GridLayoutManager(this, 7)
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
         }
 
         next_week.setOnClickListener {
@@ -76,6 +90,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             adapter.listData = data
             re_week_date.adapter = adapter
             re_week_date.layoutManager = GridLayoutManager(this, 7)
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
         }
 
 //        setFragment1()

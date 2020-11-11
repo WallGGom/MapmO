@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFCFC"
+    android:background="@drawable/mint"
     tools:context=".MemoWeekActivity">
 
     <LinearLayout
@@ -14,6 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="616dp"
         android:orientation="vertical"
+        android:paddingTop="20dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,14 +24,51 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/logo" />
+
+            <Space
+                android:layout_width="140dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/week_to_day"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Day"
+                android:textSize="12sp"
+                app:backgroundTint="#00FFFFFF" />
+
+            <Button
+                android:id="@+id/week_to_month"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF "
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Month"
+                android:textSize="12sp" />
+        </TableRow>
+
         <TextView
             android:id="@+id/WeekTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="Week"
-            android:textColor="#009688"
-            android:textSize="30sp"
-            />
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_week_to_day"-->
@@ -58,7 +96,7 @@
             android:layout_height="34dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/leftarrow"
-            app:backgroundTint="@color/teal_700"
+            app:backgroundTint="@color/lgt_gray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -68,27 +106,44 @@
             android:layout_height="34dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/rightarrow"
-            app:backgroundTint="@color/teal_700"
+            app:backgroundTint="@color/lgt_gray"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/what_week"
+        android:layout_width="148dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="187dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="188dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="월"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/daysLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityMonth" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/daysLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/teal_200"
+
         app:layout_constraintTop_toBottomOf="@id/week_control">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sunTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="일"
-            android:textColor="#FFFFFF"
+            android:textColor="#E91E63"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/monTxtView"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,12 +151,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/monTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="월"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/tueTxtView"
             app:layout_constraintStart_toEndOf="@+id/sunTxtView"
@@ -109,12 +164,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tueTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="화"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/wedTxtView"
             app:layout_constraintStart_toEndOf="@+id/monTxtView"
@@ -122,12 +177,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/wedTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="수"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/thuTxtView"
             app:layout_constraintStart_toEndOf="@+id/tueTxtView"
@@ -135,12 +190,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/thuTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="목"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/friTxtView"
             app:layout_constraintStart_toEndOf="@+id/wedTxtView"
@@ -148,12 +203,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/friTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="금"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/satTxtView"
             app:layout_constraintStart_toEndOf="@+id/thuTxtView"
@@ -161,12 +216,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/satTxtView"
-            android:gravity="center"
-            android:layout_height="0dp"
             android:layout_width="0dp"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:layout_height="0dp"
+            android:gravity="center"
             android:text="토"
+            android:textColor="#3F51B5"
+            android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/friTxtView"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/mint"
     tools:context=".MemoListActivity">
 
 
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Day"
-            android:textColor="#009688"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
         <!--        <Button-->
