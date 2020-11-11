@@ -15,6 +15,13 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_5"
+            android:text="메모 색상을 선택해주세요." />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,13 +76,6 @@
                 android:hint="@string/note_title" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_5"
-            android:text="메모 색상을 선택해주세요." />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addNoteDescriptionLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -87,6 +87,7 @@
                 android:id="@+id/addNoteDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
                 android:hint="내용을 입력해주세요."
                 android:minHeight="250dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -184,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
-                android:text="검색결과" />
+                android:text="주소를 검색해주세요." />
 
             <Button
                 android:id="@+id/btnSearch"
