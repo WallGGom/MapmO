@@ -7,15 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.mapmo.db.NoteDataBase
+import com.example.mapmo.models.NoteModel
 import kotlinx.android.synthetic.main.fragment_month_memo.*
 
 
 class FragmentMonthMemo : Fragment() {
-
-    var helper:MemoRoomHelper? = null
-    private var monthList = mutableListOf<MemoRoom>()
+    var helper:NoteDataBase? = null
+    private var monthList = mutableListOf<NoteModel>()
     lateinit var monthAdapter: MemoRecyclerAdapter
     private val linearLayoutManager by lazy { LinearLayoutManager(context) }
 
@@ -47,12 +49,14 @@ class FragmentMonthMemo : Fragment() {
         //        val ctx2 = context ?: return
         val ctx2 = requireContext()
 
-        helper = Room.databaseBuilder(ctx2, MemoRoomHelper::class.java, "room_memo").allowMainThreadQueries().build()
-        monthList.addAll(helper?.memoRoomDao()?.getAll() ?: mutableListOf())
+//        var temp = NoteDataBase.getInstance(ctx2)?.noteItemAndNotesModel()?.getAll()
+//        helper = Room.databaseBuilder(ctx2, NoteDataBase::class.java, "room_memo").allowMainThreadQueries().build()
+//        Log.e("temp", temp.toString())
+//        monthList.addAll(temp ?: mutableListOf())
         Log.e("list", monthList.toString())
 
         val adapter = MemoRecyclerAdapter(monthList, 3)
-        adapter.helper = helper
+//        adapter.helper = helper
         adapter.notifyDataSetChanged()
 
         month_rec.adapter = adapter

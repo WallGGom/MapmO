@@ -193,17 +193,25 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
 <!--        tools:layout="@layout/fragment_week_date" />-->
-
-    <fragment
-        android:id="@+id/weekmemo"
-        android:name="com.example.mapmo.FragmentWeekMemo"
-        android:layout_width="410dp"
-        android:layout_height="540dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/week_rec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/re_week_date"
-        tools:layout="@layout/fragment_week_memo" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/weekmemo"-->
+<!--        android:name="com.example.mapmo.FragmentWeekMemo"-->
+<!--        android:layout_width="410dp"-->
+<!--        android:layout_height="540dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/re_week_date"-->
+<!--        tools:layout="@layout/fragment_week_memo" />-->
 
 
 

@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mapmo.R
 import com.example.mapmo.models.NoteModel
 
-class NoteAdapter(var context: Context,
-                  noteList:List<NoteModel>,
-                  onClickListener: View.OnClickListener ,
-                  onDeletePressed: View.OnClickListener ,
-                  onEditPressed :  View.OnClickListener
+class NoteAdapter(
+    var context: Context,
+    noteList:List<NoteModel>,
+    onClickListener: View.OnClickListener,
+    onDeletePressed: View.OnClickListener,
+    onEditPressed:  View.OnClickListener
                   ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private var mNoteList:List<NoteModel>

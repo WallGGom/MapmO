@@ -8,6 +8,9 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mapmo.db.NoteDataBase
+import com.example.mapmo.models.NoteModel
 import kotlinx.android.synthetic.main.activity_month.*
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
@@ -16,6 +19,12 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
     var presentMonth2 = 0
     var presentWeek2 = mutableListOf(0,0,0,0,0,0,0)
     var monthResult = mutableMapOf<String, Any>()
+    var helper: NoteDataBase? = null
+    var weekList = mutableListOf<NoteModel>()
+    lateinit var monthAdapter: MemoRecyclerAdapter
+    val linearLayoutManager by lazy { LinearLayoutManager(this) }
+    var mNoteDataBase : NoteDataBase? = null
+
     //swipe
     lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
@@ -55,7 +64,11 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         presentWeek2 = Month.MonthCal(today[0],today[1],today[2],today[3], today[4])
         Log.e("weeks", presentWeek2.toString())
         var data:MutableList<ListMonthData> = setMonthData(presentWeek2)
-        var adapter = MonthDateAdapter()
+        var adapter = MonthDateAdapter() { listdata ->
+//            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            Log.e("toast", listdata.toString())
+
+        }
         month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
 
         adapter.listData = data
@@ -64,6 +77,28 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         adapter.flag = false
         re_month_date.adapter = adapter
         re_month_date.layoutManager = GridLayoutManager(this, 7)
+
+        var mNoteList: MutableList<NoteModel>? = null
+        mNoteDataBase = NoteDataBase.getInstance(this)
+
+        var addRunnable = Runnable {
+            try {
+                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
+                Log.e("temp1", mNoteList.toString())
+                monthAdapter = MemoRecyclerAdapter(mNoteList!!, 3)
+                monthAdapter.notifyDataSetChanged()
+                month_rec.adapter = monthAdapter
+                month_rec.layoutManager = linearLayoutManager
+                month_rec.setHasFixedSize(true)
+            } catch (e: Exception) {
+                Log.d("tag", "Error - $e")
+            }
+        }
+        var addThread = Thread(addRunnable)
+        addThread.start()
+
+
+
         previous_month.setOnClickListener {
             monthResult = Month.PreMonth(presentYear2, presentMonth2, presentWeek2)
             Log.e("weeks", monthResult.toString())
@@ -100,7 +135,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
 
 //        setFragment1()
-        setFragment2()
+//        setFragment2()
 
     }
     fun setMonthData(list: MutableList<Int>): MutableList<ListMonthData>{
@@ -119,12 +154,12 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 //        transaction.commit()
 //    }
 
-    fun setFragment2(){
-        val fragmentMemo : FragmentMonthMemo = FragmentMonthMemo()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.monthmemo, fragmentMemo)
-        transaction.commit()
-    }
+//    fun setFragment2(){
+//        val fragmentMemo : FragmentMonthMemo = FragmentMonthMemo()
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.monthmemo, fragmentMemo)
+//        transaction.commit()
+//    }
 
 
     //calendar

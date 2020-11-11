@@ -2,8 +2,8 @@ package com.example.mapmo.application
 
 import android.app.Application
 import androidx.lifecycle.ProcessLifecycleOwner
-import leakcanary.AppWatcher
-import leakcanary.LeakCanary
+//import leakcanary.AppWatcher
+//import leakcanary.LeakCanary
 
 class NoteApp(): Application() {
 
@@ -14,7 +14,7 @@ class NoteApp(): Application() {
         //Initiate listening to minimal of app start and stop events
         ProcessLifecycleOwner.get().lifecycle.addObserver(NoteAppEventListener(this))
 
-        AppWatcher.config = AppWatcher.config.copy(watchFragmentViews = false)
+//        AppWatcher.config = AppWatcher.config.copy(watchFragmentViews = false)
         
     }
 
