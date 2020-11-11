@@ -23,5 +23,4 @@ data class NoteModel(@PrimaryKey(autoGenerate = true)
                      var alarmCheck: Boolean, // 알림여부
                      var alarmSettime: String, // 알림설정시간
                      var alarmOnOff : Boolean, // 알림 켜기|끄기
-
                      ) : Serializable

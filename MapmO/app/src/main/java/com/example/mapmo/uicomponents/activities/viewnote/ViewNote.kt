@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.net.toUri
@@ -26,11 +27,15 @@ class ViewNote : BaseActivity() {
     var textNoteDesc : TextView? = null
     var linearBackground : LinearLayoutCompat? = null
 
+    var textPlace: TextView? = null
     var textPlanDate: TextView? = null
     var textPlanTime: TextView? = null
     var textAlarmChecked: TextView? = null
     var textAlarmTime: TextView? = null
     var textImageView: ImageView? = null
+
+    var textLatitude: TextView? = null
+    var textLongitude: TextView? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,29 +47,39 @@ class ViewNote : BaseActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        linearBackground = findViewById(com.example.mapmo.R.id.readImageView)
+        linearBackground = findViewById(com.example.mapmo.R.id.readView)
 
         mNoteModel = intent.extras!!.getSerializable(Constants.SELECTED_NOTE) as NoteModel
 
         // 데이터 넣기
         val noteTitle = mNoteModel?.noteTitle
         val noteDesc = mNoteModel?.noteDescription
+        val notePlace = mNoteModel?.place
         val notePlanDate = mNoteModel?.planDate
         val notePlanTime = mNoteModel?.planTime
         val noteAlarmChecked = mNoteModel?.alarmCheck
         val noteAlarmTime = mNoteModel?.alarmSettime
         val noteImage = mNoteModel?.image
+        showToast("${noteImage}")
+
+        val noteLatitude = mNoteModel?.latitude
+        val noteLongitude = mNoteModel?.longitude
 
         // 변수 = ID 매핑
         textNoteHead = findViewById(com.example.mapmo.R.id.noteHead)
         textNoteDesc = findViewById(com.example.mapmo.R.id.noteContent)
+
+        textPlace = findViewById(com.example.mapmo.R.id.readPlace)
 
         textPlanDate = findViewById(com.example.mapmo.R.id.readDateTv)
         textPlanTime = findViewById(com.example.mapmo.R.id.readTimeTv)
 
         textAlarmChecked = findViewById(com.example.mapmo.R.id.readAlarmCheck)
         textAlarmTime = findViewById(com.example.mapmo.R.id.readAlarmTime)
-        textImageView = findViewById(com.example.mapmo.R.id.imageView)
+        textImageView = findViewById(com.example.mapmo.R.id.readImageView)
+
+        textLatitude = findViewById(com.example.mapmo.R.id.readLatitude)
+        textLongitude = findViewById(com.example.mapmo.R.id.readLongitude)
 
         // 이미 작성된 메모
         if (mNoteModel!=null && !TextUtils.isEmpty(noteTitle)){
@@ -73,13 +88,20 @@ class ViewNote : BaseActivity() {
             textNoteHead?.text = noteTitle
 
             // 메모내용(Description) 입력
-            if (!TextUtils.isEmpty(noteDesc)){
+            if (!TextUtils.isEmpty(noteDesc)) {
                 textNoteDesc?.text = noteDesc
             }
 
+            if (!TextUtils.isEmpty(notePlace)) {
+                textPlace?.text = notePlace
+            }
             if (!TextUtils.isEmpty(notePlanDate)) {
                 textPlanDate?.text = notePlanDate
             }
+
+            textLongitude?.text = noteLongitude.toString()
+            textLatitude?.text = noteLatitude.toString()
+
             if (!TextUtils.isEmpty(notePlanTime)) {
                 textPlanTime?.text = notePlanTime
                 textAlarmTime?.text = noteAlarmTime
@@ -122,6 +144,8 @@ class ViewNote : BaseActivity() {
             }
 
             if (!TextUtils.isEmpty(noteImage)) {
+                textImageView!!.setImageURI(noteImage?.toUri())
+            } else {
                 textImageView!!.setImageURI(noteImage?.toUri())
             }
         }

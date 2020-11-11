@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_pager.view.*
+//import kotlinx.android.synthetic.main.item_pager.view.*
 import java.text.SimpleDateFormat
 
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
