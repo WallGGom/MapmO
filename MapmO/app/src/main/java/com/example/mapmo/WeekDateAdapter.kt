@@ -16,7 +16,7 @@ class WeekDateAdapter(val itemClick: (ListWeekData) -> Unit) : RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeekHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.week_date_item, parent, false)
 
-    return WeekHolder(view, itemClick)
+        return WeekHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -24,11 +24,10 @@ class WeekDateAdapter(val itemClick: (ListWeekData) -> Unit) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: WeekHolder, position: Int) {
-        step=position
+        step = position
         var data = listData.get(position)
         holder.bind(data, step)
     }
-
     inner class WeekHolder(itemView: View, itemClick: (ListWeekData) -> Unit) : RecyclerView.ViewHolder(itemView) {
         fun bind(listdata: ListWeekData, step:Int) {
             itemView.week_date.text = "${listdata.number}"
@@ -37,7 +36,8 @@ class WeekDateAdapter(val itemClick: (ListWeekData) -> Unit) : RecyclerView.Adap
             } else if (step % 7 == 6) {
                 itemView.week_date.setTextColor(Color.parseColor("#0000FF"))
             }
-            itemView.setOnClickListener{itemClick(listdata)}
+            itemView.setOnClickListener{ itemClick(listdata) }
         }
     }
 }
+

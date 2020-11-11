@@ -59,6 +59,11 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
 
         fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
             Log.e("position", cnt.toString())
+            if (step % 7 == 0) {
+                itemView.month_date.setTextColor(Color.parseColor("#FF0000"))
+            } else if (step % 7 == 6) {
+                itemView.month_date.setTextColor(Color.parseColor("#0000FF"))
+            }
 
             fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
                 Log.e("position", cnt.toString())
