@@ -57,29 +57,31 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
     }
     inner class MonthHolder(itemView: View, itemClick2: (ListMonthData) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int) {
+        fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
             Log.e("position", cnt.toString())
 
-    fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
-        Log.e("position", cnt.toString())
-        if (step % 7 == 0) {
-            itemView.month_date.setTextColor(Color.parseColor("#FF0000"))
-        } else if (step % 7 == 6) {
-            itemView.month_date.setTextColor(Color.parseColor("#0000FF"))
-        }
+            fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
+                Log.e("position", cnt.toString())
+                if (step % 7 == 0) {
+                    itemView.month_date.setTextColor(Color.parseColor("#FF0000"))
+                } else if (step % 7 == 6) {
+                    itemView.month_date.setTextColor(Color.parseColor("#0000FF"))
+                }
 
-        if (!flag) {
-            itemView.month_date.text = "${listdata.number}"
-            //itemView.month_date.text = "없엉"
-            itemView.month_date.setTextColor(-0x808080)
-            itemView.month_date.isClickable = false
-        } else {
-            itemView.month_date.text = "${listdata.number}"
+                if (!flag) {
+                    itemView.month_date.text = "${listdata.number}"
+                    //itemView.month_date.text = "없엉"
+                    itemView.month_date.setTextColor(-0x808080)
+                    itemView.month_date.isClickable = false
+                    itemView.setOnClickListener { itemClick2(listdata) }
+                } else {
+                    itemView.month_date.text = "${listdata.number}"
 //            itemView.month_date.setTextColor(0)
-                itemView.month_date.isClickable = false
-                itemView.setOnClickListener{ itemClick2(listdata) }
-            }
+                    itemView.month_date.isClickable = false
+                    itemView.setOnClickListener { itemClick2(listdata) }
+                }
 
+            }
         }
     }
 }

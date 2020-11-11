@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
@@ -63,7 +64,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
         //button
         month_to_day.setOnClickListener{
-            val memoMtD = Intent(this, MemoListActivity::class.java)
+            val memoMtD = Intent(this, MainActivity::class.java)
             startActivity(memoMtD)
         }
 

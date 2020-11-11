@@ -29,13 +29,15 @@ class WeekDateAdapter(val itemClick: (ListWeekData) -> Unit) : RecyclerView.Adap
         holder.bind(data, step)
     }
 
-class WeekHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    fun bind(listdata: ListWeekData, step:Int) {
-        itemView.week_date.text = "${listdata.number}"
-        if (step % 7 == 0) {
-            itemView.week_date.setTextColor(Color.parseColor("#FF0000"))
-        } else if (step % 7 == 6) {
-            itemView.week_date.setTextColor(Color.parseColor("#0000FF"))
+    inner class WeekHolder(itemView: View, itemClick: (ListWeekData) -> Unit) : RecyclerView.ViewHolder(itemView) {
+        fun bind(listdata: ListWeekData, step:Int) {
+            itemView.week_date.text = "${listdata.number}"
+            if (step % 7 == 0) {
+                itemView.week_date.setTextColor(Color.parseColor("#FF0000"))
+            } else if (step % 7 == 6) {
+                itemView.week_date.setTextColor(Color.parseColor("#0000FF"))
+            }
+            itemView.setOnClickListener{itemClick(listdata)}
         }
     }
 }
