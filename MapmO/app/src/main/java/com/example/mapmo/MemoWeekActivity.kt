@@ -188,11 +188,11 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
-//            weekAdapter.notifyDataSetChanged()
-//            week_rec.adapter = weekAdapter
-//            week_rec.layoutManager = linearLayoutManager
-//            week_rec.setHasFixedSize(true)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            weekAdapter.notifyDataSetChanged()
+            week_rec.adapter = weekAdapter
+            week_rec.layoutManager = linearLayoutManager
+            week_rec.setHasFixedSize(true)
         }
 
         next_week.setOnClickListener {
@@ -236,11 +236,11 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
-//            weekAdapter.notifyDataSetChanged()
-//            week_rec.adapter = weekAdapter
-//            week_rec.layoutManager = linearLayoutManager
-//            week_rec.setHasFixedSize(true)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            weekAdapter.notifyDataSetChanged()
+            week_rec.adapter = weekAdapter
+            week_rec.layoutManager = linearLayoutManager
+            week_rec.setHasFixedSize(true)
         }
 
 //        setFragment1()

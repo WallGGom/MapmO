@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
-import kotlinx.android.synthetic.main.item_pager.view.*
+
 import java.text.SimpleDateFormat
 
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
