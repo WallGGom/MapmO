@@ -31,6 +31,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     var presentMonthStr = ""
     var previousMonthStr = ""
     var previousYearStr = ""
+    var targetMonth = 0
+    var targetYear = 0
+    var targetMonthStr = ""
+    var targetYearStr = ""
     var startDateStr = ""
     var endDateStr = ""
     var stdDateStr = ""
@@ -79,7 +83,6 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         presentYear = today[0]
         presentMonth = today[1]
 
-
         presentYearStr = convInt(presentYear)
         presentMonthStr = convInt(presentMonth)
 
@@ -118,11 +121,30 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         addThread.start()
         var adapter = WeekDateAdapter() { listdata ->
 //            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+
             stdDateStr = convInt(listdata.number)
-            Log.e("toast", "%$presentYearStr/$presentMonthStr/$stdDateStr")
+            if (listdata.flag) {
+                if (listdata.flag2) {
+                    targetMonth = previousMonth
+                    Log.e("inside", targetMonth.toString())
+                    if (targetMonth == 12) {
+                        targetYear = previousYear
+                        targetYearStr = convInt(targetYear)
+                    }
+                    presentMonthStr = convInt(presentMonth)
+                } else {
+                    targetMonth = presentMonth
+                    targetMonthStr = convInt(targetMonth)
+                    targetYearStr = convInt(presentYear)
+                }
+            } else {
+                targetMonthStr = presentMonthStr
+                targetYearStr = presentYearStr
+            }
             mNoteList2 = mutableListOf()
+            Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
             for (pick in mNoteList!!) {
-                if ((pick.createdAt.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr")) {
+                if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }
@@ -203,6 +225,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             presentYear = weekResult.get("year") as Int
             presentMonth = weekResult.get("month") as Int
             presentWeek = weekResult.get("week") as MutableList<Int>
+
             data = setWeekData(presentWeek)
             adapter.listData = data
             re_week_date.adapter = adapter
@@ -257,7 +280,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     fun setWeekData(list: MutableList<Int>): MutableList<ListWeekData>{
         var data:MutableList<ListWeekData> = mutableListOf()
         for (num in list) {
-            var listData = ListWeekData(num)
+            var listData = ListWeekData(num, false, false)
             data.add(listData)
         }
         return data
