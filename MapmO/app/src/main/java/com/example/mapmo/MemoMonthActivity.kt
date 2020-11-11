@@ -15,12 +15,38 @@ import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
 class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+
+    var endDateMap = mutableMapOf(
+            1 to 31,
+            2 to 28,
+            3 to 31,
+            4 to 30,
+            5 to 31,
+            6 to 30,
+            7 to 31,
+            8 to 31,
+            9 to 30,
+            10 to 31,
+            11 to 30,
+            12 to 31
+    )
     var today = Utils.timeGenerator()
     var presentYear2 = 0
     var presentMonth2 = 0
+    var previousMonth2 = 0
+    var previousYear2 = 0
+    var presentYearStr2 = ""
+    var presentMonthStr2 = ""
+    var previousMonthStr2 = ""
+    var previousYearStr2 = ""
+    var startDateStr2 = ""
+    var endDateStr2 = ""
+    var stdDateStr2 = ""
     var presentWeek2 = mutableListOf(0,0,0,0,0,0,0)
     var monthResult = mutableMapOf<String, Any>()
     var helper: NoteDataBase? = null
+    var mNoteList: MutableList<NoteModel>? = null
+    var mNoteList2: MutableList<NoteModel>? = null
     var weekList = mutableListOf<NoteModel>()
     lateinit var monthAdapter: MemoRecyclerAdapter
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
@@ -75,15 +101,59 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
         presentYear2 = today[0]
         presentMonth2 = today[1]
+        if (presentYear2 % 4 == 0) {
+            endDateMap[2] = 29
+        } else {
+            endDateMap[2] = 28
+        }
+        presentYearStr2 = convInt(presentYear2)
+        presentMonthStr2 = convInt(presentMonth2)
+
         presentWeek2 = Month.MonthCal(today[0],today[1],today[2],today[3], today[4])
         Log.e("weeks", presentWeek2.toString())
+
+        mNoteDataBase = NoteDataBase.getInstance(this)
+
         var data:MutableList<ListMonthData> = setMonthData(presentWeek2)
+
+        month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
+        startDateStr2 = "01"
+        endDateStr2 = convInt(endDateMap[presentMonth2]!!)
+
+        Log.e("toast", "%$presentYearStr2/$presentMonthStr2/$startDateStr2")
+        Log.e("toast", "%$presentYearStr2/$presentMonthStr2/$endDateStr2")
+
+        var addRunnable = Runnable {
+            try {
+                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$presentYearStr2/$presentMonthStr2/$startDateStr2", endDate = "$presentYearStr2/$presentMonthStr2/$endDateStr2")
+                Log.e("temp1", mNoteList.toString())
+
+            } catch (e: Exception) {
+                Log.d("tag", "Error - $e")
+            }
+        }
+        var addThread = Thread(addRunnable)
+        addThread.start()
+
         var adapter = MonthDateAdapter() { listdata ->
 //            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
-            Log.e("toast", listdata.toString())
+            stdDateStr2 = convInt(listdata.number)
+            Log.e("toast", "%$presentYearStr2/$presentMonthStr2/$stdDateStr2")
+            mNoteList2 = mutableListOf()
+            for (pick in mNoteList!!) {
+                if ((pick.createdAt.slice(0..9) == "$presentYearStr2/$presentMonthStr2/$stdDateStr2") or (pick.planDate.slice(0..9) == "$presentYearStr2/$presentMonthStr2/$stdDateStr2")) {
+                    Log.e("note", pick.toString())
+                    mNoteList2?.add(pick)
+                }
+            }
+            Log.e("note", mNoteList2.toString())
+            monthAdapter = MemoRecyclerAdapter(mNoteList2, 2)
+            monthAdapter.notifyDataSetChanged()
+            month_rec.adapter = monthAdapter
+            month_rec.layoutManager = linearLayoutManager
+            month_rec.setHasFixedSize(true)
 
         }
-        month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
 
         adapter.listData = data
         adapter.year = presentYear2
@@ -92,24 +162,8 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
         re_month_date.adapter = adapter
         re_month_date.layoutManager = GridLayoutManager(this, 7)
 
-        var mNoteList: MutableList<NoteModel>? = null
-        mNoteDataBase = NoteDataBase.getInstance(this)
 
-        var addRunnable = Runnable {
-            try {
-                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
-                Log.e("temp1", mNoteList.toString())
-                monthAdapter = MemoRecyclerAdapter(mNoteList!!, 3)
-                monthAdapter.notifyDataSetChanged()
-                month_rec.adapter = monthAdapter
-                month_rec.layoutManager = linearLayoutManager
-                month_rec.setHasFixedSize(true)
-            } catch (e: Exception) {
-                Log.d("tag", "Error - $e")
-            }
-        }
-        var addThread = Thread(addRunnable)
-        addThread.start()
+
 
 
 
@@ -127,8 +181,26 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
             month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
-            //Log.e("하이", presentMonth2.toString())
-            //Log.e("바이", presentYear2.toString())
+            presentYearStr2 = convInt(presentYear2)
+            presentMonthStr2 = convInt(presentMonth2)
+            startDateStr2 = "01"
+            endDateStr2 = convInt(endDateMap[presentMonth2]!!)
+            addRunnable = Runnable {
+                try {
+                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$presentYearStr2/$presentMonthStr2/$startDateStr2", endDate = "$presentYearStr2/$presentMonthStr2/$endDateStr2")
+                    Log.e("temp1", mNoteList.toString())
+
+                } catch (e: Exception) {
+                    Log.d("tag", "Error - $e")
+                }
+            }
+            addThread = Thread(addRunnable)
+            addThread.start()
+            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            monthAdapter.notifyDataSetChanged()
+            month_rec.adapter = monthAdapter
+            month_rec.layoutManager = linearLayoutManager
+            month_rec.setHasFixedSize(true)
         }
 
         next_month.setOnClickListener {
@@ -145,6 +217,26 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
             month2.text = presentYear2.toString() + "년"+ " " + presentMonth2.toString() + "월"
+            presentYearStr2 = convInt(presentYear2)
+            presentMonthStr2 = convInt(presentMonth2)
+            startDateStr2 = "01"
+            endDateStr2 = convInt(endDateMap[presentMonth2]!!)
+            addRunnable = Runnable {
+                try {
+                    mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAllBetweenWeek(startDate = "$presentYearStr2/$presentMonthStr2/$startDateStr2", endDate = "$presentYearStr2/$presentMonthStr2/$endDateStr2")
+                    Log.e("temp1", mNoteList.toString())
+
+                } catch (e: Exception) {
+                    Log.d("tag", "Error - $e")
+                }
+            }
+            addThread = Thread(addRunnable)
+            addThread.start()
+            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            monthAdapter.notifyDataSetChanged()
+            month_rec.adapter = monthAdapter
+            month_rec.layoutManager = linearLayoutManager
+            month_rec.setHasFixedSize(true)
         }
 
 
@@ -159,6 +251,14 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             data.add(listData)
         }
         return data
+    }
+
+    fun convInt(num:Int): String{
+        var tempNum = num.toString()
+        if (tempNum.length == 1) {
+            tempNum = "0$tempNum"
+        }
+        return tempNum
     }
 
 //    fun setFragment1(){
