@@ -13,6 +13,7 @@ import com.example.mapmo.models.SecurityQuestionModel
 abstract class NoteDataBase : RoomDatabase(){
 
     abstract fun noteItemAndNotesModel(): NoteModelDao
+
     companion object {
         private var INSTANCE : NoteDataBase? =null
         fun getInstance(context : Context):NoteDataBase?{
@@ -26,8 +27,8 @@ abstract class NoteDataBase : RoomDatabase(){
             }
             return INSTANCE
         }
-        fun destroyInstance(){
-            INSTANCE =null
+        fun destroyInstance() {
+            INSTANCE = null
         }
     }
 }

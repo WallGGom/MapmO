@@ -2,14 +2,9 @@ package com.example.mapmo.uicomponents.activities.landing
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -65,7 +60,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         mRecyclerView = findViewById(R.id.listOfNoteRecyclerView)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mNoteAdapter = NoteAdapter(this,noteList = ArrayList<NoteModel>(),
+        mNoteAdapter = NoteAdapter(this, noteList = ArrayList<NoteModel>(),
             onClickListener = this,
             onDeletePressed = DeleteBtnClick(),
             onEditPressed = EditBtnClick()

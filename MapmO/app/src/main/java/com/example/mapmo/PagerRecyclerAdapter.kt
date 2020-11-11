@@ -8,13 +8,16 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-//import kotlinx.android.synthetic.main.item_pager.view.*
+import com.example.mapmo.db.NoteDataBase
+import com.example.mapmo.models.NoteModel
+import kotlinx.android.synthetic.main.item_pager.view.*
 import java.text.SimpleDateFormat
 
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
-class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var helper:MemoRoomHelper? = null
+class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//    var helper: NoteDataBase? = null
 ////    // listData는 MemoRoom에 저장된 데이터들로 사용
 ////    var listData = mutableListOf<MemoRoom>()
 
@@ -43,15 +46,15 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
         when (type) {
             1 -> {
                 holder as DayViewHolder
-                holder.bind(memos[position])
+                memos?.get(position)?.let { holder.bind(it) }
             }
             2 -> {
                 holder as WeekViewHolder
-                holder.bind(memos[position])
+                memos?.get(position)?.let { holder.bind(it) }
             }
             3 -> {
                 holder as MonthViewHolder
-                holder.bind(memos[position])
+                memos?.get(position)?.let { holder.bind(it) }
             }
 
         }
@@ -60,7 +63,10 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
 
     // 데이터 개수 불러오는 함수
     override fun getItemCount(): Int {
-        return memos.size
+        if (memos != null) {
+            return memos.size
+        }
+        return 0
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -68,7 +74,7 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
     }
 
     inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var mMemo:MemoRoom? = null
+        var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
 //            // 삭제버튼 클릭 = 메모 삭제
@@ -83,10 +89,10 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
         val contentTv1 = itemView.findViewById<TextView>(R.id.day_memoContent1)
         val alarmTv1 = itemView.findViewById<TextView>(R.id.day_alarm)
 
-        fun bind(memo: MemoRoom) {
-            titleTv1.text = memo.title
-            contentTv1.text = memo.content
-            if (memo.alarmcheck) {
+        fun bind(memo: NoteModel) {
+            titleTv1.text = memo.noteTitle
+            contentTv1.text = memo.noteDescription
+            if (memo.alarmCheck) {
                 alarmTv1.text = "On"
                 // 메모 실행(계획) 날짜 & 시간
 //                itemView.memo_alarm_date.text = memo.alarmdate
@@ -132,7 +138,7 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
     }
 
     inner class WeekViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var mMemo:MemoRoom? = null
+        var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
 //            // 삭제버튼 클릭 = 메모 삭제
@@ -147,10 +153,10 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
         val contentTv2 = itemView.findViewById<TextView>(R.id.week_memoContent2)
         val alarmTv2 = itemView.findViewById<TextView>(R.id.week_alarm2)
 
-        fun bind(memo: MemoRoom) {
-            titleTv2.text = memo.title
-            contentTv2.text = memo.content
-            if (memo.alarmcheck) {
+        fun bind(memo: NoteModel) {
+            titleTv2.text = memo.noteTitle
+            contentTv2.text = memo.noteDescription
+            if (memo.alarmCheck) {
                 alarmTv2.text = "On"
                 // 메모 실행(계획) 날짜 & 시간
 //                itemView.memo_alarm_date.text = memo.alarmdate
@@ -196,7 +202,7 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
     }
 
     inner class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var mMemo:MemoRoom? = null
+        var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
 //            // 삭제버튼 클릭 = 메모 삭제
@@ -211,10 +217,10 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
         val contentTv3 = itemView.findViewById<TextView>(R.id.month_memoContent1)
         val alarmTv3 = itemView.findViewById<TextView>(R.id.month_alarm)
 
-        fun bind(memo: MemoRoom) {
-            titleTv3.text = memo.title
-            contentTv3.text = memo.content
-            if (memo.alarmcheck) {
+        fun bind(memo: NoteModel) {
+            titleTv3.text = memo.noteTitle
+            contentTv3.text = memo.noteDescription
+            if (memo.alarmCheck) {
                 alarmTv3.text = "On"
                 // 메모 실행(계획) 날짜 & 시간
 //                itemView.memo_alarm_date.text = memo.alarmdate
@@ -297,3 +303,4 @@ class MemoRecyclerAdapter(val memos: MutableList<MemoRoom>, val type: Int) : Rec
 //    }
 
 }
+
