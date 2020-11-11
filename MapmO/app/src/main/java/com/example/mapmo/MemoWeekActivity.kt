@@ -64,8 +64,16 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         setContentView(R.layout.activity_week)
         gestureDetector = GestureDetector(this, this)
 
-        helper = Room.databaseBuilder(this, NoteDataBase::class.java, "room_memo").allowMainThreadQueries().build()
-        var temp = helper?.noteItemAndNotesModel()?.getAllNotes()
+        //button
+        week_to_day.setOnClickListener{
+            val memoWtD = Intent(this, MemoListActivity::class.java)
+            startActivity(memoWtD)
+        }
+
+        week_to_month.setOnClickListener{
+            val memoWtM = Intent(this, MemoMonthActivity::class.java)
+            startActivity(memoWtM)
+        }
 
         presentYear = today[0]
         presentMonth = today[1]

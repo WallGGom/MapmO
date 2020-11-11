@@ -1,5 +1,6 @@
 package com.example.mapmo
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
             12 to 31
     )
     var cnt = 0
+    var step: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.month_date_item, parent, false)
         return MonthHolder(view, itemClick2)
@@ -37,7 +39,7 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: MonthHolder, position: Int) {
-
+        step = position
         if (year % 4 == 0) {
             endDateMap[2] = 29
         } else {
@@ -51,21 +53,28 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
             flag = false
         }
 
-        holder.bind(data, flag, cnt)
+        holder.bind(data, flag, cnt, step)
     }
     inner class MonthHolder(itemView: View, itemClick2: (ListMonthData) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int) {
             Log.e("position", cnt.toString())
 
-            if (!flag) {
-                itemView.month_date.text = "${listdata.number}"
-                //itemView.month_date.text = "없엉"
-                itemView.month_date.setTextColor(-0x808080)
-                itemView.month_date.isClickable = true
-                itemView.setOnClickListener{ itemClick2(listdata) }
-            } else {
-                itemView.month_date.text = "${listdata.number}"
+    fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int, step: Int) {
+        Log.e("position", cnt.toString())
+        if (step % 7 == 0) {
+            itemView.month_date.setTextColor(Color.parseColor("#FF0000"))
+        } else if (step % 7 == 6) {
+            itemView.month_date.setTextColor(Color.parseColor("#0000FF"))
+        }
+
+        if (!flag) {
+            itemView.month_date.text = "${listdata.number}"
+            //itemView.month_date.text = "없엉"
+            itemView.month_date.setTextColor(-0x808080)
+            itemView.month_date.isClickable = false
+        } else {
+            itemView.month_date.text = "${listdata.number}"
 //            itemView.month_date.setTextColor(0)
                 itemView.month_date.isClickable = false
                 itemView.setOnClickListener{ itemClick2(listdata) }
@@ -74,4 +83,3 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
         }
     }
 }
-

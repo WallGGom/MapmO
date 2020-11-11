@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mapmo.MemoListActivity
+import com.example.mapmo.MemoMonthActivity
+import com.example.mapmo.MemoWeekActivity
 import com.example.mapmo.R
 import com.example.mapmo.common.Constants
 import com.example.mapmo.models.NoteListViewModel
@@ -71,10 +73,16 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             invokeNewNoteActivity()
         }
 
-        // 일 단위로 메모 보여주기로 이동
-        btn_to_memoList.setOnClickListener{
-            val memoListIntent = Intent(this, MemoListActivity::class.java)
-            startActivity(memoListIntent)
+        // 주 단위로 메모 보여주기로 이동
+        btn_to_week.setOnClickListener{
+            val memoDtW = Intent(this, MemoWeekActivity::class.java)
+            startActivity(memoDtW)
+        }
+
+        // 월 단위로 메모 보여주기로 이동
+        btn_to_month.setOnClickListener{
+            val memoDtM = Intent(this, MemoMonthActivity::class.java)
+            startActivity(memoDtM)
         }
 
         mNoteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel::class.java)

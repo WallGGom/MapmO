@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    tools:context=".MemoMonthActivity"
-    >
+    android:background="@drawable/mint"
+    tools:context=".MemoMonthActivity">
 
     <LinearLayout
         android:id="@+id/activityMonth"
@@ -16,23 +15,62 @@
         android:layout_marginBottom="616dp"
         android:orientation="vertical"
         android:paddingLeft="20dp"
+        android:paddingTop="20dp"
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                app:srcCompat="@drawable/logo" />
+
+            <Space
+                android:layout_width="140dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/month_to_day"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Day"
+                android:textSize="12sp"
+                app:backgroundTint="#00FFFFFF"
+                app:iconPadding="0dp" />
+
+            <Button
+                android:id="@+id/month_to_week"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF "
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Week"
+                android:textSize="12sp" />
+        </TableRow>
 
         <TextView
             android:id="@+id/MonthTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Month"
-            android:textColor="#009688"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/month_control"
         android:layout_width="match_parent"
@@ -45,7 +83,7 @@
             android:layout_height="34dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/leftarrow"
-            app:backgroundTint="@color/teal_700"
+            app:backgroundTint="@color/lgt_gray"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,13 +93,12 @@
             android:layout_height="34dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/rightarrow"
-            app:backgroundTint="@color/teal_700"
+            app:backgroundTint="@color/lgt_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <TextView
@@ -72,8 +109,9 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="188dp"
         android:layout_marginBottom="24dp"
-        android:text="월"
         android:gravity="center"
+        android:text="월"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/daysLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,14 +123,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        android:background="@color/teal_200"
         app:layout_constraintTop_toBottomOf="@+id/month2">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/sunTxtView"
             style="@style/days_style"
             android:text="일"
-            android:textColor="#FFFFFF"
+            android:textColor="#E91E63"
             android:textSize="20sp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/monTxtView"
@@ -103,7 +140,7 @@
             android:id="@+id/monTxtView"
             style="@style/days_style"
             android:text="월"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/tueTxtView"
@@ -114,7 +151,7 @@
             android:id="@+id/tueTxtView"
             style="@style/days_style"
             android:text="화"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/wedTxtView"
@@ -125,7 +162,7 @@
             android:id="@+id/wedTxtView"
             style="@style/days_style"
             android:text="수"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/thuTxtView"
@@ -136,7 +173,7 @@
             android:id="@+id/thuTxtView"
             style="@style/days_style"
             android:text="목"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/friTxtView"
@@ -147,7 +184,7 @@
             android:id="@+id/friTxtView"
             style="@style/days_style"
             android:text="금"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toStartOf="@+id/satTxtView"
@@ -158,7 +195,7 @@
             android:id="@+id/satTxtView"
             style="@style/days_style"
             android:text="토"
-            android:textColor="#FFFFFF"
+            android:textColor="#3F51B5"
             android:textSize="20dp"
             app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintEnd_toEndOf="parent"
