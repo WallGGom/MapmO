@@ -1,22 +1,25 @@
 package com.example.mapmo
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Room
+import com.example.mapmo.db.NoteDataBase
+import com.example.mapmo.models.NoteModel
 import kotlinx.android.synthetic.main.fragment_week_memo.*
 
 class FragmentWeekMemo : Fragment() {
-    var helper:MemoRoomHelper? = null
-    private var weekList = mutableListOf<MemoRoom>()
+    var helper: NoteDataBase? = null
+    private var weekList = mutableListOf<NoteModel>()
     lateinit var weekAdapter: MemoRecyclerAdapter
     private val linearLayoutManager by lazy { LinearLayoutManager(context) }
+
+    private var mNoteDataBase : NoteDataBase? = null
+
 
     companion object {
         fun newInstance(): FragmentWeekMemo {
@@ -34,9 +37,16 @@ class FragmentWeekMemo : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
+//        val bundle: Bundle? = arguments
+//
+//        if (bundle != null) {
+//            str = bundle.getString("key")
+//        }
 
         return inflater.inflate(R.layout.fragment_week_memo, container, false)
     }
@@ -47,17 +57,29 @@ class FragmentWeekMemo : Fragment() {
         //        val ctx1 = context ?: return
         val ctx1 = requireContext()
 
-        helper = Room.databaseBuilder(ctx1, MemoRoomHelper::class.java, "room_memo").allowMainThreadQueries().build()
-        weekList.addAll(helper?.memoRoomDao()?.getAll() ?: mutableListOf())
-        Log.e("list", weekList.toString())
+        var mNoteList: MutableList<NoteModel>? = null
 
-        val adapter = MemoRecyclerAdapter(weekList, 2)
-        adapter.helper = helper
-        adapter.notifyDataSetChanged()
 
-        week_rec.adapter = adapter
-        week_rec.layoutManager = linearLayoutManager
-        week_rec.setHasFixedSize(true)
+
+
+        mNoteDataBase = NoteDataBase.getInstance(ctx1)
+
+        val addRunnable = Runnable {
+            try {
+                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
+                Log.e("temp1", mNoteList.toString())
+                weekAdapter = MemoRecyclerAdapter(mNoteList!!, 2)
+                weekAdapter.notifyDataSetChanged()
+                week_rec.adapter = weekAdapter
+                week_rec.layoutManager = linearLayoutManager
+                week_rec.setHasFixedSize(true)
+            } catch (e: Exception) {
+                Log.d("tag", "Error - $e")
+            }
+        }
+        val addThread = Thread(addRunnable)
+        addThread.start()
+
     }
 
     override fun onStart() {
@@ -81,6 +103,7 @@ class FragmentWeekMemo : Fragment() {
     }
 
     override fun onDestroy() {
+        NoteDataBase.destroyInstance()
         super.onDestroy()
     }
 

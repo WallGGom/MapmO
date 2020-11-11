@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.month_date_item.view.*
 
-class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
+class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.Adapter<MonthDateAdapter.MonthHolder>() {
     var listData = mutableListOf<ListMonthData>()
     var flag = false
     var year = 0
@@ -29,7 +29,7 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
     var cnt = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.month_date_item, parent, false)
-        return MonthHolder(view)
+        return MonthHolder(view, itemClick2)
     }
 
     override fun getItemCount(): Int {
@@ -53,21 +53,25 @@ class MonthDateAdapter : RecyclerView.Adapter<MonthHolder>() {
 
         holder.bind(data, flag, cnt)
     }
-}
+    inner class MonthHolder(itemView: View, itemClick2: (ListMonthData) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-class MonthHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int) {
+            Log.e("position", cnt.toString())
 
-    fun bind(listdata: ListMonthData, flag: Boolean, cnt: Int) {
-        Log.e("position", cnt.toString())
-        if (!flag) {
-            itemView.month_date.text = "${listdata.number}"
-            //itemView.month_date.text = "없엉"
-            itemView.month_date.setTextColor(-0x808080)
-            itemView.month_date.isClickable = false
-        } else {
-            itemView.month_date.text = "${listdata.number}"
+            if (!flag) {
+                itemView.month_date.text = "${listdata.number}"
+                //itemView.month_date.text = "없엉"
+                itemView.month_date.setTextColor(-0x808080)
+                itemView.month_date.isClickable = true
+                itemView.setOnClickListener{ itemClick2(listdata) }
+            } else {
+                itemView.month_date.text = "${listdata.number}"
 //            itemView.month_date.setTextColor(0)
-            itemView.month_date.isClickable = true
+                itemView.month_date.isClickable = false
+                itemView.setOnClickListener{ itemClick2(listdata) }
+            }
+
         }
     }
 }
+
