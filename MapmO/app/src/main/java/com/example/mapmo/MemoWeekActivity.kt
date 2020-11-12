@@ -47,6 +47,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
     var mNoteDataBase : NoteDataBase? = null
 
+
+
     //swipe
     lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
@@ -79,6 +81,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             val memoWtM = Intent(this, MemoMonthActivity::class.java)
             startActivity(memoWtM)
         }
+
+
 
         presentYear = today[0]
         presentMonth = today[1]
@@ -164,6 +168,14 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         re_week_date.adapter = adapter
         re_week_date.layoutManager = GridLayoutManager(this, 7)
 
+
+        // date
+        what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
+
+
+
+
         previous_week.setOnClickListener {
             // Log.d("What the type", "${dateTv.text}")
 
@@ -211,6 +223,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
             week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
         next_week.setOnClickListener {
@@ -260,6 +276,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
             week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
 //        setFragment1()
