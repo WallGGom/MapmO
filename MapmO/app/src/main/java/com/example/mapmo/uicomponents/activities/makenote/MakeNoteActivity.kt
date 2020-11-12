@@ -77,13 +77,13 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     private var mBtnDefault : MaterialButton? = null
     private var mNoteColor = -1
 
-    private var mNoteImage: ImageView? = null
     private var mNotePlanDate: TextView? = null
     private var mNotePlanTime: TextView? = null
 
     var memoAddress: String = ""
     var memoLatitude: Double = 0.0
     var memoLongitude: Double = 0.0
+    var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -98,7 +98,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
         // 어댑터 생성 & 접혔을 때의 모습을 구성한 Layout을 생성
         var adapter1 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alarm_settime_list)
-        // 펼쳐졌을 때의 못브을 구성하기 위한 Layout을 지정
+        // 펼쳐졌을 때의 모습을 구성하기 위한 Layout을 지정
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter1
 
@@ -169,8 +169,6 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         mNoteTitle = findViewById(R.id.addNoteTitle)
         mNoteDesc = findViewById(R.id.addNoteDescription)
 
-        mNoteImage = findViewById(R.id.imagePreview)
-
         mNotePlanDate = findViewById(R.id.dateTv)
         mNotePlanTime = findViewById(R.id.timeTv)
 
@@ -187,6 +185,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
             if (mNoteModel?.image != null) {
                 val uri = mNoteModel?.image!!.toUri()
+                imageUri = uri
                 imagePreview.setImageURI(uri)
             }
 
@@ -301,7 +300,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         val filename = sdf.format(System.currentTimeMillis())
         return "$filename.jpg"
     }
-    var imageUri: Uri? = null
+
     // 전달된 비트맵을 saveImageFile에서 전처리하고, 반환된 Uri를 이미지뷰에 세팅
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -311,16 +310,20 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                     if (data?.extras?.get("data") != null) {
                         val bitmap = data?.extras?.get("data") as Bitmap
                         val uri = saveImageFile(newFileName(), "image/jpg", bitmap)
-//                        showToast("${uri}")
+                        showToast("${uri}")
                         imagePreview.setImageURI(uri)
                         imageUri = uri
+
                     }
                 }
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
                     imagePreview.setImageURI(uri)
 //                    showToast("${uri}")
+
                     imageUri = uri
+                    Log.e("나오나요??", "${imageUri}")
+                    Log.e("나오나요??", imageUri.toString())
                 }
                 121 -> {
                     val pickAddress = data?.getStringExtra("pickAddress")
@@ -332,7 +335,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
                     Place.text = pickAddress
 //                    Toast.makeText(this, "${pickLatitude}", Toast.LENGTH_LONG).show()
-                    Toast.makeText(this, "${pickLatitude}", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "${pickLatitude}", Toast.LENGTH_LONG).show()
                 }
             }
         }
