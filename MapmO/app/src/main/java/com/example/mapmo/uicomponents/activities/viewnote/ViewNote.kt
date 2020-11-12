@@ -2,9 +2,11 @@ package com.example.mapmo.uicomponents.activities.viewnote
 
 import android.R
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -18,7 +20,9 @@ import com.example.mapmo.models.NoteModel
 import com.example.mapmo.uicomponents.activities.makenote.MakeNoteActivity
 import com.example.mapmo.uicomponents.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
+import kotlinx.android.synthetic.main.content_make_note.*
 import kotlinx.android.synthetic.main.content_view_note.*
+import java.lang.Exception
 
 class ViewNote : BaseActivity() {
 
@@ -32,10 +36,10 @@ class ViewNote : BaseActivity() {
     var textPlanTime: TextView? = null
     var textAlarmChecked: TextView? = null
     var textAlarmTime: TextView? = null
-    var textImageView: ImageView? = null
 
     var textLatitude: TextView? = null
     var textLongitude: TextView? = null
+    var imageUri: Uri? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,7 +80,7 @@ class ViewNote : BaseActivity() {
 
         textAlarmChecked = findViewById(com.example.mapmo.R.id.readAlarmCheck)
         textAlarmTime = findViewById(com.example.mapmo.R.id.readAlarmTime)
-        textImageView = findViewById(com.example.mapmo.R.id.readImageView)
+//        textImageView = findViewById(com.example.mapmo.R.id.readImageView)
 
         textLatitude = findViewById(com.example.mapmo.R.id.readLatitude)
         textLongitude = findViewById(com.example.mapmo.R.id.readLongitude)
@@ -142,11 +146,11 @@ class ViewNote : BaseActivity() {
                     }
                 }
             }
-
-            if (!TextUtils.isEmpty(noteImage)) {
-                textImageView!!.setImageURI(noteImage?.toUri())
-            } else {
-                textImageView!!.setImageURI(noteImage?.toUri())
+            if (mNoteModel?.image != null) {
+                val uri_temp = mNoteModel?.image!!.toUri()
+                imageUri = uri_temp
+                Log.e("uriInView", imageUri.toString())
+                readImageView.setImageURI(imageUri)
             }
         }
     }

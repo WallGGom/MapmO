@@ -46,7 +46,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
                 android:contentDescription="memoImage"
-                tools:srcCompat="@tools:sample/avatars" />
+                 />
 
             <TableRow
                 android:layout_width="match_parent"
