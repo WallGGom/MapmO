@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.mapmo.common.Constants
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import kotlinx.android.synthetic.main.activity_week.*
 import kotlinx.android.synthetic.main.activity_week.week_rec
 import kotlinx.android.synthetic.main.fragment_week_memo.*
@@ -63,7 +66,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     //progressbar
     lateinit var progressBar: ProgressBar
 
-
+    private lateinit var mNoteModel: NoteModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,6 +148,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             targetMonthStr = presentMonthStr
             targetYearStr = presentYearStr
         }
+
         mNoteList2 = mutableListOf()
         Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
         for (pick in mNoteList!!) {
@@ -155,7 +159,13 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
                 }
             }
             Log.e("note", mNoteList2.toString())
-            weekAdapter = MemoRecyclerAdapter(mNoteList2, 2)
+            weekAdapter = MemoRecyclerAdapter(mNoteList2, 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
@@ -218,7 +228,13 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
@@ -271,7 +287,13 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
@@ -285,7 +307,14 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //        setFragment1()
 //        setFragment2()
     }
-
+//    fun onClick(v: View?) {
+//        mNoteModel = v?.getTag() as NoteModel
+//        val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+//        val bundle = Bundle()
+//        bundle.putSerializable(Constants.SELECTED_NOTE,mNoteModel)
+//        intent.putExtras(bundle)
+//        startActivity(intent)
+//    }
 //    fun setFragment1(){
 //        val fragmentWeek : FragmentWeekDate = FragmentWeekDate()
 //        val transaction = supportFragmentManager.beginTransaction()
@@ -482,68 +511,6 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //        progressBar.progress = 50
 
 
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-        gestureDetector.onTouchEvent(event)
-
-        when (event?.action){
-
-            //when we start to swipe
-            0->
-            {
-                x1 = event.x
-                y1 = event.y
-            }
-
-
-            //when we end to swipe
-            1->
-            {
-                x2 = event.x
-                y2 = event.y
-
-                val valueX:Float = x2-x1
-                val valueY:Float = y2-y1
-
-
-                if (Math.abs(valueX) > MemoListActivity.MIN_DISTANCE) {
-
-                    //detect right side swipe
-                    if (x2 > x1) {
-                        Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
-                        val memoWtD = Intent(this, MemoListActivity::class.java)
-                        startActivity(memoWtD)
-                        finish()
-                    }
-                    //detect left side swipe
-                    else {
-                        Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
-                        val memoWtM = Intent(this, MemoMonthActivity::class.java)
-                        startActivity(memoWtM)
-                        finish()
-
-                    }
-
-                }
-                else if (Math.abs(valueY) > MemoListActivity.MIN_DISTANCE){
-                    //detect top to bottom swipe
-                    if(y2>y1)
-                    {
-                        Toast.makeText(this, "Bottom swipe", Toast.LENGTH_SHORT).show()
-                    }
-                    //detect bottom to top swipe
-                    else
-                    {
-                        Toast.makeText(this, "Top swipe", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-
-        return super.onTouchEvent(event)
-    }
 
     override fun onDown(e: MotionEvent?): Boolean {
         //TODO("Not yet implemented")

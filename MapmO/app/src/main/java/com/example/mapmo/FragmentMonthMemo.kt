@@ -55,13 +55,13 @@ class FragmentMonthMemo : Fragment() {
 //        monthList.addAll(temp ?: mutableListOf())
         Log.e("list", monthList.toString())
 
-        val adapter = MemoRecyclerAdapter(monthList, 3)
-//        adapter.helper = helper
-        adapter.notifyDataSetChanged()
-
-        month_rec.adapter = adapter
-        month_rec.layoutManager = linearLayoutManager
-        month_rec.setHasFixedSize(true)
+//        val adapter = MemoRecyclerAdapter(monthList, 3)
+////        adapter.helper = helper
+//        adapter.notifyDataSetChanged()
+//
+//        month_rec.adapter = adapter
+//        month_rec.layoutManager = linearLayoutManager
+//        month_rec.setHasFixedSize(true)
     }
 
     override fun onStart() {
