@@ -27,6 +27,7 @@ import com.example.mapmo.common.Constants
 import com.example.mapmo.models.AddNoteViewModel
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.models.UpdateNoteViewModel
+import com.example.mapmo.scheduleNextAlarm
 import com.example.mapmo.uicomponents.base.BaseActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -425,6 +426,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 Log.e("DDDDDDDDD", mixDate)
                 val form = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.KOREA)
                 val localDate = LocalDateTime.parse(mixDate, form)
+                localDate.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
                 timeInMilliseconds = localDate.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
                 Log.e("DDDDDDDDD", "Date in milli :: FOR API >= 26 >>> $timeInMilliseconds")
             }
@@ -446,6 +448,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 mNoteModel?.alarmOnOff = false
                 mNoteModel?.alarmMilTime = timeInMilliseconds
                 mNoteModel?.let { mEditNoteModel?.updateNote(it) }
+                this.scheduleNextAlarm(mNoteModel!!, true)
             }
             // 새로운 메모 저장
             else {
