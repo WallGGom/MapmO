@@ -140,16 +140,16 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
                     targetMonth = presentMonth
                     targetMonthStr = convInt(targetMonth)
                     targetYearStr = convInt(presentYear)
-                }
-            } else {
-                targetMonthStr = presentMonthStr
-                targetYearStr = presentYearStr
             }
-            mNoteList2 = mutableListOf()
-            Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
-            for (pick in mNoteList!!) {
+        } else {
+            targetMonthStr = presentMonthStr
+            targetYearStr = presentYearStr
+        }
+        mNoteList2 = mutableListOf()
+        Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
+        for (pick in mNoteList!!) {
 
-                if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
+            if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }
