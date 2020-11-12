@@ -17,7 +17,7 @@ import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
-class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+class MemoMonthActivity : AppCompatActivity() {
 
     var endDateMap = mutableMapOf(
             1 to 31,
@@ -88,7 +88,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
-        gestureDetector = GestureDetector(this, this)
+
 
         //button
         month_to_day.setOnClickListener{
@@ -427,96 +427,4 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 //    }
 //
 //
-
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-        gestureDetector.onTouchEvent(event)
-
-        when (event?.action){
-
-            //when we start to swipe
-            0->
-            {
-                x1 = event.x
-                y1 = event.y
-            }
-
-
-            //when we end to swipe
-            1->
-            {
-                x2 = event.x
-                y2 = event.y
-
-                val valueX:Float = x2-x1
-                val valueY:Float = y2-y1
-
-
-                if (Math.abs(valueX) > MemoListActivity.MIN_DISTANCE) {
-
-                    //detect right side swipe
-                    if (x2 > x1) {
-                        Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
-                        val memoMtW = Intent(this, MemoWeekActivity::class.java)
-                        startActivity(memoMtW)
-                        finish()
-                    }
-                    //detect left side swipe
-                    else {
-                        Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
-                        val memoMtD = Intent(this, MemoListActivity::class.java)
-                        startActivity(memoMtD)
-                        finish()
-
-
-                    }
-
-                }
-                else if (Math.abs(valueY) > MemoListActivity.MIN_DISTANCE){
-                    //detect top to bottom swipe
-                    if(y2>y1)
-                    {
-                        Toast.makeText(this, "Bottom swipe", Toast.LENGTH_SHORT).show()
-                    }
-                    //detect bottom to top swipe
-                    else
-                    {
-                        Toast.makeText(this, "Top swipe", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-
-        return super.onTouchEvent(event)
-    }
-
-    override fun onDown(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onShowPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onLongPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
 }
