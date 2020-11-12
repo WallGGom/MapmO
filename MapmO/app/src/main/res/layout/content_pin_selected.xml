@@ -23,7 +23,7 @@
             android:layout_marginTop="@dimen/margin_10"
             android:layout_gravity="center_horizontal"
             />
-        <com.noteapp.uicomponents.common.PinEntryEditText
+        <com.example.mapmo.uicomponents.common.PinEntryEditText
             android:id="@+id/newPin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             android:layout_gravity="center_horizontal"
             />
 
-        <com.noteapp.uicomponents.common.PinEntryEditText
+        <com.example.mapmo.uicomponents.common.PinEntryEditText
             android:id="@+id/newPinConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

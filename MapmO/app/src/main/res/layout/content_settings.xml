@@ -30,6 +30,7 @@
         android:id="@+id/updatePIN"
         android:layout_margin="@dimen/margin_20"
         android:text="@string/update_pin_btn"
+        android:backgroundTint="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"

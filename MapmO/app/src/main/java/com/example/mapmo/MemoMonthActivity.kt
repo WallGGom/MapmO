@@ -117,7 +117,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
         var data:MutableList<ListMonthData> = setMonthData(presentWeek2)
 
-        month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
+        month2.text = "🗓" + presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
         startDateStr2 = "01"
         endDateStr2 = convInt(endDateMap[presentMonth2]!!)
 
@@ -138,6 +138,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
 
         var adapter = MonthDateAdapter() { listdata ->
 //            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            mission_date2.text= listdata.number.toString() + "일"
             stdDateStr2 = convInt(listdata.number)
             Log.e("toast", "%$presentYearStr2/$presentMonthStr2/$stdDateStr2")
             mNoteList2 = mutableListOf()
@@ -181,7 +182,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             adapter.flag = false
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
-            month2.text = presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
+            month2.text = "🗓" + presentYear2.toString() + "년" + " " + presentMonth2.toString() + "월"
             presentYearStr2 = convInt(presentYear2)
             presentMonthStr2 = convInt(presentMonth2)
             startDateStr2 = "01"
@@ -217,7 +218,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             adapter.flag = false
             re_month_date.adapter = adapter
             re_month_date.layoutManager = GridLayoutManager(this, 7)
-            month2.text = presentYear2.toString() + "년"+ " " + presentMonth2.toString() + "월"
+            month2.text = "🗓" + presentYear2.toString() + "년"+ " " + presentMonth2.toString() + "월"
             presentYearStr2 = convInt(presentYear2)
             presentMonthStr2 = convInt(presentMonth2)
             startDateStr2 = "01"

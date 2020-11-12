@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.net.toUri
@@ -64,7 +63,6 @@ class ViewNote : BaseActivity() {
         val noteAlarmChecked = mNoteModel?.alarmCheck
         val noteAlarmTime = mNoteModel?.alarmSettime
         val noteImage = mNoteModel?.image
-        showToast("${noteImage}")
 
         val noteLatitude = mNoteModel?.latitude
         val noteLongitude = mNoteModel?.longitude
@@ -82,8 +80,6 @@ class ViewNote : BaseActivity() {
         textAlarmTime = findViewById(com.example.mapmo.R.id.readAlarmTime)
 //        textImageView = findViewById(com.example.mapmo.R.id.readImageView)
 
-        textLatitude = findViewById(com.example.mapmo.R.id.readLatitude)
-        textLongitude = findViewById(com.example.mapmo.R.id.readLongitude)
 
         // 이미 작성된 메모
         if (mNoteModel!=null && !TextUtils.isEmpty(noteTitle)){
@@ -115,7 +111,7 @@ class ViewNote : BaseActivity() {
                     textAlarmChecked?.text = "Off"
                 }
             } else {
-                textPlanTime?.text = "메모 일정이 없습니다."
+                textPlanDate?.text = "메모 일정이 없습니다."
                 textViewAlarm.text = ""
                 textAlarmChecked?.text = ""
                 textAlarmTime?.text = ""

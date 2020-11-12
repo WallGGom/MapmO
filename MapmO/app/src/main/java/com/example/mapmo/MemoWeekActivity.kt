@@ -1,6 +1,7 @@
  package com.example.mapmo
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,9 +20,12 @@ import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import kotlinx.android.synthetic.main.activity_week.*
 import kotlinx.android.synthetic.main.activity_week.week_rec
 import kotlinx.android.synthetic.main.fragment_week_memo.*
+import kotlinx.android.synthetic.main.week_date_item.*
+import kotlinx.android.synthetic.main.week_date_item.view.*
 import java.util.*
+import kotlin.concurrent.timerTask
 
-class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     var today = Utils.timeGenerator()
     var presentYear = 0
     var presentMonth = 0
@@ -124,7 +128,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         var addThread = Thread(addRunnable)
         addThread.start()
         var adapter = WeekDateAdapter() { listdata ->
-//            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            mission_date.text= listdata.number.toString() + "일"
 
             stdDateStr = convInt(listdata.number)
             if (listdata.flag) {
@@ -170,7 +175,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 
 
         // date
-        what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+        what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
 
 
@@ -225,7 +230,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.setHasFixedSize(true)
 
             // date
-            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+            what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
         }
 
@@ -278,7 +283,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.setHasFixedSize(true)
 
             // date
-            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+            what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
         }
 
