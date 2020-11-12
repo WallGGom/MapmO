@@ -1,4 +1,4 @@
-package com.example.mapmo
+ package com.example.mapmo
 
 import android.content.Intent
 import android.os.Build
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import kotlinx.android.synthetic.main.activity_week.*
 import kotlinx.android.synthetic.main.activity_week.week_rec
 import kotlinx.android.synthetic.main.fragment_week_memo.*
@@ -30,6 +31,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     var presentMonthStr = ""
     var previousMonthStr = ""
     var previousYearStr = ""
+    var targetMonth = 0
+    var targetYear = 0
+    var targetMonthStr = ""
+    var targetYearStr = ""
     var startDateStr = ""
     var endDateStr = ""
     var stdDateStr = ""
@@ -41,6 +46,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     lateinit var weekAdapter: MemoRecyclerAdapter
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
     var mNoteDataBase : NoteDataBase? = null
+
+
 
     //swipe
     lateinit var gestureDetector: GestureDetector
@@ -66,7 +73,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 
         //button
         week_to_day.setOnClickListener{
-            val memoWtD = Intent(this, MemoListActivity::class.java)
+            val memoWtD = Intent(this, MainActivity::class.java)
             startActivity(memoWtD)
         }
 
@@ -75,9 +82,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             startActivity(memoWtM)
         }
 
+
+
         presentYear = today[0]
         presentMonth = today[1]
-
 
         presentYearStr = convInt(presentYear)
         presentMonthStr = convInt(presentMonth)
@@ -117,11 +125,31 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         addThread.start()
         var adapter = WeekDateAdapter() { listdata ->
 //            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+
             stdDateStr = convInt(listdata.number)
-            Log.e("toast", "%$presentYearStr/$presentMonthStr/$stdDateStr")
+            if (listdata.flag) {
+                if (listdata.flag2) {
+                    targetMonth = previousMonth
+                    Log.e("inside", targetMonth.toString())
+                    if (targetMonth == 12) {
+                        targetYear = previousYear
+                        targetYearStr = convInt(targetYear)
+                    }
+                    presentMonthStr = convInt(presentMonth)
+                } else {
+                    targetMonth = presentMonth
+                    targetMonthStr = convInt(targetMonth)
+                    targetYearStr = convInt(presentYear)
+                }
+            } else {
+                targetMonthStr = presentMonthStr
+                targetYearStr = presentYearStr
+            }
             mNoteList2 = mutableListOf()
+            Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
             for (pick in mNoteList!!) {
-                if ((pick.createdAt.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr")) {
+
+                if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }
@@ -141,6 +169,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         re_week_date.layoutManager = GridLayoutManager(this, 7)
 
 
+        // date
+        what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
 
 
@@ -193,6 +223,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
             week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
         next_week.setOnClickListener {
@@ -202,6 +236,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             presentYear = weekResult.get("year") as Int
             presentMonth = weekResult.get("month") as Int
             presentWeek = weekResult.get("week") as MutableList<Int>
+
             data = setWeekData(presentWeek)
             adapter.listData = data
             re_week_date.adapter = adapter
@@ -241,6 +276,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
             week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
 //        setFragment1()
@@ -256,7 +295,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     fun setWeekData(list: MutableList<Int>): MutableList<ListWeekData>{
         var data:MutableList<ListWeekData> = mutableListOf()
         for (num in list) {
-            var listData = ListWeekData(num)
+            var listData = ListWeekData(num, false, false)
             data.add(listData)
         }
         return data
