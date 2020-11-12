@@ -1,4 +1,4 @@
-package com.example.mapmo
+ package com.example.mapmo
 
 import android.content.Intent
 import android.os.Build
@@ -148,7 +148,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             mNoteList2 = mutableListOf()
             Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
             for (pick in mNoteList!!) {
-                if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
+
+                if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }
