@@ -142,7 +142,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             Log.e("toast", "%$presentYearStr2/$presentMonthStr2/$stdDateStr2")
             mNoteList2 = mutableListOf()
             for (pick in mNoteList!!) {
-                if ((pick.createdAt.slice(0..9) == "$presentYearStr2/$presentMonthStr2/$stdDateStr2") or (pick.planDate.slice(0..9) == "$presentYearStr2/$presentMonthStr2/$stdDateStr2")) {
+                if ((pick.createdAt.slice(0..9) == "$presentYearStr2/$presentMonthStr2/$stdDateStr2") or (pick.planDate == "$presentYearStr2/$presentMonthStr2/$stdDateStr2")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }

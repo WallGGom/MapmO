@@ -22,21 +22,21 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import com.example.mapmo.R
 import com.example.mapmo.common.Constants
-
 import com.example.mapmo.models.AddNoteViewModel
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.models.UpdateNoteViewModel
 import com.example.mapmo.uicomponents.base.BaseActivity
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_note.*
-
 import kotlinx.android.synthetic.main.content_make_note.*
 import java.io.FileOutputStream
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -110,9 +110,9 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
         // 날짜 선택(pickDateBtn 클릭)
         pickDateBtn.setOnClickListener{
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{
-                view, year, month, dayOfMonth -> dateTv.setText(""+ year + "/" + (month+1) + "/" + dayOfMonth + ""
-            )
+            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                dateTv.setText("" + year + "/" + (month + 1) + "/" + dayOfMonth + ""
+                )
             }, year, month, day)
             dpd.show()
         }
@@ -126,18 +126,18 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                     timeTv.text = SimpleDateFormat("HH:mm").format(c.time)
                 }
                 TimePickerDialog(
-                    this,
-                    timeSetListener,
-                    c.get(Calendar.HOUR_OF_DAY),
-                    c.get(Calendar.MINUTE),
-                    true
+                        this,
+                        timeSetListener,
+                        c.get(Calendar.HOUR_OF_DAY),
+                        c.get(Calendar.MINUTE),
+                        true
                 ).show()
             } else {
                 Toast.makeText(this, "날짜를 먼저 선택해주세요!", Toast.LENGTH_LONG).show()
             }
         }
 
-        switchAlarm.setOnCheckedChangeListener{CompoundButton, onSwitch ->
+        switchAlarm.setOnCheckedChangeListener{ CompoundButton, onSwitch ->
             if (timeTv.length() > 0) {
                 if (onSwitch) {
                     spinner.isClickable = true
@@ -174,7 +174,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         mNoteModel = intent.extras?.getSerializable(Constants.SELECTED_NOTE) as NoteModel?
 
         // 수정 여부 : 기본값 false
-        isEditNote = intent.getBooleanExtra(Constants.EDIT_ACTION,false)
+        isEditNote = intent.getBooleanExtra(Constants.EDIT_ACTION, false)
 
         // 이미 작성된 메모를 수정할 경우
         if (isEditNote && mNoteModel != null) {
@@ -260,7 +260,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         startActivityForResult(intent, FLAG_REQ_STORAGE)
     }
 
-    fun saveImageFile(filename:String, mimeType:String, bitmap: Bitmap) : Uri? {
+    fun saveImageFile(filename: String, mimeType: String, bitmap: Bitmap) : Uri? {
         var values = ContentValues()
         // 저장할 파일이름과 마임타입 설정
         values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
@@ -287,7 +287,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 //                    }
                 }
             }
-        } catch (e:java.lang.Exception) {
+        } catch (e: java.lang.Exception) {
             Log.e("File", "error=${e.localizedMessage}")
         }
         return uri
@@ -347,7 +347,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflator = menuInflater
-        inflator.inflate(R.menu.create_note_menu,menu)
+        inflator.inflate(R.menu.create_note_menu, menu)
         return true
     }
 
@@ -367,32 +367,27 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
             R.id.fab_make_note ->
                 validateAndSaveNote()
 
-            R.id.btnRed ->
-            {
+            R.id.btnRed -> {
                 mNoteColor = 1
                 showToast("빨강색 선택")
             }
 
-            R.id.btnGreen ->
-            {
+            R.id.btnGreen -> {
                 mNoteColor = 2
                 showToast("초록색 선택")
             }
 
-            R.id.btnBlue ->
-            {
+            R.id.btnBlue -> {
                 mNoteColor = 3
                 showToast("파랑색 선택")
             }
 
-            R.id.btnYellow ->
-            {
+            R.id.btnYellow -> {
                 mNoteColor = 4
                 showToast("노랑색 선택")
             }
 
-            R.id.btnDefault ->
-            {
+            R.id.btnDefault -> {
                 mNoteColor = -1
                 showToast("흰색 선택")
             }
@@ -408,6 +403,9 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validateAndSaveNote(){
         // 제목 미입력시 작성 유도
+
+//
+
         if (!mAppUtils.isInputEditTextFilled(addNoteTitle!!, addNoteLayout!!, getString(R.string.note_title_error))) {
             return
         }
@@ -415,10 +413,21 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
             return
         }*/
         else {
+            var timeInMilliseconds: Long = 0
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")
             val formatted = current.format(formatter)
-            mAppLogger.debug(mTag,"Proceed with saving to DB ")
+            mAppLogger.debug(mTag, "Proceed with saving to DB ")
+            Log.e("temp_check", dateTv.text.toString())
+            Log.e("temp_check", timeTv.text.toString())
+            if ((dateTv.text.toString() != "") and (timeTv.text.toString() != "")) {
+                val mixDate = dateTv.text.toString() + " " + timeTv.text.toString()
+                Log.e("DDDDDDDDD", mixDate)
+                val form = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.KOREA)
+                val localDate = LocalDateTime.parse(mixDate, form)
+                timeInMilliseconds = localDate.atOffset(ZoneOffset.UTC).toInstant().toEpochMilli()
+                Log.e("DDDDDDDDD", "Date in milli :: FOR API >= 26 >>> $timeInMilliseconds")
+            }
 
             // 존재하는 메모 수정 후 저장
             if(isEditNote){
@@ -435,18 +444,19 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 mNoteModel?.alarmCheck = switchAlarm.isChecked
                 mNoteModel?.alarmSettime = ""
                 mNoteModel?.alarmOnOff = false
+                mNoteModel?.alarmMilTime = timeInMilliseconds
                 mNoteModel?.let { mEditNoteModel?.updateNote(it) }
             }
             // 새로운 메모 저장
             else {
                 var noteModel = NoteModel(
-                    null,
+                        null,
                         addNoteTitle.text.toString(),
                         addNoteDescription.text.toString(),
                         formatted,
                         mNoteColor,
                         imageUri.toString(),
-                    "",
+                        "",
                         Place.text.toString(),
                         memoLatitude,
                         memoLongitude,
@@ -455,7 +465,8 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                         switchAlarm.isChecked,
                         "",
                         false,
-                        )
+                        timeInMilliseconds,
+                )
                 mAddNoteModel?.addNote(noteModel)
             }
             closeActivity()

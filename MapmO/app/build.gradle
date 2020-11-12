@@ -85,4 +85,8 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
 
+    //worker
+    implementation "androidx.work:work-runtime-ktx:2.4.0"
+    androidTestImplementation "androidx.work:work-testing:2.4.0"
+
 }
