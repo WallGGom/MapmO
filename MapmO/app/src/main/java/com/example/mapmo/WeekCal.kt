@@ -58,10 +58,10 @@ object Week {
         for (i in 1..step!!) {
             var rDay = date + i
             var lDay = date - i
-            if ((stdDay + i) in 1..7) {
+            if ((stdDay + i) in 1..6) {
                 tempResult[stdDay + i] = rDay
             }
-            if ((stdDay - i) in 0..6) {
+            if ((stdDay - i) in 0..5) {
                 tempResult[stdDay - i] = lDay
             }
         }
