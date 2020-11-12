@@ -86,7 +86,6 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         // 캘린더, 연/월/일 값 생성
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
