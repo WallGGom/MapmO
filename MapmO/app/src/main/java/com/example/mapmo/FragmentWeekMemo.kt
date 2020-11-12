@@ -57,28 +57,28 @@ class FragmentWeekMemo : Fragment() {
         //        val ctx1 = context ?: return
         val ctx1 = requireContext()
 
-        var mNoteList: MutableList<NoteModel>? = null
-
-
-
-
-        mNoteDataBase = NoteDataBase.getInstance(ctx1)
-
-        val addRunnable = Runnable {
-            try {
-                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
-                Log.e("temp1", mNoteList.toString())
-                weekAdapter = MemoRecyclerAdapter(mNoteList!!, 2)
-                weekAdapter.notifyDataSetChanged()
-                week_rec.adapter = weekAdapter
-                week_rec.layoutManager = linearLayoutManager
-                week_rec.setHasFixedSize(true)
-            } catch (e: Exception) {
-                Log.d("tag", "Error - $e")
-            }
-        }
-        val addThread = Thread(addRunnable)
-        addThread.start()
+//        var mNoteList: MutableList<NoteModel>? = null
+//
+//
+//
+//
+//        mNoteDataBase = NoteDataBase.getInstance(ctx1)
+//
+//        val addRunnable = Runnable {
+//            try {
+//                mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
+//                Log.e("temp1", mNoteList.toString())
+//                weekAdapter = MemoRecyclerAdapter(mNoteList!!, 2)
+//                weekAdapter.notifyDataSetChanged()
+//                week_rec.adapter = weekAdapter
+//                week_rec.layoutManager = linearLayoutManager
+//                week_rec.setHasFixedSize(true)
+//            } catch (e: Exception) {
+//                Log.d("tag", "Error - $e")
+//            }
+//        }
+//        val addThread = Thread(addRunnable)
+//        addThread.start()
 
     }
 

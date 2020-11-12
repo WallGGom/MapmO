@@ -9,9 +9,11 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mapmo.common.Constants
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
@@ -149,7 +151,13 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
                 }
             }
             Log.e("note", mNoteList2.toString())
-            monthAdapter = MemoRecyclerAdapter(mNoteList2, 2)
+            monthAdapter = MemoRecyclerAdapter(mNoteList2, 3) { memo ->
+                val intent = Intent(this@MemoMonthActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
             month_rec.layoutManager = linearLayoutManager
@@ -198,7 +206,13 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             }
             addThread = Thread(addRunnable)
             addThread.start()
-            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 3) { memo ->
+                val intent = Intent(this@MemoMonthActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
             month_rec.layoutManager = linearLayoutManager
@@ -234,7 +248,13 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
             }
             addThread = Thread(addRunnable)
             addThread.start()
-            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
+            monthAdapter = MemoRecyclerAdapter(mutableListOf(), 3) { memo ->
+                val intent = Intent(this@MemoMonthActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
             month_rec.layoutManager = linearLayoutManager
