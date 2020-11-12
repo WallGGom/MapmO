@@ -27,6 +27,7 @@ import android.media.RingtoneManager.getDefaultUri
 import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
+import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings.Global.getString
 import android.util.Log
@@ -38,9 +39,11 @@ import androidx.core.content.ContextCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.mapmo.R
+import com.example.mapmo.common.Constants
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
 import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import com.google.android.gms.location.*
 import java.lang.Exception
 import java.text.SimpleDateFormat
@@ -56,6 +59,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
     }
     var mNoteDataBase : NoteDataBase? = null
     var mNoteList: MutableList<NoteModel>? = null
+    var tempNoteList: MutableList<NoteModel> = mutableListOf()
     val NOTIFICATION_CHANNEL_ID = "222"
     val NOTIFICATION_CHANNEL_NAME = "MapmO"
     var notificationBuilder: NotificationCompat.Builder
@@ -162,7 +166,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
                                         mNoteList = mNoteDataBase?.noteItemAndNotesModel()?.getAll()
                                         locationRequest.run {
                                             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                                            interval = 10000
+                                            interval = 100000
                                         }
 
                                         locationCallback = object : LocationCallback() {
@@ -182,7 +186,21 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
 
                                         for (pick in mNoteList!!) {
                                             Log.e("work pick", "${ pick.latitude } ${ pick.longitude }")
-                                            sendNotification(id, pick.place, pick.noteDescription)
+                                            Location.distanceBetween(
+                                                fromLat,
+                                                fromLng,
+                                                pick.latitude.toDouble(),
+                                                pick.longitude.toDouble(),
+                                                results
+                                            )
+                                            Log.e("results1", tempNoteList.toString())
+                                            Log.e("results2", results[0].toString())
+                                            if ((results[0] < 500) and (pick !in tempNoteList)) {
+                                                sendNotification(id, pick)
+                                                tempNoteList.add(pick)
+                                                Log.e("results3", tempNoteList.toString())
+                                            }
+
                                         }
 
                                     } catch (e: Exception) {
@@ -202,16 +220,17 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
 //                                        results
 //                                    )
 //                                }
+//                                if(results[0] < 300){
+//                            /* 프로젝트의 내용이므로 생략 */
+//                        }else{
+//
+//                        }
                                 Log.e("work latitude", fromLat.toString())
                                 Log.e("work longitude", fromLng.toString())
                                 Log.e("work result", results.toString())
 //                                notificationManager.notify(0, notificationBuilder.build())
                                 //300m 이내일 경우
-//                        if(results[0] < 300){
-//                            /* 프로젝트의 내용이므로 생략 */
-//                        }else{
 //
-//                        }
                             }
                         } else {
                             val timeNow = System.currentTimeMillis()
@@ -225,10 +244,12 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         }catch (err: SecurityException) { Log.e("tag", "Security", err) }
     }
 
-    private fun sendNotification(id: Int, place: String, description: String) {
-        var intent = Intent(applicationContext, MainActivity::class.java)
+    private fun sendNotification(id: Int, Note: NoteModel) {
+        var intent = Intent(applicationContext, ViewNote::class.java)
+        val bundle = Bundle()
         intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
-        intent.putExtra(NOTIFICATION_ID, id)
+        bundle.putSerializable(Constants.SELECTED_NOTE,Note)
+        intent.putExtras(bundle)
 
         var notificationManager =
                 applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -239,7 +260,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         var pendingIntent = getActivity(applicationContext, 0, intent, 0)
         var notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle(place).setContentText(description)
+                .setContentTitle(Note.place).setContentText(Note.noteDescription)
                 .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
 
         notification.priority = PRIORITY_MAX
