@@ -62,4 +62,6 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="places_api">AIzaSyDlTDkthIhlpkFDKQBb1s6RBy94JH7nf1Q</string>
+    <string name="notification_title">MapmO</string>
+    <string name="notification_subtitle">띠링띠링</string>
 </resources>

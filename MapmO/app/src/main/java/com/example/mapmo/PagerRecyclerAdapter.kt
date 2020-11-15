@@ -12,11 +12,11 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
-import kotlinx.android.synthetic.main.item_pager.view.*
+
 import java.text.SimpleDateFormat
 
 // RecyclerAdapter (RecyclerView에 적용할 Adapter 클래스 생성)
-class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int, val itemClick: (NoteModel) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 //    var helper: NoteDataBase? = null
 ////    // listData는 MemoRoom에 저장된 데이터들로 사용
 ////    var listData = mutableListOf<MemoRoom>()
@@ -28,15 +28,15 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
         return when (viewType) {
             1 -> {
                 view = LayoutInflater.from(parent.context).inflate(R.layout.day_memo_item, parent, false)
-                DayViewHolder(view)
+                DayViewHolder(view, itemClick)
             }
             2 -> {
                 view = LayoutInflater.from(parent.context).inflate(R.layout.week_memo_item, parent, false)
-                WeekViewHolder(view)
+                WeekViewHolder(view, itemClick)
             }
             3 -> {
                 view = LayoutInflater.from(parent.context).inflate(R.layout.month_memo_item, parent, false)
-                MonthViewHolder(view)
+                MonthViewHolder(view, itemClick)
             }
             else -> throw RuntimeException("알 수 없는 뷰 타입 에러")
         }
@@ -73,7 +73,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
         return type
     }
 
-    inner class DayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DayViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
         var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
@@ -102,6 +102,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
             }
 
             this.mMemo = memo
+            itemView.setOnClickListener{ itemClick(memo) }
         }
 
 //        var mMemo:MemoRoom? = null
@@ -137,7 +138,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
 //            this.mMemo = memo
     }
 
-    inner class WeekViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class WeekViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
         var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
@@ -166,6 +167,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
             }
 
             this.mMemo = memo
+            itemView.setOnClickListener{ itemClick(memo) }
         }
 
 //        var mMemo:MemoRoom? = null
@@ -201,7 +203,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
 //            this.mMemo = memo
     }
 
-    inner class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MonthViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
         var mMemo:NoteModel? = null
 //        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
 //        init {
@@ -230,6 +232,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int) : R
             }
 
             this.mMemo = memo
+            itemView.setOnClickListener{ itemClick(memo) }
         }
 
 //        var mMemo:MemoRoom? = null

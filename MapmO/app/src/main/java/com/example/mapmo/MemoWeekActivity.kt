@@ -1,26 +1,34 @@
-package com.example.mapmo
+ package com.example.mapmo
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.mapmo.common.Constants
 import com.example.mapmo.db.NoteDataBase
 import com.example.mapmo.models.NoteModel
+import com.example.mapmo.uicomponents.activities.landing.MainActivity
+import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import kotlinx.android.synthetic.main.activity_week.*
 import kotlinx.android.synthetic.main.activity_week.week_rec
 import kotlinx.android.synthetic.main.fragment_week_memo.*
+import kotlinx.android.synthetic.main.week_date_item.*
+import kotlinx.android.synthetic.main.week_date_item.view.*
 import java.util.*
+import kotlin.concurrent.timerTask
 
-class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+ class MemoWeekActivity : AppCompatActivity() {
     var today = Utils.timeGenerator()
     var presentYear = 0
     var presentMonth = 0
@@ -30,6 +38,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     var presentMonthStr = ""
     var previousMonthStr = ""
     var previousYearStr = ""
+    var targetMonth = 0
+    var targetYear = 0
+    var targetMonthStr = ""
+    var targetYearStr = ""
     var startDateStr = ""
     var endDateStr = ""
     var stdDateStr = ""
@@ -42,8 +54,6 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
     var mNoteDataBase : NoteDataBase? = null
 
-    //swipe
-    lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
     var x1:Float = 0.0f
     var y2:Float = 0.0f
@@ -56,17 +66,17 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     //progressbar
     lateinit var progressBar: ProgressBar
 
-
+    private lateinit var mNoteModel: NoteModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
-        gestureDetector = GestureDetector(this, this)
+
 
         //button
         week_to_day.setOnClickListener{
-            val memoWtD = Intent(this, MemoListActivity::class.java)
+            val memoWtD = Intent(this, MainActivity::class.java)
             startActivity(memoWtD)
         }
 
@@ -75,9 +85,10 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             startActivity(memoWtM)
         }
 
+
+
         presentYear = today[0]
         presentMonth = today[1]
-
 
         presentYearStr = convInt(presentYear)
         presentMonthStr = convInt(presentMonth)
@@ -116,18 +127,46 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         var addThread = Thread(addRunnable)
         addThread.start()
         var adapter = WeekDateAdapter() { listdata ->
-//            Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "몇일이게? ${listdata.number}", Toast.LENGTH_SHORT).show()
+            mission_date.text= listdata.number.toString() + "일"
+
             stdDateStr = convInt(listdata.number)
-            Log.e("toast", "%$presentYearStr/$presentMonthStr/$stdDateStr")
-            mNoteList2 = mutableListOf()
-            for (pick in mNoteList!!) {
-                if ((pick.createdAt.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr") or (pick.planDate.slice(0..9) == "$presentYearStr/$presentMonthStr/$stdDateStr")) {
+            if (listdata.flag) {
+                if (listdata.flag2) {
+                    targetMonth = previousMonth
+                    Log.e("inside", targetMonth.toString())
+                    if (targetMonth == 12) {
+                        targetYear = previousYear
+                        targetYearStr = convInt(targetYear)
+                    }
+                    presentMonthStr = convInt(presentMonth)
+                } else {
+                    targetMonth = presentMonth
+                    targetMonthStr = convInt(targetMonth)
+                    targetYearStr = convInt(presentYear)
+            }
+        } else {
+            targetMonthStr = presentMonthStr
+            targetYearStr = presentYearStr
+        }
+
+        mNoteList2 = mutableListOf()
+        Log.e("toast", "%$targetYearStr/$targetMonthStr/$stdDateStr flag:${listdata.flag} flag2:${listdata.flag2}")
+        for (pick in mNoteList!!) {
+
+            if ((pick.createdAt.slice(0..9) == "$targetYearStr/$targetMonthStr/$stdDateStr") or (pick.planDate == "$targetYearStr/$targetMonthStr/$stdDateStr")) {
                     Log.e("note", pick.toString())
                     mNoteList2?.add(pick)
                 }
             }
             Log.e("note", mNoteList2.toString())
-            weekAdapter = MemoRecyclerAdapter(mNoteList2, 2)
+            weekAdapter = MemoRecyclerAdapter(mNoteList2, 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
             week_rec.layoutManager = linearLayoutManager
@@ -141,6 +180,8 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
         re_week_date.layoutManager = GridLayoutManager(this, 7)
 
 
+        // date
+        what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
 
 
 
@@ -188,11 +229,21 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
-//            weekAdapter.notifyDataSetChanged()
-//            week_rec.adapter = weekAdapter
-//            week_rec.layoutManager = linearLayoutManager
-//            week_rec.setHasFixedSize(true)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+            weekAdapter.notifyDataSetChanged()
+            week_rec.adapter = weekAdapter
+            week_rec.layoutManager = linearLayoutManager
+            week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
         next_week.setOnClickListener {
@@ -202,6 +253,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             presentYear = weekResult.get("year") as Int
             presentMonth = weekResult.get("month") as Int
             presentWeek = weekResult.get("week") as MutableList<Int>
+
             data = setWeekData(presentWeek)
             adapter.listData = data
             re_week_date.adapter = adapter
@@ -236,17 +288,34 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
             }
             addThread = Thread(addRunnable)
             addThread.start()
-//            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2)
-//            weekAdapter.notifyDataSetChanged()
-//            week_rec.adapter = weekAdapter
-//            week_rec.layoutManager = linearLayoutManager
-//            week_rec.setHasFixedSize(true)
+            weekAdapter = MemoRecyclerAdapter(mutableListOf(), 2) { memo ->
+                val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable(Constants.SELECTED_NOTE,memo)
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+            weekAdapter.notifyDataSetChanged()
+            week_rec.adapter = weekAdapter
+            week_rec.layoutManager = linearLayoutManager
+            week_rec.setHasFixedSize(true)
+
+            // date
+            what_week.text = "🗓" + presentYear.toString() + "년" + " " + presentMonth.toString() + "월"
+
         }
 
 //        setFragment1()
 //        setFragment2()
     }
-
+//    fun onClick(v: View?) {
+//        mNoteModel = v?.getTag() as NoteModel
+//        val intent = Intent(this@MemoWeekActivity, ViewNote::class.java)
+//        val bundle = Bundle()
+//        bundle.putSerializable(Constants.SELECTED_NOTE,mNoteModel)
+//        intent.putExtras(bundle)
+//        startActivity(intent)
+//    }
 //    fun setFragment1(){
 //        val fragmentWeek : FragmentWeekDate = FragmentWeekDate()
 //        val transaction = supportFragmentManager.beginTransaction()
@@ -256,7 +325,7 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
     fun setWeekData(list: MutableList<Int>): MutableList<ListWeekData>{
         var data:MutableList<ListWeekData> = mutableListOf()
         for (num in list) {
-            var listData = ListWeekData(num)
+            var listData = ListWeekData(num, false, false)
             data.add(listData)
         }
         return data
@@ -442,97 +511,6 @@ class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener 
 //        progressBar.max = 100
 //        progressBar.progress = 50
 
-
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-
-        gestureDetector.onTouchEvent(event)
-
-        when (event?.action){
-
-            //when we start to swipe
-            0->
-            {
-                x1 = event.x
-                y1 = event.y
-            }
-
-
-            //when we end to swipe
-            1->
-            {
-                x2 = event.x
-                y2 = event.y
-
-                val valueX:Float = x2-x1
-                val valueY:Float = y2-y1
-
-
-                if (Math.abs(valueX) > MemoListActivity.MIN_DISTANCE) {
-
-                    //detect right side swipe
-                    if (x2 > x1) {
-                        Toast.makeText(this, "Right swipe", Toast.LENGTH_SHORT).show()
-                        val memoWtD = Intent(this, MemoListActivity::class.java)
-                        startActivity(memoWtD)
-                        finish()
-                    }
-                    //detect left side swipe
-                    else {
-                        Toast.makeText(this, "Left swipe", Toast.LENGTH_SHORT).show()
-                        val memoWtM = Intent(this, MemoMonthActivity::class.java)
-                        startActivity(memoWtM)
-                        finish()
-
-                    }
-
-                }
-                else if (Math.abs(valueY) > MemoListActivity.MIN_DISTANCE){
-                    //detect top to bottom swipe
-                    if(y2>y1)
-                    {
-                        Toast.makeText(this, "Bottom swipe", Toast.LENGTH_SHORT).show()
-                    }
-                    //detect bottom to top swipe
-                    else
-                    {
-                        Toast.makeText(this, "Top swipe", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-
-
-        return super.onTouchEvent(event)
-    }
-
-    override fun onDown(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onShowPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onLongPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
 }
 
 

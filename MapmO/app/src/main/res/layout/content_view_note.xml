@@ -34,7 +34,8 @@
                 android:id="@+id/noteContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_10"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="0dp"
                 android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -46,7 +47,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
                 android:contentDescription="memoImage"
-                tools:srcCompat="@tools:sample/avatars" />
+                 />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -56,36 +57,29 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="장소 :" />
+                    android:text="📌 장소 :" />
 
                 <TextView
                     android:id="@+id/readPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="TextView" />
 
-                <TextView
-                    android:id="@+id/readLatitude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/readLongitude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="left">
 
                 <TextView
                     android:id="@+id/readDateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_10"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="0dp"
                     android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -106,12 +100,13 @@
                     android:id="@+id/textViewAlarm"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="알림여부" />
+                    android:text="💡 알림여부" />
 
                 <TextView
                     android:id="@+id/readAlarmTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="TextView" />
 
                 <TextView

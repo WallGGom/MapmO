@@ -18,6 +18,7 @@ import com.example.mapmo.uicomponents.activities.setuppin.IGetSecurityQuestionLi
 import com.example.mapmo.uicomponents.activities.setuppin.SetupSecurity
 import com.example.mapmo.uicomponents.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
+
 import java.lang.Exception
 
 class SettingsActivity : BaseActivity() /*, CompoundButton.OnCheckedChangeListener*/, View.OnClickListener,
@@ -87,11 +88,11 @@ class SettingsActivity : BaseActivity() /*, CompoundButton.OnCheckedChangeListen
                         mSwitchAskPIN.isChecked = false
                     }
                 }else{*/
-                    val intent = Intent(this,PinActivity::class.java)
-                    intent.putExtra(Constants.LAST_PIN,mPreviousPIN)
-                    intent.putExtra(Constants.QUESTION,securityQuestion.question)
-                    intent.putExtra(Constants.ANSWER,securityQuestion.answer)
-                    startActivityForResult(intent,TASK_ENTER_PIN)
+                val intent = Intent(this,PinActivity::class.java)
+                intent.putExtra(Constants.LAST_PIN,mPreviousPIN)
+                intent.putExtra(Constants.QUESTION,securityQuestion.question)
+                intent.putExtra(Constants.ANSWER,securityQuestion.answer)
+                startActivityForResult(intent,TASK_ENTER_PIN)
                 /*}*/
             }
             else{
