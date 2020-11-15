@@ -7,7 +7,8 @@
         android:icon="@drawable/ic_baseline_settings_24"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 
     <item
         android:id="@+id/month_to_day"
@@ -17,7 +18,9 @@
         android:textSize="13sp"
         android:title="Day"
         android:backgroundTint="#00FFFFFF"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+
+        />
 
     <item
         android:id="@+id/month_to_week"

@@ -74,17 +74,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             invokeNewNoteActivity()
         }
 
-        // 주 단위로 메모 보여주기로 이동
-        btn_to_week.setOnClickListener{
-            val memoDtW = Intent(this, MemoWeekActivity::class.java)
-            startActivity(memoDtW)
-        }
 
-        // 월 단위로 메모 보여주기로 이동
-        btn_to_month.setOnClickListener{
-            val memoDtM = Intent(this, MemoMonthActivity::class.java)
-            startActivity(memoDtM)
-        }
 
         mNoteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel::class.java)
         mNoteListViewModel.mNoteList.observe(this@MainActivity, Observer { noteModels -> mNoteAdapter.addNote(noteModels) })
@@ -100,8 +90,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId)
         {
-            R.id.month_to_day ->
-                goToDay()
             R.id.action_settings ->
                 goToSettings()
             R.id.month_to_month ->
