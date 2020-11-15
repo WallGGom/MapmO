@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.week_date_item.view.*
 import java.util.*
 import kotlin.concurrent.timerTask
 
- class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+ class MemoWeekActivity : AppCompatActivity() {
     var today = Utils.timeGenerator()
     var presentYear = 0
     var presentMonth = 0

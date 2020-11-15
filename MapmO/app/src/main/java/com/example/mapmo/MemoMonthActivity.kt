@@ -17,7 +17,7 @@ import com.example.mapmo.uicomponents.activities.viewnote.ViewNote
 import kotlinx.android.synthetic.main.activity_month.*
 import kotlinx.android.synthetic.main.activity_week.*
 
-class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+class MemoMonthActivity : AppCompatActivity() {
 
     var endDateMap = mutableMapOf(
             1 to 31,
@@ -88,7 +88,7 @@ class MemoMonthActivity : AppCompatActivity(), GestureDetector.OnGestureListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_month)
-        gestureDetector = GestureDetector(this, this)
+
 
         //button
         month_to_day.setOnClickListener{
