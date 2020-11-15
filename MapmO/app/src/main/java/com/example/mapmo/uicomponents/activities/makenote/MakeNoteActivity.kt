@@ -403,15 +403,9 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validateAndSaveNote(){
         // 제목 미입력시 작성 유도
-
-//
-
         if (!mAppUtils.isInputEditTextFilled(addNoteTitle!!, addNoteLayout!!, getString(R.string.note_title_error))) {
             return
         }
-        /*else if (!mAppUtils.isInputEditTextFilled(addNoteDescription!!, addNoteDescriptionLayout!!, getString(R.string.create_note_error))) {
-            return
-        }*/
         else {
             var timeInMilliseconds: Long = 0
             val current = LocalDateTime.now()
@@ -436,7 +430,13 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 mNoteModel?.noteColor = mNoteColor
                 mNoteModel?.image = imageUri.toString()
                 mNoteModel?.voice = ""
-                mNoteModel?.place = memoAddress
+                if (memoAddress == "") {
+                    mNoteModel?.place = mNoteModel!!.place
+
+                } else {
+                    mNoteModel?.place = memoAddress
+                }
+
                 mNoteModel?.latitude = memoLatitude
                 mNoteModel?.longitude = memoLongitude
                 mNoteModel?.planDate = dateTv.text.toString()

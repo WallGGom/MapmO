@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -99,16 +100,32 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId)
         {
+            R.id.month_to_day ->
+                goToDay()
             R.id.action_settings ->
                 goToSettings()
+            R.id.month_to_month ->
+                goToMonth()
+            R.id.month_to_week ->
+                goToWeek()
         }
+
         return super.onOptionsItemSelected(item)
     }
 
     private fun goToSettings() {
-
         startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
     }
+    private fun goToMonth() {
+        startActivity(Intent(this@MainActivity, MemoMonthActivity::class.java))
+    }
+    private fun goToWeek() {
+        startActivity(Intent(this@MainActivity, MemoWeekActivity::class.java))
+    }
+    private fun goToDay() {
+        startActivity(Intent(this@MainActivity, MainActivity::class.java))
+    }
+
 
     private fun invokeNewNoteActivity() {
         val intent = Intent(this@MainActivity, MakeNoteActivity::class.java)

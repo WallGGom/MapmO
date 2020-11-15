@@ -5,8 +5,35 @@
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_baseline_settings_24"
-
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/month_to_day"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:enabled="false"
+        android:textSize="13sp"
+        android:title="Day"
+        android:backgroundTint="#00FFFFFF"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/month_to_week"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:backgroundTint="#00FFFFFF "
+        android:title="Week"
+        app:showAsAction="always"
+        android:textSize="13sp" />
+
+    <item
+        android:id="@+id/month_to_month"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:backgroundTint="#008080"
+        android:title="Month"
+        app:showAsAction="always"
+        android:textSize="13sp" />
 </menu>
