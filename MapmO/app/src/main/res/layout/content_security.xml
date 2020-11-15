@@ -24,17 +24,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/radioGroupOption"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/finderPrintOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/use_finger_print"/>
+            android:orientation="vertical">
             <RadioButton
                 android:id="@+id/pinOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/use_pin"/>
+            <RadioButton
+                android:visibility="invisible"
+                android:id="@+id/finderPrintOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/use_finger_print"/>
         </RadioGroup>
 
             <include

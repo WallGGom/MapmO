@@ -73,11 +73,13 @@ import kotlin.concurrent.timerTask
         week_to_day.setOnClickListener{
             val memoWtD = Intent(this, MainActivity::class.java)
             startActivity(memoWtD)
+            finish()
         }
 
         week_to_month.setOnClickListener{
             val memoWtM = Intent(this, MemoMonthActivity::class.java)
             startActivity(memoWtM)
+            finish()
         }
 
 
@@ -161,6 +163,7 @@ import kotlin.concurrent.timerTask
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
@@ -230,6 +233,7 @@ import kotlin.concurrent.timerTask
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
@@ -289,6 +293,7 @@ import kotlin.concurrent.timerTask
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             weekAdapter.notifyDataSetChanged()
             week_rec.adapter = weekAdapter
