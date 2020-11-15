@@ -55,13 +55,6 @@ class MemoMonthActivity : AppCompatActivity() {
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
     var mNoteDataBase : NoteDataBase? = null
 
-    //swipe
-    lateinit var gestureDetector: GestureDetector
-    var x2:Float = 0.0f
-    var x1:Float = 0.0f
-    var y2:Float = 0.0f
-    var y1:Float = 0.0f
-
     companion object{
         const val MIN_DISTANCE = 150
     }
@@ -278,38 +271,5 @@ class MemoMonthActivity : AppCompatActivity() {
             tempNum = "0$tempNum"
         }
         return tempNum
-    }
-
-
-
-
-
-
-    override fun onDown(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onShowPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onLongPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
     }
 }
