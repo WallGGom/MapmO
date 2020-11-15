@@ -2,10 +2,9 @@ package com.example.mapmo.uicomponents.activities.makenote
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -42,6 +41,9 @@ import java.util.*
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
+
+    lateinit var context: Context
+    lateinit var alarmManager: AlarmManager
 
     // 알람 시간 선택
     var alarm_settime_list = listOf("- 선택하세요 -", "1분전", "5분전", "10분전", "15분전")
@@ -402,6 +404,10 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validateAndSaveNote(){
+
+        context = this
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+
         // 제목 미입력시 작성 유도
         if (!mAppUtils.isInputEditTextFilled(addNoteTitle!!, addNoteLayout!!, getString(R.string.note_title_error))) {
             return
@@ -468,6 +474,14 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                         timeInMilliseconds,
                 )
                 mAddNoteModel?.addNote(noteModel)
+                val second = timeInMilliseconds
+                Log.d("A-timeInMillisceconds", "${second}")
+                Log.d("A-currentTimeMillis", "${System.currentTimeMillis()}")
+                Log.d("A-difference", "${second - System.currentTimeMillis()}")
+                val intent = Intent(context, AlarmReceiver::class.java)
+                val pendingIntent = PendingIntent.getBroadcast(context, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                Log.d("MakeNoteActivity", "Create: " + Date().toString())
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, second - System.currentTimeMillis(), pendingIntent)
             }
             closeActivity()
         }
