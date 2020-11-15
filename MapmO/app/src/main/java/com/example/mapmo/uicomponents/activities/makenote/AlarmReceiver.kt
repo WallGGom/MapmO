@@ -14,9 +14,9 @@ import com.example.mapmo.uicomponents.activities.landing.MainActivity
 import java.util.*
 
 class AlarmReceiver: BroadcastReceiver() {
+    var notificationId: Int = 0
     companion object {
         const val TAG = "AlarmReceiver"
-        const val NOTIFICATION_ID = 0
         const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
     }
     lateinit var notificationManager: NotificationManager
@@ -25,16 +25,20 @@ class AlarmReceiver: BroadcastReceiver() {
         Log.d("MakeNoteActivity", "Receiver: " + Date().toString())
         notificationManager = context.getSystemService(
             Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        createNotificationChannel()
-        deliverNotification(context)
+        if (intent != null) {
+            notificationId = intent.getIntExtra("Id", 0)
+        }
+        Log.d("onReceive", "$notificationId")
+        createNotificationChannel(notificationId.toString())
+        deliverNotification(context, notificationId)
     }
 
-    private fun deliverNotification(context: Context) {
+    private fun deliverNotification(context: Context, num: Int) {
         val contentIntent = Intent(context, MainActivity::class.java)
+
         val contentPendingIntent = PendingIntent.getActivity(
             context,
-            NOTIFICATION_ID,
+            num,
             contentIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -48,13 +52,13 @@ class AlarmReceiver: BroadcastReceiver() {
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
 
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
+        notificationManager.notify(num, builder.build())
     }
 
-    fun createNotificationChannel() {
+    fun createNotificationChannel(num: String) {
         val notificationChannel = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel(
-                PRIMARY_CHANNEL_ID,
+                num,
                 "Stand up notification",
                 NotificationManager.IMPORTANCE_HIGH
             )

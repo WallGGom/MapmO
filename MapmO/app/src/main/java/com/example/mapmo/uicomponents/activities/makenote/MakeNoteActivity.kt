@@ -41,7 +41,7 @@ import java.util.*
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
-
+    var noti_num: Int = 1
     lateinit var context: Context
     lateinit var alarmManager: AlarmManager
 
@@ -476,12 +476,11 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 mAddNoteModel?.addNote(noteModel)
                 val second = timeInMilliseconds
                 Log.d("A-timeInMillisceconds", "${second}")
-                Log.d("A-currentTimeMillis", "${System.currentTimeMillis()}")
-                Log.d("A-difference", "${second - System.currentTimeMillis()}")
                 val intent = Intent(context, AlarmReceiver::class.java)
-                val pendingIntent = PendingIntent.getBroadcast(context, 0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                intent.putExtra("Id", noti_num)
+                val pendingIntent = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(),intent, PendingIntent.FLAG_UPDATE_CURRENT)
                 Log.d("MakeNoteActivity", "Create: " + Date().toString())
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, second - System.currentTimeMillis(), pendingIntent)
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, second, pendingIntent)
             }
             closeActivity()
         }
