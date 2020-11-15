@@ -204,13 +204,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/re_month_date"
-        android:name="com.example.mapmo.FragmentWeekDate"
+
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysLayout2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/daysLayout2" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/monthdate"-->
@@ -229,21 +228,22 @@
         android:id="@+id/mission_date2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/month_rec" />
+        app:layout_constraintBottom_toTopOf="@id/month_rec"
+        app:layout_constraintTop_toBottomOf="@+id/re_month_date" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/month_rec"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="216dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <!--    <fragment-->
 <!--        android:id="@+id/monthmemo"-->

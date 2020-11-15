@@ -43,11 +43,11 @@ import java.util.*
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
 
-        // 알람 시간 선택
+    // 알람 시간 선택
     var alarm_settime_list = listOf("- 선택하세요 -", "1분전", "5분전", "10분전", "15분전")
     var alarmsettime = ""
 
-//    var helper:MemoRoomHelper? = null
+    //    var helper:MemoRoomHelper? = null
     val random = Random()
     private fun rand(from: Int, to: Int) : Int {
         return random.nextInt(to - from) + from
@@ -265,7 +265,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
         // 저장할 파일이름과 마임타입 설정
         values.put(MediaStore.Images.Media.DISPLAY_NAME, filename)
         values.put(MediaStore.Images.Media.MIME_TYPE, mimeType)
-        
+
         // Q이상이면 다른 곳에서 내가 사용하는 데이터 요청 무시
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             values.put(MediaStore.Images.Media.IS_PENDING, 1)
@@ -403,15 +403,9 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun validateAndSaveNote(){
         // 제목 미입력시 작성 유도
-
-//
-
         if (!mAppUtils.isInputEditTextFilled(addNoteTitle!!, addNoteLayout!!, getString(R.string.note_title_error))) {
             return
         }
-        /*else if (!mAppUtils.isInputEditTextFilled(addNoteDescription!!, addNoteDescriptionLayout!!, getString(R.string.create_note_error))) {
-            return
-        }*/
         else {
             var timeInMilliseconds: Long = 0
             val current = LocalDateTime.now()
@@ -436,7 +430,13 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                 mNoteModel?.noteColor = mNoteColor
                 mNoteModel?.image = imageUri.toString()
                 mNoteModel?.voice = ""
-                mNoteModel?.place = memoAddress
+                if (memoAddress == "") {
+                    mNoteModel?.place = mNoteModel!!.place
+
+                } else {
+                    mNoteModel?.place = memoAddress
+                }
+
                 mNoteModel?.latitude = memoLatitude
                 mNoteModel?.longitude = memoLongitude
                 mNoteModel?.planDate = dateTv.text.toString()

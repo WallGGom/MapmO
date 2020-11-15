@@ -49,16 +49,5 @@
         app:layout_constraintStart_toEndOf="@+id/month_image1"
         app:layout_constraintTop_toBottomOf="@+id/month_memoTitle1" />
 
-    <Switch
-        android:id="@+id/month_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="알람"
-        android:textColor="#EBE9E9"
-        app:layout_constraintBottom_toBottomOf="@+id/month_memoTitle1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/month_memoTitle1" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
