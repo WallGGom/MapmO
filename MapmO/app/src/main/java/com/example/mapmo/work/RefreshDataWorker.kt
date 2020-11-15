@@ -126,7 +126,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         const val WORK_NAME = "com.example.mapmo.work.RefreshDataWorker"
         const val NOTIFICATION_ID = "appName_notification_id"
         const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
+        const val NOTIFICATION_CHANNEL = "appName_channel_"
         const val NOTIFICATION_WORK = "appName_notification_work"
     }
 
@@ -257,23 +257,23 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
 
 //        var titleNotification = applicationContext.getString(R.string.notification_title)
 //        var subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
-        val pendingIntent = getActivity(applicationContext, 0, intent, 0)
-        val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
+        val pendingIntent = getActivity(applicationContext, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL+id.toString())
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle(Note.place).setContentText(Note.noteDescription)
+                .setContentTitle(Note.noteTitle).setContentText(Note.noteDescription)
                 .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
 
         notification.priority = PRIORITY_MAX
 
         if (SDK_INT >= O) {
-            notification.setChannelId(NOTIFICATION_CHANNEL)
+            notification.setChannelId(NOTIFICATION_CHANNEL+id.toString())
 
             val ringtoneManager = getDefaultUri(TYPE_NOTIFICATION)
             val audioAttributes = AudioAttributes.Builder().setUsage(USAGE_NOTIFICATION_RINGTONE)
                     .setContentType(CONTENT_TYPE_SONIFICATION).build()
 
             val channel =
-                    NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, IMPORTANCE_HIGH)
+                    NotificationChannel(NOTIFICATION_CHANNEL+id.toString(), NOTIFICATION_NAME, IMPORTANCE_HIGH)
 
             channel.enableLights(true)
             channel.lightColor = RED

@@ -309,7 +309,7 @@ class MakeNoteActivity : BaseActivity() ,View.OnClickListener {
                     if (data?.extras?.get("data") != null) {
                         val bitmap = data?.extras?.get("data") as Bitmap
                         val uri = saveImageFile(newFileName(), "image/jpg", bitmap)
-                        showToast("${uri}")
+                        //showToast("${uri}")
                         imagePreview.setImageURI(uri)
                         imageUri = uri
 

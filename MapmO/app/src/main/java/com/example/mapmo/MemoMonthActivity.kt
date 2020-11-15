@@ -87,11 +87,13 @@ class MemoMonthActivity : AppCompatActivity() {
         month_to_day.setOnClickListener{
             val memoMtD = Intent(this, MainActivity::class.java)
             startActivity(memoMtD)
+            finish()
         }
 
         month_to_week.setOnClickListener{
             val memoMtW = Intent(this, MemoWeekActivity::class.java)
             startActivity(memoMtW)
+            finish()
         }
 
 
@@ -150,6 +152,7 @@ class MemoMonthActivity : AppCompatActivity() {
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
@@ -205,6 +208,7 @@ class MemoMonthActivity : AppCompatActivity() {
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
@@ -247,6 +251,7 @@ class MemoMonthActivity : AppCompatActivity() {
                 bundle.putSerializable(Constants.SELECTED_NOTE,memo)
                 intent.putExtras(bundle)
                 startActivity(intent)
+                finish()
             }
             monthAdapter.notifyDataSetChanged()
             month_rec.adapter = monthAdapter
