@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.week_date_item.view.*
 import java.util.*
 import kotlin.concurrent.timerTask
 
- class MemoWeekActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+ class MemoWeekActivity : AppCompatActivity() {
     var today = Utils.timeGenerator()
     var presentYear = 0
     var presentMonth = 0
@@ -54,10 +54,6 @@ import kotlin.concurrent.timerTask
     val linearLayoutManager by lazy { LinearLayoutManager(this) }
     var mNoteDataBase : NoteDataBase? = null
 
-
-
-    //swipe
-    lateinit var gestureDetector: GestureDetector
     var x2:Float = 0.0f
     var x1:Float = 0.0f
     var y2:Float = 0.0f
@@ -76,7 +72,7 @@ import kotlin.concurrent.timerTask
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_week)
-        gestureDetector = GestureDetector(this, this)
+
 
         //button
         week_to_day.setOnClickListener{
@@ -515,35 +511,6 @@ import kotlin.concurrent.timerTask
 //        progressBar.max = 100
 //        progressBar.progress = 50
 
-
-
-    override fun onDown(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onShowPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onSingleTapUp(e: MotionEvent?): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
-
-    override fun onLongPress(e: MotionEvent?) {
-        //TODO("Not yet implemented")
-    }
-
-    override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-        //TODO("Not yet implemented")
-        return false
-    }
 }
 
 
