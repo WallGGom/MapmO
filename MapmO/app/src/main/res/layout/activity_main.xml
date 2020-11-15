@@ -23,23 +23,7 @@
 
     <include layout="@layout/content_main" />
 
-    <Button
-        android:id="@+id/btn_to_week"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:text="Week"
-        app:backgroundTint="#8BC34A" />
 
-    <Button
-        android:id="@+id/btn_to_month"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_margin="15dp"
-        android:text="Month"
-        app:backgroundTint="#8BC34A" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

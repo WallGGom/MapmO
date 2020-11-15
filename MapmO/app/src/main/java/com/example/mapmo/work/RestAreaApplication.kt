@@ -42,7 +42,7 @@ class RestAreaApplication: Application() {
         WorkManager.getInstance(applicationContext)
                 .enqueueUniquePeriodicWork(
                         RefreshDataWorker.WORK_NAME,
-                        ExistingPeriodicWorkPolicy.KEEP,
+                        ExistingPeriodicWorkPolicy.REPLACE,
                         repeatingRequest
                 )
 
