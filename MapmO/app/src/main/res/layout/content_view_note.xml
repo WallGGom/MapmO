@@ -72,26 +72,34 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="left">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏰ 일정 : " />
 
                 <TextView
                     android:id="@+id/readDateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
                     android:text=""
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/readTimeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_10"
                     android:text=""
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="14sp" />
             </TableRow>
 
             <TableRow
@@ -102,7 +110,7 @@
                     android:id="@+id/textViewAlarm"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="💡 알림여부" />
+                    android:text="💡 알림여부 " />
 
                 <TextView
                     android:id="@+id/readAlarmTime"
