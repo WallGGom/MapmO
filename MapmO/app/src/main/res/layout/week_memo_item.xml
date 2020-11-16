@@ -41,22 +41,12 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:lines="3"
         android:text="드라이브 하기"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="@+id/week_image3"
         app:layout_constraintStart_toEndOf="@+id/week_image3"
         app:layout_constraintTop_toBottomOf="@+id/week_memoTitle2" />
-
-    <Switch
-        android:id="@+id/week_alarm2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="알람"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/week_memoTitle2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/week_memoTitle2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

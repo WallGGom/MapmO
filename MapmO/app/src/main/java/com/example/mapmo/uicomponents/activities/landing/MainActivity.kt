@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,7 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mapmo.MemoListActivity
+
 import com.example.mapmo.MemoMonthActivity
 import com.example.mapmo.MemoWeekActivity
 import com.example.mapmo.R
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity(), View.OnClickListener {
 
 
-//    val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
+    //    val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
 //    val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     val LOCATION_PERMISSION = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
     val temp =  arrayOf(Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION, Manifest.permission.RECORD_AUDIO)
@@ -63,9 +64,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         mRecyclerView = findViewById(R.id.listOfNoteRecyclerView)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mNoteAdapter = NoteAdapter(this, noteList = ArrayList<NoteModel>(),
-            onClickListener = this,
-            onDeletePressed = DeleteBtnClick(),
-            onEditPressed = EditBtnClick()
+                onClickListener = this,
+                onDeletePressed = DeleteBtnClick(),
+                onEditPressed = EditBtnClick()
         )
         mRecyclerView.adapter = mNoteAdapter
 
@@ -73,17 +74,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             invokeNewNoteActivity()
         }
 
-        // 주 단위로 메모 보여주기로 이동
-        btn_to_week.setOnClickListener{
-            val memoDtW = Intent(this, MemoWeekActivity::class.java)
-            startActivity(memoDtW)
-        }
 
-        // 월 단위로 메모 보여주기로 이동
-        btn_to_month.setOnClickListener{
-            val memoDtM = Intent(this, MemoMonthActivity::class.java)
-            startActivity(memoDtM)
-        }
 
         mNoteListViewModel = ViewModelProviders.of(this).get(NoteListViewModel::class.java)
         mNoteListViewModel.mNoteList.observe(this@MainActivity, Observer { noteModels -> mNoteAdapter.addNote(noteModels) })
@@ -101,14 +92,28 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         {
             R.id.action_settings ->
                 goToSettings()
+            R.id.month_to_month ->
+                goToMonth()
+            R.id.month_to_week ->
+                goToWeek()
         }
+
         return super.onOptionsItemSelected(item)
     }
 
     private fun goToSettings() {
-
         startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
     }
+    private fun goToMonth() {
+        startActivity(Intent(this@MainActivity, MemoMonthActivity::class.java))
+    }
+    private fun goToWeek() {
+        startActivity(Intent(this@MainActivity, MemoWeekActivity::class.java))
+    }
+    private fun goToDay() {
+        startActivity(Intent(this@MainActivity, MainActivity::class.java))
+    }
+
 
     private fun invokeNewNoteActivity() {
         val intent = Intent(this@MainActivity, MakeNoteActivity::class.java)

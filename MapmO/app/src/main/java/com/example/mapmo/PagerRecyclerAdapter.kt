@@ -26,10 +26,6 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int, val
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View?
         return when (viewType) {
-            1 -> {
-                view = LayoutInflater.from(parent.context).inflate(R.layout.day_memo_item, parent, false)
-                DayViewHolder(view, itemClick)
-            }
             2 -> {
                 view = LayoutInflater.from(parent.context).inflate(R.layout.week_memo_item, parent, false)
                 WeekViewHolder(view, itemClick)
@@ -44,10 +40,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int, val
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (type) {
-            1 -> {
-                holder as DayViewHolder
-                memos?.get(position)?.let { holder.bind(it) }
-            }
+
             2 -> {
                 holder as WeekViewHolder
                 memos?.get(position)?.let { holder.bind(it) }
@@ -73,70 +66,7 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int, val
         return type
     }
 
-    inner class DayViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        var mMemo:NoteModel? = null
-//        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                memos.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
 
-        val titleTv1 = itemView.findViewById<TextView>(R.id.day_memoTitle1)
-        val contentTv1 = itemView.findViewById<TextView>(R.id.day_memoContent1)
-        val alarmTv1 = itemView.findViewById<TextView>(R.id.day_alarm)
-
-        fun bind(memo: NoteModel) {
-            titleTv1.text = memo.noteTitle
-            contentTv1.text = memo.noteDescription
-            if (memo.alarmCheck) {
-                alarmTv1.text = "On"
-                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-            } else {
-                alarmTv1.text = "Off"
-            }
-
-            this.mMemo = memo
-            itemView.setOnClickListener{ itemClick(memo) }
-        }
-
-//        var mMemo:MemoRoom? = null
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                listData.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
-//
-//        fun bind(memo: MemoRoom) {
-//            itemView.memo_title.text = memo.title
-//            itemView.memo_content.text = memo.content
-//            itemView.memo_place.text = memo.place
-//
-//            // 작성시간 형식(날짜 시간)
-//            val sdf = SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분")
-//            itemView.memo_create_at.text = "${sdf.format(memo.datetime)}"
-//
-//            // 알림 설정 시간 & 여부
-//            itemView.memo_alarm_settime.text = memo.alarmsettime
-//            if (memo.alarmcheck) {
-//                itemView.memo_alarm_check.text = "On"
-//                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-//            } else {
-//                itemView.memo_alarm_check.text = "Off"
-//            }
-//
-//            this.mMemo = memo
-    }
 
     inner class WeekViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
         var mMemo:NoteModel? = null
@@ -152,158 +82,52 @@ class MemoRecyclerAdapter(val memos: MutableList<NoteModel>?, val type: Int, val
 
         val titleTv2 = itemView.findViewById<TextView>(R.id.week_memoTitle2)
         val contentTv2 = itemView.findViewById<TextView>(R.id.week_memoContent2)
-        val alarmTv2 = itemView.findViewById<TextView>(R.id.week_alarm2)
+//        val alarmTv2 = itemView.findViewById<TextView>(R.id.week_alarm2)
 
         fun bind(memo: NoteModel) {
             titleTv2.text = memo.noteTitle
             contentTv2.text = memo.noteDescription
-            if (memo.alarmCheck) {
-                alarmTv2.text = "On"
-                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-            } else {
-                alarmTv2.text = "Off"
-            }
+//            if (memo.alarmCheck) {
+//                alarmTv2.text = "On"
+//                // 메모 실행(계획) 날짜 & 시간
+////                itemView.memo_alarm_date.text = memo.alarmdate
+////                itemView.memo_alarm_time.text = memo.alarmtime
+//            } else {
+//                alarmTv2.text = "Off"
+//            }
 
             this.mMemo = memo
             itemView.setOnClickListener{ itemClick(memo) }
         }
 
-//        var mMemo:MemoRoom? = null
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                listData.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
-//
-//        fun bind(memo: MemoRoom) {
-//            itemView.memo_title.text = memo.title
-//            itemView.memo_content.text = memo.content
-//            itemView.memo_place.text = memo.place
-//
-//            // 작성시간 형식(날짜 시간)
-//            val sdf = SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분")
-//            itemView.memo_create_at.text = "${sdf.format(memo.datetime)}"
-//
-//            // 알림 설정 시간 & 여부
-//            itemView.memo_alarm_settime.text = memo.alarmsettime
-//            if (memo.alarmcheck) {
-//                itemView.memo_alarm_check.text = "On"
-//                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-//            } else {
-//                itemView.memo_alarm_check.text = "Off"
-//            }
-//
-//            this.mMemo = memo
+
     }
 
     inner class MonthViewHolder(itemView: View, itemClick: (NoteModel) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        var mMemo:NoteModel? = null
-//        val btnDel = itemView.findViewById<Button>(R.id.btnDelete)
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                memos.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
+        var mMemo: NoteModel? = null
+
 
         val titleTv3 = itemView.findViewById<TextView>(R.id.month_memoTitle1)
         val contentTv3 = itemView.findViewById<TextView>(R.id.month_memoContent1)
-        val alarmTv3 = itemView.findViewById<TextView>(R.id.month_alarm)
+//        val alarmTv3 = itemView.findViewById<TextView>(R.id.month_alarm)
 
         fun bind(memo: NoteModel) {
             titleTv3.text = memo.noteTitle
             contentTv3.text = memo.noteDescription
-            if (memo.alarmCheck) {
-                alarmTv3.text = "On"
-                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-            } else {
-                alarmTv3.text = "Off"
-            }
+//            if (memo.alarmCheck) {
+//                alarmTv3.text = "On"
+//                // 메모 실행(계획) 날짜 & 시간
+////                itemView.memo_alarm_date.text = memo.alarmdate
+////                itemView.memo_alarm_time.text = memo.alarmtime
+//            } else {
+//                alarmTv3.text = "Off"
+//            }
 
             this.mMemo = memo
-            itemView.setOnClickListener{ itemClick(memo) }
+            itemView.setOnClickListener { itemClick(memo) }
         }
 
-//        var mMemo:MemoRoom? = null
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                listData.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
-//
-//        fun bind(memo: MemoRoom) {
-//            itemView.memo_title.text = memo.title
-//            itemView.memo_content.text = memo.content
-//            itemView.memo_place.text = memo.place
-//
-//            // 작성시간 형식(날짜 시간)
-//            val sdf = SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분")
-//            itemView.memo_create_at.text = "${sdf.format(memo.datetime)}"
-//
-//            // 알림 설정 시간 & 여부
-//            itemView.memo_alarm_settime.text = memo.alarmsettime
-//            if (memo.alarmcheck) {
-//                itemView.memo_alarm_check.text = "On"
-//                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-//            } else {
-//                itemView.memo_alarm_check.text = "Off"
-//            }
-//
-//            this.mMemo = memo
+
     }
-
-//    inner class MemoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var mMemo:MemoRoom? = null
-//        init {
-//            // 삭제버튼 클릭 = 메모 삭제
-//            itemView.btnDelete.setOnClickListener {
-//                helper?.memoRoomDao()?.delete(mMemo!!)
-//                listData.remove(mMemo)
-//                notifyDataSetChanged()
-//            }
-//        }
-//
-//        // 바인딩 시키는 내용 (제목, 내용, 장소)
-//        fun bind(memo: MemoRoom) {
-//            itemView.memo_title.text = memo.title
-//            itemView.memo_content.text = memo.content
-//            itemView.memo_place.text = memo.place
-//
-//            // 작성시간 형식(날짜 시간)
-//            val sdf = SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분")
-//            itemView.memo_create_at.text = "${sdf.format(memo.datetime)}"
-//
-//            // 알림 설정 시간 & 여부
-//            itemView.memo_alarm_settime.text = memo.alarmsettime
-//            if (memo.alarmcheck) {
-//                itemView.memo_alarm_check.text = "On"
-//                // 메모 실행(계획) 날짜 & 시간
-//                itemView.memo_alarm_date.text = memo.alarmdate
-//                itemView.memo_alarm_time.text = memo.alarmtime
-//            } else {
-//                itemView.memo_alarm_check.text = "Off"
-//            }
-//
-//            this.mMemo = memo
-//        }
-//
-//    }
-
 }
 

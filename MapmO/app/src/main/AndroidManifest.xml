@@ -8,9 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 정확한 위치 확보(네트워크 위치 + GPS 위치) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
- 
     <application
         android:name=".work.RestAreaApplication"
         android:allowBackup="true"
@@ -21,7 +19,6 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".MemoWeekActivity" />
         <activity android:name=".MemoMonthActivity" />
-        <activity android:name=".MemoListActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

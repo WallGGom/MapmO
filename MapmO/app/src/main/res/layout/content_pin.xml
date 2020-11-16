@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         />
 
-    <com.noteapp.uicomponents.common.PinEntryEditText
+    <com.example.mapmo.uicomponents.common.PinEntryEditText
         android:id="@+id/otpView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

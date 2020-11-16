@@ -126,7 +126,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
         const val WORK_NAME = "com.example.mapmo.work.RefreshDataWorker"
         const val NOTIFICATION_ID = "appName_notification_id"
         const val NOTIFICATION_NAME = "appName"
-        const val NOTIFICATION_CHANNEL = "appName_channel_01"
+        const val NOTIFICATION_CHANNEL = "appName_channel_"
         const val NOTIFICATION_WORK = "appName_notification_work"
     }
 
@@ -189,14 +189,14 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
                                             Location.distanceBetween(
                                                 fromLat,
                                                 fromLng,
-                                                pick.latitude.toDouble(),
-                                                pick.longitude.toDouble(),
+                                                pick.latitude,
+                                                pick.longitude,
                                                 results
                                             )
                                             Log.e("results1", tempNoteList.toString())
                                             Log.e("results2", results[0].toString())
                                             if ((results[0] < 500) and (pick !in tempNoteList)) {
-                                                sendNotification(id, pick)
+                                                sendNotification(pick.id!!, pick)
                                                 tempNoteList.add(pick)
                                                 Log.e("results3", tempNoteList.toString())
                                             }
@@ -245,35 +245,35 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters):
     }
 
     private fun sendNotification(id: Int, Note: NoteModel) {
-        var intent = Intent(applicationContext, ViewNote::class.java)
+        val intent = Intent(applicationContext, ViewNote::class.java)
         val bundle = Bundle()
         intent.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         bundle.putSerializable(Constants.SELECTED_NOTE,Note)
         intent.putExtras(bundle)
 
-        var notificationManager =
+        val notificationManager =
                 applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
 
 //        var titleNotification = applicationContext.getString(R.string.notification_title)
 //        var subtitleNotification = applicationContext.getString(R.string.notification_subtitle)
-        var pendingIntent = getActivity(applicationContext, 0, intent, 0)
-        var notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
+        val pendingIntent = getActivity(applicationContext, id, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL+id.toString())
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle(Note.place).setContentText(Note.noteDescription)
+                .setContentTitle(Note.noteTitle).setContentText(Note.noteDescription)
                 .setDefaults(DEFAULT_ALL).setContentIntent(pendingIntent).setAutoCancel(true)
 
         notification.priority = PRIORITY_MAX
 
         if (SDK_INT >= O) {
-            notification.setChannelId(NOTIFICATION_CHANNEL)
+            notification.setChannelId(NOTIFICATION_CHANNEL+id.toString())
 
-            var ringtoneManager = getDefaultUri(TYPE_NOTIFICATION)
-            var audioAttributes = AudioAttributes.Builder().setUsage(USAGE_NOTIFICATION_RINGTONE)
+            val ringtoneManager = getDefaultUri(TYPE_NOTIFICATION)
+            val audioAttributes = AudioAttributes.Builder().setUsage(USAGE_NOTIFICATION_RINGTONE)
                     .setContentType(CONTENT_TYPE_SONIFICATION).build()
 
-            var channel =
-                    NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_NAME, IMPORTANCE_HIGH)
+            val channel =
+                    NotificationChannel(NOTIFICATION_CHANNEL+id.toString(), NOTIFICATION_NAME, IMPORTANCE_HIGH)
 
             channel.enableLights(true)
             channel.lightColor = RED

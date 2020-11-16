@@ -69,7 +69,7 @@ class MonthDateAdapter(val itemClick2: (ListMonthData) -> Unit) : RecyclerView.A
                 itemView.month_date.text = "${listdata.number}"
                 //itemView.month_date.text = "없엉"
                 itemView.month_date.setTextColor(-0x808080)
-                itemView.month_date.isClickable = false
+                itemView.month_date.isClickable = true
                 itemView.setOnClickListener { itemClick2(listdata) }
             } else {
                 itemView.month_date.text = "${listdata.number}"

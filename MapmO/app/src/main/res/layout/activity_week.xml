@@ -257,26 +257,30 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/daysLayout"-->
 <!--        tools:layout="@layout/fragment_week_date" />-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/week_rec"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.404"
-        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/mission_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/week_rec" />
+        app:layout_constraintBottom_toTopOf="@+id/week_rec"
+        app:layout_constraintTop_toBottomOf="@+id/re_week_date"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/week_rec"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82"
+        tools:layout_editor_absoluteX="0dp" />
+
+
 
     <!--    <fragment-->
 <!--        android:id="@+id/weekmemo"-->

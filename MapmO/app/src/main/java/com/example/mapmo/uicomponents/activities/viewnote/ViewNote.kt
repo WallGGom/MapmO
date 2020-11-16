@@ -30,7 +30,6 @@ class ViewNote : BaseActivity() {
     var textNoteDesc : TextView? = null
     var linearBackground : LinearLayoutCompat? = null
 
-    var textPlace: TextView? = null
     var textPlanDate: TextView? = null
     var textPlanTime: TextView? = null
     var textAlarmChecked: TextView? = null
@@ -62,7 +61,6 @@ class ViewNote : BaseActivity() {
         val notePlanTime = mNoteModel?.planTime
         val noteAlarmChecked = mNoteModel?.alarmCheck
         val noteAlarmTime = mNoteModel?.alarmSettime
-        val noteImage = mNoteModel?.image
 
         val noteLatitude = mNoteModel?.latitude
         val noteLongitude = mNoteModel?.longitude
@@ -70,8 +68,6 @@ class ViewNote : BaseActivity() {
         // 변수 = ID 매핑
         textNoteHead = findViewById(com.example.mapmo.R.id.noteHead)
         textNoteDesc = findViewById(com.example.mapmo.R.id.noteContent)
-
-        textPlace = findViewById(com.example.mapmo.R.id.readPlace)
 
         textPlanDate = findViewById(com.example.mapmo.R.id.readDateTv)
         textPlanTime = findViewById(com.example.mapmo.R.id.readTimeTv)
@@ -92,9 +88,9 @@ class ViewNote : BaseActivity() {
                 textNoteDesc?.text = noteDesc
             }
 
-            if (!TextUtils.isEmpty(notePlace)) {
-                textPlace?.text = notePlace
-            }
+
+            readPlace?.text = notePlace
+
             if (!TextUtils.isEmpty(notePlanDate)) {
                 textPlanDate?.text = notePlanDate
             }
